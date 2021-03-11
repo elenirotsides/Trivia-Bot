@@ -1,4 +1,4 @@
-# SSW-345-Project
+# Design Workshop Lab
 
 ## Read through seed ideas. Select 1-2 you might want to work on.
 
