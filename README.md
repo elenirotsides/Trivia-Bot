@@ -2,7 +2,9 @@
 
 ## Read through seed ideas. Select 1-2 you might want to work on.
 
-`Focus Bot`
+```
+Focus Bot
+```
 
 ## Describe the problems. (10 minutes)
 
