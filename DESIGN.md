@@ -2,13 +2,7 @@
 
 ## Problem Statement
 
-```
-Remember, we are solving problems in the crowdsourcing market domain. This does not include problems, such as finding a parking spot, but it may include problems such as finding the most popular task, the most winning developer, finding the most complex/starving task, etc.
-
-Most importantly, justify two questions: What is the problem? Why is it a problem?
-
-This should be a good paragraph or two.
-```
+Due to the current pandemic, school has completely transitioned to being an online format for a majority of states within the US. Because of this transition, student communities have been disconnected from the college level all the way down to the middle school level. The constant routine of going in front of a laptop/computer to go to class for this extended amount of time has been detrimental for a lot of students' mental health. Students have become more disengaged from their classes and classwork because of this environment, and choose to be careless about their classes since they feel as though they are not learning and retaining the information they are being taught. Going to class physically is a pivotal part in community building and student mental health because humans in general are very social creatures, and when that social aspect is lacking in their lives, they become uninterested and lack the drive to feel passionate about their schoolwork. This is a major problem with all school curriculums because school is starting to become an environment that isn’t as fun as it used to be. Instead of showing excitement and dedication for new information and to be educated, students are slowly becoming more susceptible to solely focusing on submitting assignments, and putting their mind elsewhere. School does cause a lot of stress, and when students were in person, there were times throughout the school year where they were able to lean on their community for support, and have time for themselves whether it’s through fun events, games, or hanging out with friends. This was all stripped away once they were strapped to their computer screens all the time. 
 
 ## Bot Description
 
@@ -21,39 +15,11 @@ Our tagline is: “Be Educated. Be Fun. Be Trivia on Discord."
 
 ## Use Cases
 
-```
-A use case is a way to describe a task that a user wants to perform and the required sequence of steps needed to accomplish that task. It may also include possible error states.
-
-Based on your design, describe two use cases that describes the primary functionality of your bot.
-
-This is an example use case:
-
-Use Case: Browse open tasks
-
-1 Preconditions
-
-   None.
-
-2 Main Flow
-
-   User provides a current date in order to search  in the database for all tasks open on that day [S1]. Bot will display a list of task names for user to choose [S2]. Bot display detailed requirements of the task [S3].
-
-3 Subflows
-
-  [S1] User provides a data with a specific date format e.g. MM/DD/YYYY.
-
-  [S2] Bot will return list of open tasks. User will make choice to check task details.
-
-  [S3] Bot will display task details.
-
-4 Alternative Flows
-
-  [E1] No tasks are available on that day.
-
-You can think of this as a set of conversations/interactions you want to be able to support with your bot.
-
-
-```
+![firstCase](SSW-345-Project\img\firstCase.PNG)
+![secondCase](SSW-345-Project\img\secondCase.PNG)
+![thirdCase](SSW-345-Project\img\thirdCase.PNG)
+![fourthCase](SSW-345-Project\img\forthCase.PNG)
+![lastCase](SSW-345-Project\img\lastCase.PNG)
 
 ## Design Sketches
 
