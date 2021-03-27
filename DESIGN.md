@@ -72,6 +72,10 @@ You can think of this as a set of conversations/interactions you want to be able
 This section should be several diagrams + paragraphs of text. This is the opportunity to really think through how you might build your system. Consider all the criteria listed here in your description. Generic architectures that do not properly reflect a solution will receive low scores.-
 ```
 
+### Architecture Diagram
+
+![Arcitecture Diagram](img/architecture.png)
+
 ## Submission
 
 Create a team repository for your bot, using the assigned github repository. Submit a link to your team repo. In your README.md, list all team members and their github ids. Add a DESIGN.md document (linked from README.md) with the following materials included.
