@@ -16,9 +16,13 @@ Our tagline is: “Be Educated. Be Fun. Be Trivia on Discord."
 ## Use Cases
 
 ![firstCase](img/firstCase.png)
+
 ![secondCase](img/secondCase.png)
+
 ![thirdCase](img/thirdCase.png)
-![fourthCase](img/forthCase.png)
+
+![fourthCase](img/fourthCase.png)
+
 ![lastCase](img/lastCase.png)
 
 ## Design Sketches
