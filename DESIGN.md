@@ -58,7 +58,6 @@ You can think of this as a set of conversations/interactions you want to be able
 
 ## Design Sketches
 
-```
 
 ### Sequence Flow Diagram
 ![Sequence Flow diagram](img/Sequenceflowdiagram.png)
@@ -66,7 +65,7 @@ You can think of this as a set of conversations/interactions you want to be able
 
 ### Storyboard
 ![Trivia Bot Storyboard](img/TriviaBotStoryboard.png)
-```
+
 
 ## Architecture Design
 
