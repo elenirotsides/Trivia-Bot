@@ -24,8 +24,13 @@ Our tagline is: “Be Educated. Be Fun. Be Trivia on Discord."
 ## Design Sketches
 
 ```
-- Create a  sequence flow or state transition mockup of your bot in action.
-- Create a storyboard that illustrates the primary task that a user undergoes with bot.
+
+### Sequence Flow Diagram
+![Sequence Flow diagram](img/Sequenceflowdiagram.png)
+
+
+### Storyboard
+![Trivia Bot Storyboard](img/TriviaBotStoryboard.png)
 ```
 
 ## Architecture Design
