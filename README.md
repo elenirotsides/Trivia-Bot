@@ -28,7 +28,7 @@ Trivia Bot
 
 2. Why is it a problem worth solving?
 
-    Just because life is virtual now, doesn't mean it has to be boring! School events and virtual gatherings shouldn't have to be bland just because we can be together! Trivia Bot will bring the fun back to events like it used to be pre-pandemic. The goal is to make groups of people feel connected again.
+    Just because life is virtual now, doesn't mean it has to be boring! School events and virtual gatherings shouldn't have to be bland just because we can't be together! Trivia Bot will bring the fun back to events like it used to be pre-pandemic. The goal is to make groups of people feel connected again.
 
 ### Describe possible designs: (10 minutes)
 
