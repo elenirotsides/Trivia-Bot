@@ -22,13 +22,12 @@ bot.on('message', async (message) => {
 
         //        trims leading and trailing whitespace    turns to prfix to string         splits by spaces in between words
         const [command, ...args] = message.content.trim().substring(prefix.length).split(/\s+/); // "hello"
-        // console.log(command);
-        // console.log(args);
+        console.log(command);
+        console.log(args);
 
-        // if (command === 'hello') {
-        //     // message.reply('hello there!');
-        //     message.channel.send('hello');
-        // }
+        if (command === 'hello') {
+            message.reply('hello there!');
+        }
 
         if (command === 'play') {
             message.channel.send('What category would you like to play?');
@@ -42,6 +41,16 @@ bot.on('message', async (message) => {
             message.channel.send(embed);
         }
     }
+
+    if (message.content === '-stop') {
+        message.channel.send('Shutting Down...').then(m => {
+            // this ends the bot, causing a shut down
+            // Same logic goes to the end of the game if needed
+            bot.destroy().then(() => 
+                bot.login(process.env.BOT_TOKEN))
+        })
+    }
+
     if (message.content === 'anything') {
         message.channel.send('Okay....grabbing some questions');
         try {
@@ -57,4 +66,5 @@ bot.on('message', async (message) => {
         }
     }
 });
+
 bot.login(process.env.BOT_TOKEN);
