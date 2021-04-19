@@ -41,8 +41,15 @@ bot.on('message', async (message) => {
                 .setFooter('testing the footer');
             message.channel.send(embed);
         }
+
+        if (command === 'help'){
+            embed.setColor(0xffff00)
+                .setTitle('How to use the TriviaBot') 
+                .setDescription('Useful Commands \n-help: Display all the commands \n-play: Initialize the TriviaBot');
+            message.channel.send(embed);
+        }
     }
-    if (message.content === 'anything') {
+    if (message.content === 'anything') { //anything works without -play **bug**
         message.channel.send('Okay....grabbing some questions');
         try {
             let response = await axios(`https://opentdb.com/api.php?amount=${10}`);
@@ -55,6 +62,11 @@ bot.on('message', async (message) => {
             console.log(e);
             message.channel.send('Uh oh, something has gone wrong, please try again');
         }
+    }
+
+    if (message.content.toLocaleLowerCase().includes('trivia')){ //should work without the bot on???
+        let triviaResponse = "Did someone say my name?";
+        message.channel.send(triviaResponse);
     }
 });
 bot.login(process.env.BOT_TOKEN);
