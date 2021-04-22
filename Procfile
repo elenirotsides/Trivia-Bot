@@ -1,1 +1,1 @@
-Worker: babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz' src/bot.js
+Worker: node src/bot.js
