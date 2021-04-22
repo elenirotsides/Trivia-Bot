@@ -23,13 +23,12 @@ bot.on('message', async (message) => {
 
         //        trims leading and trailing whitespace    turns to prfix to string         splits by spaces in between words
         const [command, ...args] = message.content.trim().substring(prefix.length).split(/\s+/); // "hello"
-        // console.log(command);
-        // console.log(args);
+        console.log(command);
+        console.log(args);
 
-        // if (command === 'hello') {
-        //     // message.reply('hello there!');
-        //     message.channel.send('hello');
-        // }
+        if (command === 'hello') {
+            message.reply('hello there!');
+        }
 
         if (command === 'play') {
             message.channel.send('What category would you like to play?');
@@ -42,8 +41,25 @@ bot.on('message', async (message) => {
                 .setFooter('testing the footer');
             message.channel.send(embed);
         }
+
+        if (command === 'help'){
+            embed.setColor(0xffff00)
+                .setTitle('How to use the TriviaBot') 
+                .setDescription('Useful Commands \n-help: Display all the commands \n-play: Initialize the TriviaBot');
+            message.channel.send(embed);
+        }
     }
-    if (message.content === 'anything') {
+
+    if (message.content === '-stop') {
+        message.channel.send('Shutting Down...').then(m => {
+            // this ends the bot, causing a shut down
+            // Same logic goes to the end of the game if needed
+            bot.destroy().then(() => 
+                bot.login(process.env.BOT_TOKEN))
+        })
+    }
+
+    if (message.content === 'anything') { //anything works without -play **bug**
         message.channel.send('Okay....grabbing some questions');
         try {
             let response = await axios(`https://opentdb.com/api.php?amount=${10}`);
@@ -58,5 +74,11 @@ bot.on('message', async (message) => {
             message.channel.send('Uh oh, something has gone wrong, please try again');
         }
     }
+
+    if (message.content.toLocaleLowerCase().includes('trivia')){ //should work without the bot on???
+        let triviaResponse = "Did someone say my name?";
+        message.channel.send(triviaResponse);
+    }
 });
+
 bot.login(process.env.BOT_TOKEN);
