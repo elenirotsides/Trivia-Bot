@@ -1,8 +1,9 @@
-require('dotenv').config();
-const { Client, MessageEmbed } = require('discord.js');
-const axios = require('axios');
-const prefix = '-';
+import 'dotenv/config.js';
+import { Client, MessageEmbed } from 'discord.js';
+import axios from 'axios';
+import { parseEntities } from 'parse-entities';
 
+const prefix = '-';
 const bot = new Client();
 const embed = new MessageEmbed();
 
@@ -63,11 +64,12 @@ bot.on('message', async (message) => {
         try {
             let response = await axios(`https://opentdb.com/api.php?amount=${10}`);
             let question = response.data.results[0].question;
-            console.log(response);
+            let parsedQuestion = parseEntities(question);
+            // console.log(response);
             // console.log(question);
-            embed.setTitle('Question 1').setColor(0xff0000).setDescription(question);
+            embed.setTitle('Question 1').setColor(0xff0000).setDescription(parsedQuestion);
             message.channel.send(embed);
-        } catch {
+        } catch (e) {
             console.log(e);
             message.channel.send('Uh oh, something has gone wrong, please try again');
         }

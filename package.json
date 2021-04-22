@@ -5,8 +5,9 @@
     "main": "bot.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node src/bot.js",
-        "dev": "nodemon src/bot.js"
+        "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'",
+        "start": "babel-node src/bot.js",
+        "dev": "nodemon --exec npm run babel-node -- src/bot.js"
     },
     "repository": {
         "type": "git",
@@ -22,6 +23,13 @@
         "axios": "^0.21.1",
         "discord.js": "^12.5.3",
         "dotenv": "^8.2.0",
+        "parse-entities": "^3.0.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.13.16",
+        "@babel/node": "^7.13.13",
+        "@babel/preset-env": "^7.13.15",
         "nodemon": "^2.0.7"
-    }
+    },
+    "type": "module"
 }
