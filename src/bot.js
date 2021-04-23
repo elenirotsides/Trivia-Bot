@@ -45,7 +45,7 @@ bot.on('message', async (message) => {
         if (command === 'help'){
             embed.setColor(0xffff00)
                 .setTitle('How to use the TriviaBot') 
-                .setDescription('Useful Commands \n-help: Display all the commands \n-play: Initialize the TriviaBot');
+                .setDescription('Useful Commands \n-help: Display all the commands \n-play: Initialize the TriviaBot \n-stop: Terminate the Trivia Bot');
             message.channel.send(embed);
         }
     }
