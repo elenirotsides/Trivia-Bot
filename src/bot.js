@@ -65,8 +65,9 @@ bot.on('message', async (message) => {
     }
 
     if (message.content.toLocaleLowerCase().includes('trivia')){ //should work without the bot on???
-        let triviaResponse = "Did someone say my name?";
-        message.channel.send(triviaResponse);
+        let responseArray = ["Did someone say my name?", "You called?", "Looking for me?"]; 
+        let randomIndex = Math.floor(Math.random()*responseArray.length);
+        message.channel.send(responseArray[randomIndex]);
     }
 });
 bot.login(process.env.BOT_TOKEN);
