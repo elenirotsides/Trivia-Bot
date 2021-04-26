@@ -26,10 +26,6 @@ bot.on('message', async (message) => {
         console.log(command);
         console.log(args);
 
-        if (command === 'hello') {
-            message.reply('hello there!');
-        }
-
         if (command === 'play' && args[0] === 'tf' && args[1] === 'help' && args.length === 2) {
             const embed = new MessageEmbed();
             embed
