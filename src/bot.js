@@ -147,15 +147,6 @@ bot.on('message', async (message) => {
                 }
             }
         }
-        if (command === 'test') {
-            const embed = new MessageEmbed();
-            embed
-                .setTitle('A discord embed')
-                .setColor([168, 124, 124])
-                .setDescription('Testing the discord embed functionality!')
-                .setFooter('testing the footer');
-            message.channel.send(embed);
-        }
 
         if (command === 'help') {
             const embed = new MessageEmbed();
