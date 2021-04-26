@@ -30,9 +30,22 @@ bot.on('message', async (message) => {
             message.reply('hello there!');
         }
 
-        if (command === 'play' && args[0] === 'tf' && args.length === 1) {
-            // TODO: should also check that the length of args is 1
-            // bot.user.setActivity('Playing Trivia');
+        if (command === 'play' && args[0] === 'tf' && args[1] === 'help' && args.length === 2) {
+            const embed = new MessageEmbed();
+            embed
+                .setColor(0xffff00)
+                .setTitle('T/F Modes')
+                .addField(
+                    '`-play tf chill`',
+                    'Initiates a round of 10 question T/F trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.'
+                )
+                .addField(
+                    '`-play tf competitive`',
+                    'Initiates a round of 10 question T/F trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**'
+                );
+            message.channel.send(embed);
+        }
+        if (command === 'play' && args[0] === 'tf' && args[1] === 'chill' && args.length === 2) {
             message.channel.send('Lemme grab some questions for ya....');
 
             // creating empty trivia data object for this round of trivia
@@ -49,17 +62,16 @@ bot.on('message', async (message) => {
             // looping over the length of the api response, and adding entries to the object with all the data we need
             for (let i = 0; i < response.length; i++) {
                 triviaData[`q${i}`] = {
-                    category: parseEntities(response[i].category), // TODO show category in embed
+                    category: parseEntities(response[i].category),
                     question: parseEntities(response[i].question),
                     difficulty: parseEntities(response[i].difficulty),
                     correctAns: parseEntities(response[i].correct_answer),
-                    // incorrectAns: parseEntities(response[i].incorrect_answers[0]),
                 };
             }
             const embed = new MessageEmbed();
             let counter = 10;
             let leaderboard = {};
-            // console.log(triviaData);
+
             for (let i = 0; i < Object.keys(triviaData).length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`)
@@ -87,67 +99,55 @@ bot.on('message', async (message) => {
                 const filter = (reaction) => {
                     return reaction.emoji.name === answer;
                 };
+
                 const collector = msgEmbed.createReactionCollector(filter, { time: 10000 });
 
                 let usersWithCorrectAnswer = [];
                 collector.on('collect', (r, user) => {
                     if (user.username !== bot.user.username) {
-                        // will this work if more than one person clicks the same answer?
                         if (r.emoji.name === answer) {
                             usersWithCorrectAnswer.push(user.username);
-                            // message.channel.send(`${r.emoji.name} added by ${user.username}`);
                             if (leaderboard[user.username] === undefined) {
                                 // adding winner to leaderboard object
                                 leaderboard[user.username] = 1;
                             } else {
+                                // incrementing the user's score
                                 leaderboard[user.username] += 1;
                             }
                         }
                     }
                 });
+                let newEmbed = new MessageEmbed();
                 collector.on('end', async () => {
-                    // message.channel.send("Time's up!");
                     if (usersWithCorrectAnswer.length === 0) {
-                        let newEmbed = new MessageEmbed();
                         let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124]);
                         message.channel.send(result);
                     } else {
-                        let result = embed
+                        let result = newEmbed
                             .setTitle("Time's Up! Here's who got it right:")
-                            .setDescription(usersWithCorrectAnswer.join())
+                            .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
                             .setColor([168, 124, 124]);
                         message.channel.send(result);
                     }
                 });
-                //TODO: test with teamates and see if the reaction collector works
                 await wait(10000);
                 counter--;
             }
             if (counter === 0) {
                 let winnerEmbed = new MessageEmbed();
-                let result = winnerEmbed.setColor([168, 124, 124]);
 
                 // iterate over the leaderboard if winners exist
-                if (Object.keys(leaderboard).length > 0) {
-                    result.setDescription('**Here are the winners:**');
-                    for (let i = 0; i < Object.keys(leaderboard).length; i++) {
-                        result.addField(`${Object.keys(i)}: ${leaderboard[i]}`);
+                if (Object.keys(leaderboard).length !== 0) {
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+                    for (const key in leaderboard) {
+                        winner.addField(`${key}:`, `${leaderboard[key]}`);
                     }
+                    message.channel.send(winner);
                 } else {
-                    result.setTitle('Game Over! No one got anything right...');
+                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    message.channel.send(winnerEmbed);
                 }
-
-                message.channel.send(result);
             }
-
-            // collector.on('end', (collected) => {
-            //     // the users that got it right are.....
-            //     message.channel.send('Round over!');
-            // });
-            // msgEmbed
-            //     .awaitReactions(filter, { time: 5000 })
-            //     .then((collected) => message.channel.send(`I collected ${collected.size} 🇹`))
-            //     .catch(message.channel.send('Something has gone wrong'));
         }
         if (command === 'test') {
             const embed = new MessageEmbed();
@@ -165,7 +165,7 @@ bot.on('message', async (message) => {
                 .setColor(0xffff00)
                 .setTitle('How to use Trivia Bot')
                 .setDescription(
-                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf chill` Starts a round of chill T/F Trivia  \n`-stop` Terminate the Trivia Bot'
+                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf help` Gives more detail on the different modes in a T/F game \n`-play tf chill` Starts a round of chill T/F Trivia \n`-play tf competitive` Starts a round of competitive T/F Trivia \n`-stop` Terminate the Trivia Bot'
                 );
             message.channel.send(embed);
         }
@@ -178,24 +178,6 @@ bot.on('message', async (message) => {
             bot.destroy().then(() => bot.login(process.env.BOT_TOKEN));
         });
     }
-
-    // if (message.content === 'anything') {
-    //     //anything works without -play **bug**
-    //     message.channel.send('Okay....grabbing some questions');
-    //     try {
-    //         let response = await axios(`https://opentdb.com/api.php?amount=${10}`);
-    //         let question = response.data.results[0].question;
-    //         let parsedQuestion = parseEntities(question);
-    //         // console.log(response);
-    //         // console.log(question);
-    //         const embed = new MessageEmbed();
-    //         embed.setTitle('Question 1').setColor(0xff0000).setDescription(parsedQuestion);
-    //         message.channel.send(embed);
-    //     } catch (e) {
-    //         console.log(e);
-    //         message.channel.send('Uh oh, something has gone wrong, please try again');
-    //     }
-    // }
 
     if (message.content.toLocaleLowerCase().includes('trivia')) {
         //should work without the bot on???
