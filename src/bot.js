@@ -104,16 +104,14 @@ bot.on('message', async (message) => {
 
                 let usersWithCorrectAnswer = [];
                 collector.on('collect', (r, user) => {
-                    if (user.username !== bot.user.username) {
-                        if (r.emoji.name === answer) {
-                            usersWithCorrectAnswer.push(user.username);
-                            if (leaderboard[user.username] === undefined) {
-                                // adding winner to leaderboard object
-                                leaderboard[user.username] = 1;
-                            } else {
-                                // incrementing the user's score
-                                leaderboard[user.username] += 1;
-                            }
+                    if (user.username !== bot.user.username && r.emoji.name === answer) {
+                        usersWithCorrectAnswer.push(user.username);
+                        if (leaderboard[user.username] === undefined) {
+                            // adding winner to leaderboard object
+                            leaderboard[user.username] = 1;
+                        } else {
+                            // incrementing the user's score
+                            leaderboard[user.username] += 1;
                         }
                     }
                 });
