@@ -163,9 +163,9 @@ bot.on('message', async (message) => {
             const embed = new MessageEmbed();
             embed
                 .setColor(0xffff00)
-                .setTitle('How to use the TriviaBot')
+                .setTitle('How to use Trivia Bot')
                 .setDescription(
-                    'Useful Commands \n-help: Display all the commands \n-play: Initialize the TriviaBot \n-stop: Terminate the Trivia Bot'
+                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf chill` Starts a round of chill T/F Trivia  \n`-stop` Terminate the Trivia Bot'
                 );
             message.channel.send(embed);
         }
