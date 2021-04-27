@@ -1,5 +1,26 @@
 # Trivia Bot
 
+## What is Trivia Bot
+
+Trivia Bot is a fun and fully functional Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server.
+
+## Commands
+
+There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
+
+-   `-play tf chill` Starts a round of chill T/F Trivia.
+-   `-play tf competitive` **TODO**
+-   `-play mc chill` **TODO**
+-   `-play mc competitive` **TODO**
+-   `-help` Lists out all the commands that Trivia Bot responds to, and what they do.
+-   `-stop` Stops the bot.
+
+You can also append `help` to any of the play commands to learn more about the different game modes, like so:
+
+-   `-play tf help` Will list out all the different True & False game modes Trivia Bot can provide, and details about each.
+
+_Note to devs: if we have time, we'll make more commands that respond to customizable game requests, like allowing the user to select how many questions they want, which category, which difficulty, and the time limit per question._
+
 ## Team Members
 
 Eleni Rotsides [@elenirotsides](https://github.com/elenirotsides)
