@@ -224,7 +224,7 @@ bot.on('message', async (message) => {
     }
 
     if (message.content === '-stop') {
-        message.channel.send('Shutting Down...').then((m) => {
+        message.channel.send('Stopping...').then((m) => {
             // this ends the bot, causing a shut down
             // Same logic goes to the end of the game if needed
             bot.destroy().then(() => bot.login(process.env.BOT_TOKEN));
