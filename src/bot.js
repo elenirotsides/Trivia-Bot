@@ -146,7 +146,7 @@ bot.on('message', async (message) => {
                 // r is reaction and user is user
                 collector.on('collect', (r, user) => {
                     // if the user is not the bot, and the reaction given is equal to the answer
-                    if (user.username !== bot.user.username && r.emoji.name === answer) {
+                    if (user.username !== bot.user.username) {
                         // add the users that answered correctly to the usersWithCorrect Answer array
                         usersWithCorrectAnswer.push(user.username);
                         if (leaderboard[user.username] === undefined) {
@@ -208,6 +208,82 @@ bot.on('message', async (message) => {
                     // send the embed to the channel
                     message.channel.send(winnerEmbed);
                 }
+            }
+        }
+
+        if (command === 'play' && args[0] === 'tf' && args[1] === 'competitive' && args.length === 2){
+
+            let triviaData = {};
+
+            let response;
+            try {
+                response = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
+            } catch (e) {
+                console.log(e);
+                message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
+            }
+            for (let i = 0; i < response.length; i++) {
+                triviaData[`q${i}`] = {
+                    category: parseEntities(response[i].category),
+                    question: parseEntities(response[i].question),
+                    difficulty: parseEntities(response[i].difficulty),
+                    correctAns: parseEntities(response[i].correct_answer),
+                };
+            }
+    
+            const embed = new MessageEmbed();
+            let counter = 10;
+            let leaderboard = {};
+
+            for (let i = 0; i < Object.keys(triviaData).length; i++) {
+                embed
+                    .setTitle(`Question ${i + 1}`)
+                    .setColor(0xff0000)
+                    .setDescription(
+                        triviaData[`q${i}`].question + 
+                            '\n' + 
+                            '\n**Difficulty:** ' + 
+                            triviaData[`q${i}`].difficulty + 
+                            '\n**Category:** ' +
+                            triviaData[`q${i}`].category 
+                    );
+
+                let msgEmbed = await message.channel.send(embed);
+                msgEmbed.react('🇹');
+                msgEmbed.react('🇫');
+
+                let answer = ''; 
+
+                if (triviaData[`q${i}`].correctAns === 'True') {
+                    answer = '🇹';
+                } else {
+                    answer = '🇫';
+                }
+
+                const filter = (reaction, user) => {
+                    return reaction.emoji.name === answer && user.username !== bot.user.username;
+                };
+
+                const collector = msgEmbed.createReactionCollector(filter, { max: 1,time: 10000 }); 
+
+                let usersWithCorrectAnswer = [];
+
+                collector.on('collect', (r, user) => {
+                    if (user.username !== bot.user.username) {
+                        message.channel.send(user.username)
+                        // add the users that answered correctly to the usersWithCorrect Answer array
+                        //usersWithCorrectAnswer.push(user.username);
+                        // if (leaderboard[user.username] === undefined) {
+                        //     // if the user isn't already in the leaderboard object, add them and give them a score of 1
+                        //     leaderboard[user.username] = 1;
+                        // } else {
+                        //     // otherwise, increment the user's score
+                        //     leaderboard[user.username] += 1;
+                        // }
+                    }
+                });
+                await wait(10000);
+                counter--;
             }
         }
 
