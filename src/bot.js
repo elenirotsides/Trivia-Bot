@@ -258,45 +258,40 @@ bot.on('message', async (message) => {
             // sends a cute lil message to the channel letting the users know that a game will begin
             message.channel.send('Lemme grab some questions for ya....');
 
-            /* creating empty trivia data object for this round of trivia
-            It will be filled with data once the for loop on line 83 completes, it'll hold all the questions and the 
-            data needed that was queried from the api, like so:
+            /* creating empty trivia data variable for this round of trivia
+            It will be filled with data that was queried from the api, like so:
+            (the api sends it as an array of objects)
 
-            {
-            q1: {
-                    category: "Science",
-                    question: "Mars is the closest planet to the Sun.",
-                    difficulty: "easy",
-                    correctAns: "False"
-                  },
-            q2: {
+            [
+                {
+                    "category": "Entertainment: Film",
+                    "type": "boolean",
+                    "difficulty": "easy",
+                    "question": "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
+                    "correct_answer": "False",
+                    "incorrect_answers": ["True"]
+                },
+                {
                     ....so on and so forth....
-                  }
-            }
-            */
-            let triviaData = {};
+                }
+            ]
 
-            let response; // will hold the response that the api gave after a successful request
+            Notice the data that the api sends back has more data than what we need; that's okay, we just won't use it
+            */
+            let triviaData; // will hold the response that the api gave after a successful request
+
             try {
                 // the api call is wrapped in a try/catch because it can fail, and we don't want our program to crash
-                response = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
+                triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
             } catch (e) {
                 // if the api call does fail, we log the result and then send a cute lil error to the channel
                 console.log(e);
                 message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
             }
 
-            // looping over the length of the api response, and adding entries to the triviaData object with all the data we need in a structure that works for us
-            for (let i = 0; i < response.length; i++) {
-                triviaData[`q${i}`] = {
-                    category: parseEntities(response[i].category),
-                    question: parseEntities(response[i].question),
-                    difficulty: parseEntities(response[i].difficulty),
-                    correctAns: parseEntities(response[i].correct_answer),
-                };
-            }
             const embed = new MessageEmbed(); // creates new embed instance
             let counter = 10; // a counter that will help us execute the other channel messages later (helps us keep track of loop iterations)
+
             /* instantiate empty leaderboard object where we'll store leaderboard stats
             Takes the form:
             {
@@ -310,18 +305,18 @@ bot.on('message', async (message) => {
             /* and now the fun begins.....
             Loops over the contents of triviaData, and sends the question in an embed after the completion of the embed construction
             */
-            for (let i = 0; i < Object.keys(triviaData).length; i++) {
+            for (let i = 0; i < triviaData.length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
                     .setColor(0xff0000) // color of the embed
                     .setDescription(
                         // the meat and potatoes of the embed
-                        triviaData[`q${i}`].question + // the question
+                        parseEntities(triviaData[i].question) + // the question
                             '\n' + // added a space
                             '\n**Difficulty:** ' + // putting double ** bolds the text, and single * italicizes it (in the Discord application)
-                            triviaData[`q${i}`].difficulty + // difficulty
+                            parseEntities(triviaData[i].difficulty) + // difficulty
                             '\n**Category:** ' +
-                            triviaData[`q${i}`].category // category
+                            parseEntities(triviaData[i].category) // category
                     );
 
                 let msgEmbed = await message.channel.send(embed); // sends the embed
@@ -329,7 +324,7 @@ bot.on('message', async (message) => {
                 msgEmbed.react('🇫'); // adds a universal F emoji
 
                 let answer = ''; // instantiate empty answer string, where correctAns will be housed
-                if (triviaData[`q${i}`].correctAns === 'True') {
+                if (triviaData[i].correct_answer === 'True') {
                     // if the correct answer is True, answer is equal to the T emoji
                     answer = '🇹';
                 } else {
