@@ -46,6 +46,26 @@ bot.on('message', async (message) => {
             message.channel.send(embed);
         }
 
+        if (command === 'play' && args[0] === 'mc' && args[1] === 'help' && args.length === 2) {
+            // command must be -play tf help, so that's what this conditional is looking for in order to successfully execute
+            const embed = new MessageEmbed(); // creates new embed instance
+
+            // setting the fields for the embed
+            embed
+                .setColor(0xffff00)
+                .setTitle('MC Modes')
+                .addField(
+                    '`-play mc chill`',
+                    'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.'
+                )
+                .addField(
+                    '`-play mc competitive`',
+                    'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**'
+                );
+            // sends the embed to the channel
+            message.channel.send(embed);
+        }
+
         if (command === 'play' && args[0] === 'tf' && args[1] === 'chill' && args.length === 2) {
             // command must be -play tf chill, so that's what this conditional is looking for in order to successfully execute
 
@@ -407,7 +427,9 @@ bot.on('message', async (message) => {
                 .setDescription(
                     '**Useful Commands** \n`-help` Display all the commands \
                     \n`-play tf help` Gives more detail on the different modes in a T/F game \
+                    \n`-play mc help` Gives more detail on the different modes in a Multiple Choice game \
                     \n`-play tf chill` Starts a round of chill T/F Trivia \
+                    \n`-play mc chill` Starts a round of chill Multiple Choice Trivia \
                     \n`-play tf competitive` Starts a round of competitive T/F Trivia \
                     \n`-play mc competitive` Starts a round of competitive Multiple Choice Trivia \
                     \n`🛑` During the game, stop the game completely and tally the current totals by pressing this emoji reaction'
