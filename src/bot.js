@@ -280,10 +280,10 @@ bot.on('message', async (message) => {
                             '\n' + // added a space
                             '\n**Choices**' + // added a space
                             '\n' +
-                            '\n**A:** ' + parseEntities(choices[0]) + // outputs the choices from the array 'choices'
-                            '\n**B:** ' + parseEntities(choices[1]) +
-                            '\n**C:** ' + parseEntities(choices[2]) +
-                            '\n**D:** ' + parseEntities(choices[3]) +
+                            '\n🇦 ' + parseEntities(choices[0]) + // outputs the choices from the array 'choices'
+                            '\n🇧 ' + parseEntities(choices[1]) +
+                            '\n🇨 ' + parseEntities(choices[2]) +
+                            '\n🇩 ' + parseEntities(choices[3]) +
                             '\n' +
                             '\n**Difficulty:** ' + // putting double ** bolds the text, and single * italicizes it (in the Discord application)
                             parseEntities(triviaData[i].difficulty) + // difficulty
