@@ -241,7 +241,7 @@ bot.on('message', async (message) => {
 
             try {
                 // the api call is wrapped in a try/catch because it can fail, and we don't want our program to crash
-                triviaData = await (await axios(`https://opentdb.com/api.php?amount=2&type=multiple`)).data.results;
+                triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=multiple`)).data.results;
             } catch (e) {
                 // if the api call does fail, we log the result and then send a cute lil error to the channel
                 console.log(e);
@@ -249,7 +249,7 @@ bot.on('message', async (message) => {
             }
 
             const embed = new MessageEmbed(); // creates new embed instance
-            let counter = 2; // a counter that will help us execute the other channel messages later (helps us keep track of loop iterations)
+            let counter = 10; // a counter that will help us execute the other channel messages later (helps us keep track of loop iterations)
 
             /* instantiate empty leaderboard object where we'll store leaderboard stats
             Takes the form:
@@ -296,6 +296,7 @@ bot.on('message', async (message) => {
                 msgEmbed.react('🇧'); // adds a universal B emoji
                 msgEmbed.react('🇨'); // and so on...
                 msgEmbed.react('🇩');
+                msgEmbed.react('🛑');
 
                 let answer = ''; // instantiate empty answer string, where correctAns will be housed
 
@@ -315,7 +316,7 @@ bot.on('message', async (message) => {
                 // the createReactionCollector takes in a filter function, so we need to create the basis for what that filter is here
                 const filter = (reaction, user) => {
                     // filters only the reactions that are equal to the answer
-                    return reaction.emoji.name === answer && user.username !== bot.user.username;
+                    return (reaction.emoji.name === answer || reaction.emoji.name === '🛑') && user.username !== bot.user.username;
                 };
 
                 // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
@@ -330,6 +331,9 @@ bot.on('message', async (message) => {
                     // if the user is not the bot, and the reaction given is equal to the answer
                     // add the users that answered correctly to the usersWithCorrect Answer array
                     usersWithCorrectAnswer.push(user.username);
+                    if (r.emoji.name === '🛑') {
+                        counter = 0; 
+                    }
                     if (leaderboard[user.username] === undefined) {
                         // if the user isn't already in the leaderboard object, add them and give them a score of 1
                         leaderboard[user.username] = 1;
@@ -367,9 +371,12 @@ bot.on('message', async (message) => {
                 */
                 await wait(10000);
                 // decrement the counter, tbh I don't know if having a counter is necessary now that I'm looking at this....we can fix this later
+                if (counter === 0) {
+                    break;
+                }
                 counter--;
             }
-            if (counter === 0) {
+            if (counter === 0) { 
                 let winnerEmbed = new MessageEmbed(); // create new embed instance
 
                 // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
@@ -397,7 +404,7 @@ bot.on('message', async (message) => {
                 .setColor(0xffff00)
                 .setTitle('How to use Trivia Bot')
                 .setDescription(
-                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf help` Gives more detail on the different modes in a T/F game \n`-play tf chill` Starts a round of chill T/F Trivia \n`-play tf competitive` Starts a round of competitive T/F Trivia \n`-stop` Terminate the Trivia Bot'
+                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf help` Gives more detail on the different modes in a T/F game \n`-play tf chill` Starts a round of chill T/F Trivia \n`-play tf competitive` Starts a round of competitive T/F Trivia \n`🛑` During the game, stop the game completely by pressing this emoji reaction'
                 );
             message.channel.send(embed);
         }
