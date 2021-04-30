@@ -330,16 +330,17 @@ bot.on('message', async (message) => {
                 collector.on('collect', (r, user) => {
                     // if the user is not the bot, and the reaction given is equal to the answer
                     // add the users that answered correctly to the usersWithCorrect Answer array
-                    usersWithCorrectAnswer.push(user.username);
                     if (r.emoji.name === '🛑') {
                         counter = 0; 
-                    }
-                    if (leaderboard[user.username] === undefined) {
-                        // if the user isn't already in the leaderboard object, add them and give them a score of 1
-                        leaderboard[user.username] = 1;
                     } else {
-                        // otherwise, increment the user's score
-                        leaderboard[user.username] += 1;
+                        usersWithCorrectAnswer.push(user.username);
+                        if (leaderboard[user.username] === undefined) {
+                            // if the user isn't already in the leaderboard object, add them and give them a score of 1
+                            leaderboard[user.username] = 1;
+                        } else {
+                            // otherwise, increment the user's score
+                            leaderboard[user.username] += 1;
+                        }
                     }
                 });
                 let newEmbed = new MessageEmbed(); // new embed instance
