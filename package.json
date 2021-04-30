@@ -5,7 +5,7 @@
     "main": "bot.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'",
+        "babel-node": "babel-node --presets='@babel/preset-env'",
         "start": "babel-node src/bot.js",
         "dev": "nodemon --exec npm run babel-node -- src/bot.js"
     },

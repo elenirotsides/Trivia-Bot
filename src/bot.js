@@ -74,7 +74,8 @@ bot.on('message', async (message) => {
             let response; // will hold the response that the api gave after a successful request
             try {
                 // the api call is wrapped in a try/catch because it can fail, and we don't want our program to crash
-                response = await (await axios(`https://opentdb.com/api.php?amount=10&type=multiple`)).data.results;
+                response = await axios(`https://opentdb.com/api.php?amount=10&type=multiple`).data;
+                console.log(response);
             } catch (e) {
                 // if the api call does fail, we log the result and then send a cute lil error to the channel
                 console.log(e);
@@ -88,7 +89,7 @@ bot.on('message', async (message) => {
                     question: parseEntities(response[i].question),
                     difficulty: parseEntities(response[i].difficulty),
                     correctAns: parseEntities(response[i].correct_answer),
-                    incorrectAns : parseEntities(response[i].incorrect_answers)
+                    incorrectAns : parseEntities(response[i].incorrect_answers[i]),
                 };
             }
             const embed = new MessageEmbed(); // creates new embed instance
@@ -109,7 +110,7 @@ bot.on('message', async (message) => {
             for (let i = 0; i < Object.keys(triviaData).length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
-                    .setColor(0xffff00) // color of the embed for multiple choice
+                    .setColor(0xff0000) // color of the embed for multiple choice
                     .setDescription(
                         // the meat and potatoes of the embed
                         triviaData[`q${i}`].question + // the question
@@ -123,8 +124,13 @@ bot.on('message', async (message) => {
                 let msgEmbed = await message.channel.send(embed); // sends the embed
                 let choices = [correctAns, incorrectAns[0], incorrectAns[1], incorrectAns[2]];
 
+                msgEmbed.react('🇦'); // adds a universal A emoji
+                msgEmbed.react('🇧'); // adds a universal B emoji
+                msgEmbed.react('🇨'); // adds a universal C emoji
+                msgEmbed.react('🇩'); // adds a universal D emoji
+
                 function shuffle(array) {
-                    var currentIndex = array.length, temporaryValue, randomIndex;
+                    var currentIndex = array.length;
                   
                     // While there remain elements to shuffle...
                     while (0 !== currentIndex) {
@@ -144,10 +150,7 @@ bot.on('message', async (message) => {
                 
                   shuffle(choices);
                   
-                msgEmbed.react('🇦'); // adds a universal A emoji
-                msgEmbed.react('🇧'); // adds a universal B emoji
-                msgEmbed.react('🇨'); // adds a universal C emoji
-                msgEmbed.react('🇩'); // adds a universal D emoji
+                
 
                 let answer = ''; // instantiate empty answer string, where correctAns will be housed
                 if (choices[0] === triviaData[`q${i}`].correctAns) {
