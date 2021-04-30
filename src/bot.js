@@ -207,49 +207,39 @@ bot.on('message', async (message) => {
         }
 
         if (command === 'play' && args[0] === 'tf' && args[1] === 'competitive' && args.length === 2){
+            let triviaData;
 
-            let triviaData = {};
-
-            let response;
             try {
-                response = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
+                triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
             } catch (e) {
                 console.log(e);
                 message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
-            }
-            for (let i = 0; i < response.length; i++) {
-                triviaData[`q${i}`] = {
-                    category: parseEntities(response[i].category),
-                    question: parseEntities(response[i].question),
-                    difficulty: parseEntities(response[i].difficulty),
-                    correctAns: parseEntities(response[i].correct_answer),
-                };
             }
     
             const embed = new MessageEmbed();
             let counter = 10;
             let leaderboard = {};
 
-            for (let i = 0; i < Object.keys(triviaData).length; i++) {
+            for (let i = 0; i < triviaData.length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`)
                     .setColor(0xff0000)
                     .setDescription(
-                        triviaData[`q${i}`].question + 
+                        parseEntities(triviaData[i].question) + 
                             '\n' + 
                             '\n**Difficulty:** ' + 
-                            triviaData[`q${i}`].difficulty + 
+                            parseEntities(triviaData[i].difficulty) + 
                             '\n**Category:** ' +
-                            triviaData[`q${i}`].category 
+                            parseEntities(triviaData[i].category) 
                     );
+
 
                 let msgEmbed = await message.channel.send(embed);
                 msgEmbed.react('🇹');
                 msgEmbed.react('🇫');
 
-                let answer = ''; 
-
-                if (triviaData[`q${i}`].correctAns === 'True') {
+                let answer = '';
+                if (triviaData[i].correct_answer === 'True') {
                     answer = '🇹';
                 } else {
                     answer = '🇫';
