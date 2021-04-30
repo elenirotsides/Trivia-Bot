@@ -404,7 +404,12 @@ bot.on('message', async (message) => {
                 .setColor(0xffff00)
                 .setTitle('How to use Trivia Bot')
                 .setDescription(
-                    '**Useful Commands** \n`-help` Display all the commands \n`-play tf help` Gives more detail on the different modes in a T/F game \n`-play tf chill` Starts a round of chill T/F Trivia \n`-play tf competitive` Starts a round of competitive T/F Trivia \n`🛑` During the game, stop the game completely by pressing this emoji reaction'
+                    '**Useful Commands** \n`-help` Display all the commands \
+                    \n`-play tf help` Gives more detail on the different modes in a T/F game \
+                    \n`-play tf chill` Starts a round of chill T/F Trivia \
+                    \n`-play tf competitive` Starts a round of competitive T/F Trivia \
+                    \n`-play mc competitive` Starts a round of competitive Multiple Choice Trivia \
+                    \n`🛑` During the game, stop the game completely by pressing this emoji reaction'
                 );
             message.channel.send(embed);
         }
