@@ -261,24 +261,64 @@ bot.on('message', async (message) => {
 
                 const collector = msgEmbed.createReactionCollector(filter, { max: 1,time: 10000 }); 
 
-                let usersWithCorrectAnswer = [];
+                let userWithCorrectAnswer = [];
 
                 collector.on('collect', (r, user) => {
-                    if (user.username !== bot.user.username) {
-                        message.channel.send(user.username)
-                        // add the users that answered correctly to the usersWithCorrect Answer array
-                        //usersWithCorrectAnswer.push(user.username);
-                        // if (leaderboard[user.username] === undefined) {
-                        //     // if the user isn't already in the leaderboard object, add them and give them a score of 1
-                        //     leaderboard[user.username] = 1;
-                        // } else {
-                        //     // otherwise, increment the user's score
-                        //     leaderboard[user.username] += 1;
-                        // }
+                    //message.channel.send(user.username)
+                    // add the users that answered correctly to the usersWithCorrect Answer array
+                    userWithCorrectAnswer.push(user.username);
+                    if (leaderboard[user.username] === undefined) {
+                        // if the user isn't already in the leaderboard object, add them and give them a score of 1
+                        leaderboard[user.username] = 1;
+                    } else {
+                        // otherwise, increment the user's score
+                        leaderboard[user.username] += 1;
+                    }
+                });
+                let newEmbed = new MessageEmbed(); 
+
+                collector.on('end', async () => {
+                    // if no one got any answers right
+                    if (userWithCorrectAnswer.length === 0) {
+                        // create an embed
+                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124]);
+                        // send the embed to the channel
+                        message.channel.send(result);
+                    } else {
+                        // otherwise, create an embed with the results of the question
+                        /* since the array is an array of strings, I used the javascript join() method to concat them, and then the replace() to replace the 
+                        comma with a comma and a space, so its human readable and pleasant to the eye
+                        */
+                        let result = newEmbed
+                            .setTitle("Time's Up! Here's who got it right:")
+                            .setDescription(userWithCorrectAnswer.join().replace(',', ', '))
+                            .setColor([168, 124, 124]);
+                        // send the embed to the channel
+                        message.channel.send(result);
                     }
                 });
                 await wait(10000);
                 counter--;
+            }
+            if (counter === 0) {
+                let winnerEmbed = new MessageEmbed(); // create new embed instance
+
+                // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
+                if (Object.keys(leaderboard).length !== 0) {
+                    // specify the contents of the embed
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+
+                    // loop over the contents of the leaderboard, and add fields to the embed on every iteration
+                    for (const key in leaderboard) {
+                        winner.addField(`${key}:`, `${leaderboard[key]}`);
+                    }
+                    message.channel.send(winner);
+                } else {
+                    // if the leaderboard is empty, construct a different embed
+                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    // send the embed to the channel
+                    message.channel.send(winnerEmbed);
+                }
             }
         }
 
