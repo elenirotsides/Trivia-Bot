@@ -410,7 +410,7 @@ bot.on('message', async (message) => {
                     \n`-play tf chill` Starts a round of chill T/F Trivia \
                     \n`-play tf competitive` Starts a round of competitive T/F Trivia \
                     \n`-play mc competitive` Starts a round of competitive Multiple Choice Trivia \
-                    \n`🛑` During the game, stop the game completely by pressing this emoji reaction'
+                    \n`🛑` During the game, stop the game completely and tally the current totals by pressing this emoji reaction'
                 );
             message.channel.send(embed);
         }
