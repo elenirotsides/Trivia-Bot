@@ -113,7 +113,8 @@ bot.on('message', async (message) => {
                     .setColor(0xff0000) // color of the embed for multiple choice
                     .setDescription(
                         // the meat and potatoes of the embed
-                        parseEntities(triviaData[i].question) + // the question
+                        parseEntities(triviaData[i].question) // the question
+                            + '\n'
                             + '\n**Choices:**'
                             +'\n'
                             + '\n 🇦 '+  parseEntities(choices[0])
