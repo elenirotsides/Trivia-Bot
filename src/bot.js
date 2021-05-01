@@ -281,6 +281,25 @@ bot.on('message', async (message) => {
             */
             let leaderboard = {};
 
+            function shuffle(array) {
+                var currentIndex = array.length, randomIndex, temporaryValue;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                  // Pick a remaining element...
+                  randomIndex = Math.floor(Math.random() * currentIndex);
+                  currentIndex -= 1;
+
+                  // And swap it with the current element.
+                  temporaryValue = array[currentIndex];
+                  array[currentIndex] = array[randomIndex];
+                  array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
+
             /* and now the fun begins.....
             Loops over the contents of triviaData, and sends the question in an embed after the completion of the embed construction
             */
@@ -289,6 +308,7 @@ bot.on('message', async (message) => {
                 for (let j = 0; j < 3; j++) { // adds the incorrect answers into the choices array created before
                     choices.push(`${triviaData[i].incorrect_answers[j]}`);
                 };
+                shuffle(choices);
                 console.log(choices);
 
                 embed
@@ -370,7 +390,8 @@ bot.on('message', async (message) => {
                     // if no one got any answers right
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
-                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124]);
+                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124])
+                        .setDescription('\n The correct answer was ' + triviaData[i].correct_answer);
                         // send the embed to the channel
                         message.channel.send(result);
                     } else {
@@ -381,6 +402,7 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("That's IT! Here's who is the first to get it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
+                            .setFooter('\n The correct answer was ' + triviaData[i].correct_answer)
                             .setColor([168, 124, 124]);
                         // send the embed to the channel
                         message.channel.send(result);
