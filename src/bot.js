@@ -115,10 +115,12 @@ bot.on('message', async (message) => {
                         // the meat and potatoes of the embed
                         parseEntities(triviaData[i].question) + // the question
                             + '\n**Choices:**'
-                            + '\n 🇦: '+  parseEntities(choices[0])
-                            +'\n 🇧:' +  parseEntities(choices[1])
-                            + '\n 🇨: '+  parseEntities(choices[2])
-                            +'\n 🇩:' +  parseEntities(choices[3])
+                            +'\n'
+                            + '\n 🇦 '+  parseEntities(choices[0])
+                            +'\n 🇧 ' +  parseEntities(choices[1])
+                            + '\n 🇨 '+  parseEntities(choices[2])
+                            +'\n 🇩 ' +  parseEntities(choices[3])
+                            +'\n'
                             + '\n**Difficulty:** ' + // putting double ** bolds the text, and single * italicizes it (in the Discord application)
                             parseEntities(triviaData[i].difficulty) + // difficulty
                             '\n**Category:** ' +
@@ -131,10 +133,9 @@ bot.on('message', async (message) => {
                 msgEmbed.react('🇧'); // adds a universal B emoji
                 msgEmbed.react('🇨'); // adds a universal C emoji
                 msgEmbed.react('🇩'); // adds a universal D emoji
-
+                msgEmbed.react('🛑'); // add a stop reaction
                 
                   
-                
 
                 let answer = ''; // instantiate empty answer string, where correctAns will be housed
                 if (triviaData[i].correct_answer === choices[0] ) {
@@ -154,9 +155,9 @@ bot.on('message', async (message) => {
                 }
 
                 // the createReactionCollector takes in a filter function, so we need to create the basis for what that filter is here
-                const filter = (reaction) => {
+                const filter = (reaction, user) => {
                     // filters only the reactions that are equal to the answer
-                    return reaction.emoji.name === answer;
+                    return (reaction.emoji.name === answer || reaction.emoji.name === '🛑') && user.username !== bot.user.username;
                 };
 
                 // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
@@ -169,8 +170,10 @@ bot.on('message', async (message) => {
                 // r is reaction and user is user
                 collector.on('collect', (r, user) => {
                     // if the user is not the bot, and the reaction given is equal to the answer
-                    if (user.username !== bot.user.username && r.emoji.name === answer) {
-                        // add the users that answered correctly to the usersWithCorrect Answer array
+                    // add the users that answered correctly to the usersWithCorrect Answer array
+                    if (r.emoji.name === '🛑') {
+                        counter = 0; 
+                    } else {
                         usersWithCorrectAnswer.push(user.username);
                         if (leaderboard[user.username] === undefined) {
                             // if the user isn't already in the leaderboard object, add them and give them a score of 1
@@ -181,6 +184,7 @@ bot.on('message', async (message) => {
                         }
                     }
                 });
+
                 let newEmbed = new MessageEmbed(); // new embed instance
 
                 // what will be executed when the collector completes
@@ -213,6 +217,10 @@ bot.on('message', async (message) => {
                 */
                 await wait(10000);
                 // decrement the counter, tbh I don't know if having a counter is necessary now that I'm looking at this....we can fix this later
+                if (counter === 0) {
+                    break;
+                }
+                
                 counter--;
             }
             if (counter === 0) {
