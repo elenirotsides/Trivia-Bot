@@ -194,7 +194,7 @@ bot.on('message', async (message) => {
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
                         let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124])
-                        .setDescription('\n The correct answer was '+ triviaData[i].correct_answer);
+                        .setDescription('\n The correct answer was '+ parseEntities(triviaData[i].correct_answer));
 
                         // send the embed to the channel
                         message.channel.send(result);
@@ -206,7 +206,7 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("Time's Up! Here's who got it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
-                            .setFooter('\n The correct answer was '+ triviaData[i].correct_answer)
+                            .setFooter('\n The correct answer was '+ parseEntities(triviaData[i].correct_answer))
                             .setColor([168, 124, 124]);
                         // send the embed to the channel
                         message.channel.send(result);
@@ -719,7 +719,7 @@ bot.on('message', async (message) => {
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
                         let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124])
-                        .setDescription('\n The correct answer was ' + triviaData[i].correct_answer);
+                        .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
                         // send the embed to the channel
                         message.channel.send(result);
                     } else {
@@ -730,7 +730,7 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("That's IT! Here's who is the first to get it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
-                            .setFooter('\n The correct answer was ' + triviaData[i].correct_answer)
+                            .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
                             .setColor([168, 124, 124]);
                         // send the embed to the channel
                         message.channel.send(result);
