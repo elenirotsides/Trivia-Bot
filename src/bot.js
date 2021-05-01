@@ -309,7 +309,6 @@ bot.on('message', async (message) => {
                     choices.push(`${triviaData[i].incorrect_answers[j]}`);
                 };
                 shuffle(choices);
-                console.log(choices);
 
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
