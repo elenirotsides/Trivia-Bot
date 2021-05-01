@@ -788,14 +788,6 @@ bot.on('message', async (message) => {
         }
     }
 
-    if (message.content === '-stop') {
-        message.channel.send('Stopping...').then((m) => {
-            // this ends the bot, causing a shut down
-            // Same logic goes to the end of the game if needed
-            bot.destroy().then(() => bot.login(process.env.BOT_TOKEN));
-        });
-    }
-
     if (message.content.toLocaleLowerCase().includes('trivia')) {
         //should work without the bot on???
         let responseArray = ['Did someone say my name?', 'You called?', 'Looking for me?'];
