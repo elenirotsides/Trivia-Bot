@@ -237,6 +237,7 @@ bot.on('message', async (message) => {
                 let msgEmbed = await message.channel.send(embed);
                 msgEmbed.react('🇹');
                 msgEmbed.react('🇫');
+                msgEmbed.react('🛑'); // adds a universal stop sign
 
                 let answer = '';
                 if (triviaData[i].correct_answer === 'True') {
@@ -246,7 +247,7 @@ bot.on('message', async (message) => {
                 }
 
                 const filter = (reaction, user) => {
-                    return reaction.emoji.name === answer && user.username !== bot.user.username;
+                    return (reaction.emoji.name === answer || reaction.emoji.name === '🛑') && user.username !== bot.user.username;
                 };
 
                 const collector = msgEmbed.createReactionCollector(filter, { max: 1,time: 10000 }); 
@@ -256,6 +257,10 @@ bot.on('message', async (message) => {
                 collector.on('collect', (r, user) => {
                     //message.channel.send(user.username)
                     // add the users that answered correctly to the usersWithCorrect Answer array
+                    if (r.emoji.name === '🛑') {
+                        counter = 0;
+                    }
+                    else {
                     userWithCorrectAnswer.push(user.username);
                     if (leaderboard[user.username] === undefined) {
                         // if the user isn't already in the leaderboard object, add them and give them a score of 1
@@ -264,7 +269,7 @@ bot.on('message', async (message) => {
                         // otherwise, increment the user's score
                         leaderboard[user.username] += 1;
                     }
-                });
+                }});
                 let newEmbed = new MessageEmbed(); 
 
                 collector.on('end', async () => {
@@ -288,6 +293,9 @@ bot.on('message', async (message) => {
                     }
                 });
                 await wait(10000);
+                if (counter === 0) {
+                    break;
+                }
                 counter--;
             }
             if (counter === 0) {
