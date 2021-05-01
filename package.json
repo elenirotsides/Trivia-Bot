@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/elenirotsides/SSW-345-Project.git"
+        "url": "git+https://github.com/elenirotsides/Trivia-Bot.git"
     },
     "author": "",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/elenirotsides/SSW-345-Project/issues"
+        "url": "https://github.com/elenirotsides/Trivia-Bot/issues"
     },
-    "homepage": "https://github.com/elenirotsides/SSW-345-Project#readme",
+    "homepage": "https://github.com/elenirotsides/Trivia-Bot#readme",
     "dependencies": {
         "axios": "^0.21.1",
         "discord.js": "^12.5.3",
