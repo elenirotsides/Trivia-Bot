@@ -788,6 +788,7 @@ bot.on('message', async (message) => {
         }
     }
 
+
     if (message.content.toLocaleLowerCase().includes('trivia')) {
         //should work without the bot on???
         let responseArray = ['Did someone say my name?', 'You called?', 'Looking for me?'];
