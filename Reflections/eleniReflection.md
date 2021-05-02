@@ -41,3 +41,7 @@ The most difficult part was reading someone else's code. This is a tricky thing 
 3. What software processes or practices might you want to try again in the future on another project?
 
 The use of Git, code review, using kanban boards, and labeling issues were really great practices for us. It allowed us to be organized and in turn increased our efficiency. I definitely want to use all of these practices in the future. This semester, the idea of organization and communication was heavily enforced and I really felt like I was a part of a software team, so the organization of our process was vital in making the project a success and making the experience seamless.
+
+## Overall
+
+I think Agile, Object Oriented Design, and Continuous Integration are practices that would work well together. Agile is a fast paced, goal oriented methodology that enforces organization. That in combination with OOP allows for a team to write software that's maintainable and scalable. When continuous integration is added to this mix, I think this sets up a team for a very good workflow because continuous integration allows for a team's project to be tested before a pull request is merged; this is good because bugs can be caught and code quality can be preserved. Testing code is just as important as writing the code, so making sure to test and automate some of it will enhance a team's progress.
