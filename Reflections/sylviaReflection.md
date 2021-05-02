@@ -15,7 +15,7 @@ The most difficult design method to understand was the sequence diagram. I had n
 
 I would like to try use cases and architecture diagrams again. They allowed me to document all possible scenarios and interactions a program would need to consider. Visual representations help me understand the ins and outs of my resources, languages, and tools so I can expatiate everything before I start coding. 
  
-### Testing
+### Implementation
  
 1. What was most helpful about implementing, testing, and integration in your bot project?
 
