@@ -642,7 +642,7 @@ bot.on('message', async (message) => {
                         // the meat and potatoes of the embed
                         parseEntities(triviaData[i].question) + // the question
                             '\n' + // added a space
-                            '\n**Choices**' + // added a space
+                            '\n**Choices:**' + // added a space
                             '\n' +
                             '\n🇦 ' +
                             parseEntities(choices[0]) + // outputs the choices from the array 'choices'
