@@ -69,6 +69,10 @@ That's it! Your bot is now online! Logs of the deployment can be found by going 
 
 Happy Trivia'ing!
 
+## Discussions 
+
+Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like!
+
 ## Team Members
 
 Eleni Rotsides [@elenirotsides](https://github.com/elenirotsides)
