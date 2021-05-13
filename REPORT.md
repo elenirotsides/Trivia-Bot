@@ -4,6 +4,29 @@
 
 The problem that our bot solved was the we created a trivia game for those distant student (and non-student) communities that wish to play trivia with one another. Because of the pandemic, friends, family, and communities in general have not been as close as they have been. Staying in front of your computer screen for hours on end can be detrimental to one's mental health, so having the Trivia Bot as a great way to to not only have fun with friends, but also to take that mental break that we all need. When students become uninterested in what is being taught, that is where the Trivia Bot comes along, where you are able to have fun while also learning new things. Everybody loves those family and/or friend game nights, and adding this Trivia Bot (played on discord) also helps to solve that problem.
 
+## Primary Features
+
+The main features our bot has include two different types of tests (True/False and Multiple Choice), with each type having two different modes (Chill and Competitive). In order to view the different games and  modes, the user can activate the help command with `-help`.
+
+<!-- ![-help](/img/help.png "help command") -->
+
+Another method to view each feature and what it entails is by typing `-play mc` or `-play tf` followed by `help`. This will show a detailed desription of the speficic modes you are interested in. For example, `-play mc help` produces the following.
+
+<!-- ![-play mc help](/img/play_mc_help.png "mc help command") -->
+
+Each gane essentially works the same with the main difference being whether or not the game is being played in `chill` or `competitive` mode.
+`Chill` mode allows for every user to be able to answer the question, and by the end of the timer, all users who chose the correct answer will recieve a point. 
+
+<!-- ![-play mc chill](/img/play_mc_chill.png "mc chill command") -->
+
+`Competitive` mode allows for multiple users to choose an answer as well; however, the bot stops listening for responses once someone gets the correct answer. This makes it more competitive since it is a matter of speed as well as intelligence. Here is an example of what you would see if you ran competitive mode for a True/False game.
+
+<!-- ![-play tf competitive](/img/play_tf_competitive.png "tf competitive command") -->
+
+Each game ends when the final question is answered and the bot displays a Leaderboard with the final scores. Also, it is important to note that each game has a stop feature shown in the previous screenshots by the stop emoji. Clicking this ends the current round and the bot proceeds to show the ending leaderboard.
+
+<!-- ![leaderboard](/img/leaderbaord.png "leaderboard") -->
+
 ## Reflection on the Development Process
 
 During our development process, we conducted a lot of research due to our unfamiliarity with implementing bots on Discord. Design methods helped the team to thoughtfully come up with a robust solution for our Trivia bot. Use cases allowed us to better understand our target user and what tasks they would have to complete in order to fully engage with the bot. UML and architecture diagrams additionally gave us a visual representation of how different platforms and servers would interact with each other, as well as recognizing how the Discord API, Trivia API, and Heroku would be integrated.
