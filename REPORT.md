@@ -8,24 +8,24 @@ The problem that our bot solved was the we created a trivia game for those dista
 
 The main features our bot has include two different types of tests (True/False and Multiple Choice), with each type having two different modes (Chill and Competitive). In order to view the different games and  modes, the user can activate the help command with `-help`.
 
-<!-- ![-help](/img/help.png "help command") -->
+![-help](img/help.png "help command")
 
 Another method to view each feature and what it entails is by typing `-play mc` or `-play tf` followed by `help`. This will show a detailed desription of the speficic modes you are interested in. For example, `-play mc help` produces the following.
 
-<!-- ![-play mc help](/img/play_mc_help.png "mc help command") -->
+![-play mc help](img/play_mc_help.png "mc help command")
 
 Each gane essentially works the same with the main difference being whether or not the game is being played in `chill` or `competitive` mode.
 `Chill` mode allows for every user to be able to answer the question, and by the end of the timer, all users who chose the correct answer will recieve a point. 
 
-<!-- ![-play mc chill](/img/play_mc_chill.png "mc chill command") -->
+![-play mc chill](img/play_mc_chill.png "mc chill command")
 
 `Competitive` mode allows for multiple users to choose an answer as well; however, the bot stops listening for responses once someone gets the correct answer. This makes it more competitive since it is a matter of speed as well as intelligence. Here is an example of what you would see if you ran competitive mode for a True/False game.
 
-<!-- ![-play tf competitive](/img/play_tf_competitive.png "tf competitive command") -->
+![-play tf competitive](img/play_tf_competitive.png "tf competitive command")
 
 Each game ends when the final question is answered and the bot displays a Leaderboard with the final scores. Also, it is important to note that each game has a stop feature shown in the previous screenshots by the stop emoji. Clicking this ends the current round and the bot proceeds to show the ending leaderboard.
 
-<!-- ![leaderboard](/img/leaderbaord.png "leaderboard") -->
+![leaderboard](img/leaderboard.png "leaderboard")
 
 ## Reflection on the Development Process
 
