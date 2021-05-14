@@ -2,28 +2,28 @@
 
 ## Problem our Bot Solved
 
-The problem that our bot solved was the we created a trivia game for those distant student (and non-student) communities that wish to play trivia with one another. Because of the pandemic, friends, family, and communities in general have not been as close as they have been. Staying in front of your computer screen for hours on end can be detrimental to one's mental health, so having the Trivia Bot as a great way to to not only have fun with friends, but also to take that mental break that we all need. When students become uninterested in what is being taught, that is where the Trivia Bot comes along, where you are able to have fun while also learning new things. Everybody loves those family and/or friend game nights, and adding this Trivia Bot (played on discord) also helps to solve that problem.
+The problem that our bot solved was that we created a trivia game for those distant student (and non-student) communities that wish to play trivia with one another. Because of the pandemic, friends, family, and communities in general have not been as close as they have been. Staying in front of your computer screen for hours on end can be detrimental to one's mental health, so having the Trivia Bot as a great way to to not only have fun with friends, but also to take that mental break that we all need. When students become uninterested in what is being taught, that is where the Trivia Bot comes along, where you are able to have fun while also learning new things. Everybody loves those family and/or friend game nights, and adding this Trivia Bot (played on Discord) also helps to solve that problem.
 
 ## Primary Features
 
-The main features our bot has include two different types of tests (True/False and Multiple Choice), with each type having two different modes (Chill and Competitive). In order to view the different games and  modes, the user can activate the help command with `-help`.
+The main features our bot has includes two different types of trivia question styles (True/False and Multiple Choice), with each type having two different modes (Chill and Competitive). In order to view the different games and  modes, the user can activate the help command with `-help`.
 
 ![-help](img/help.png "help command")
 
-Another method to view each feature and what it entails is by typing `-play mc` or `-play tf` followed by `help`. This will show a detailed desription of the speficic modes you are interested in. For example, `-play mc help` produces the following.
+Another method to view each feature and what it entails is by typing `-play mc` or `-play tf` followed by `help`. This will show a detailed desription of the specific modes you are interested in. For example, `-play mc help` produces the following.
 
 ![-play mc help](img/play_mc_help.png "mc help command")
 
-Each gane essentially works the same with the main difference being whether or not the game is being played in `chill` or `competitive` mode.
-`Chill` mode allows for every user to be able to answer the question, and by the end of the timer, all users who chose the correct answer will recieve a point. 
+Each game essentially works the same with the main difference being whether or not the game is being played in `chill` or `competitive` mode.
+`Chill` mode allows for every user to be able to answer the question, and by the end of the 10 second time limit, all users who chose the correct answer will recieve a point. 
 
 ![-play mc chill](img/play_mc_chill.png "mc chill command")
 
-`Competitive` mode allows for multiple users to choose an answer as well; however, the bot stops listening for responses once someone gets the correct answer. This makes it more competitive since it is a matter of speed as well as intelligence. Here is an example of what you would see if you ran competitive mode for a True/False game.
+`Competitive` mode allows for multiple users to choose an answer as well, however, the bot stops listening for responses once someone gets the correct answer. This makes it more competitive since it is a matter of speed as well as intelligence. Here is an example of what you would see if you ran competitive mode for a True/False game.
 
 ![-play tf competitive](img/play_tf_competitive.png "tf competitive command")
 
-Each game ends when the final question is answered and the bot displays a Leaderboard with the final scores. Also, it is important to note that each game has a stop feature shown in the previous screenshots by the stop emoji. Clicking this ends the current round and the bot proceeds to show the ending leaderboard.
+Each game ends when the final question is answered and the bot displays a Leaderboard with the final scores. Also, it is important to note that each game has a stop feature shown in the previous screenshots by the stop emoji. Clicking this ends the current round and the bot proceeds to show the resulting leaderboard.
 
 ![leaderboard](img/leaderboard.png "leaderboard")
 
@@ -47,13 +47,13 @@ According to the Discord Documentation, there are certain limitations that exist
 
 Overall, Discord bots are very flexible in what they can do mainly because the Discord API exposes a lot of the Discord functionality to developers; anything is possible!
 
-As for the limitations of what our bot’s functionality and features, Trivia Bot is currently capable of responding with 4 preset game modes and styles:
+As for the limitations of our bot’s functionality and features, Trivia Bot is currently capable of responding with 4 preset game modes and styles:
 
 -   True/False chill
 -   True/False competitive
 -   Multiple Choice chill
 -   Multiple Choice competitive
 
-These are the only 4 options available to users in terms of the type of gameplay they can engage in with our bot. However, this is not the final version of our bot, so we have a list of ideas and optimizations we’d like to implement to make our bot even better.
+These are the only 4 options available to users in terms of the type of gameplay they can engage in with our bot (details on these modes are explained in the Primary Feature section above). However, this is not the final version of our bot, so we have a list of ideas and optimizations we’d like to implement to make our bot even better.
 
 The ultimate goal for Trivia Bot is for it to be fully customizable and flexible in its gameplay options. The first step in doing this is to implement the ability to allow the user to select the time limit per question in a round of trivia. This will increase the accessibility of the game so that users that can’t read as fast as others will be able to play. Currently, the time limit per question is 10 seconds. Additionally, we’d like to allow the user to select how many questions they want in a round of trivia. The default is 10 questions, and that is what we currently have implemented. Next, we want to allow users to be able to select a question category; all questions in the given round will only fall under that question category. We’d also like to do the same thing for the difficulty level (easy, medium, or hard). All of these future features are fully in scope since the Open Trivia Database API we are using provides this data; we just have to dynamically pass in the query parameters when making the API call to request game questions.
