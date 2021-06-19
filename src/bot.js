@@ -50,11 +50,14 @@ bot.on('message', async (message) => {
         if (command === 'play' && args[0] === 'mc' && args[1] === 'chill' && args.length === 2) {
             // command must be -play mc chill, so that's what this conditional is looking for in order to successfully execute
 
+            // setting the bot's activity
+            bot.user.setActivity('mc chill trivia', { type: 'PLAYING' });
+
             // sends a cute lil message to the channel letting the users know that a game will begin
             message.channel.send('Lemme grab some questions for ya....');
 
             let triviaData;
-             // will hold the response that the api gave after a successful request
+            // will hold the response that the api gave after a successful request
             try {
                 // the api call is wrapped in a try/catch because it can fail, and we don't want our program to crash
                 triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=multiple`)).data.results;
@@ -65,7 +68,7 @@ bot.on('message', async (message) => {
             }
 
             // looping over the length of the api response, and adding entries to the triviaData object with all the data we need in a structure that works for us
-        
+
             const embed = new MessageEmbed(); // creates new embed instance
             let counter = 10; // a counter that will help us execute the other channel messages later (helps us keep track of loop iterations)
             /* instantiate empty leaderboard object where we'll store leaderboard stats
@@ -77,26 +80,26 @@ bot.on('message', async (message) => {
             }
             */
             let leaderboard = {};
-        
-                function shuffle(array) {
-                    var currentIndex = array.length, randomIndex, temporaryValue;
-                  
-                    // While there remain elements to shuffle...
-                    while (0 !== currentIndex) {
-                  
-                      // Pick a remaining element...
-                      randomIndex = Math.floor(Math.random() * currentIndex);
-                      currentIndex -= 1;
-                  
-                      // And swap it with the current element.
-                      temporaryValue = array[currentIndex];
-                      array[currentIndex] = array[randomIndex];
-                      array[randomIndex] = temporaryValue;
-                    }
-                  
-                    return array;
-                  }
 
+            function shuffle(array) {
+                var currentIndex = array.length,
+                    randomIndex,
+                    temporaryValue;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
 
             /* and now the fun begins.....
             Loops over the contents of triviaData, and sends the question in an embed after the completion of the embed construction
@@ -106,51 +109,53 @@ bot.on('message', async (message) => {
                 for (let j = 0; j < 3; j++) {
                     choices.push(`${triviaData[i].incorrect_answers[j]}`);
                 }
-                shuffle(choices);  
-        
+                shuffle(choices);
+
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
                     .setColor(0xff0000) // color of the embed for multiple choice
                     .setDescription(
                         // the meat and potatoes of the embed
-                        parseEntities(triviaData[i].question) // the question
-                            + '\n'
-                            + '\n**Choices:**'
-                            +'\n'
-                            + '\n 🇦 '+  parseEntities(choices[0])
-                            +'\n 🇧 ' +  parseEntities(choices[1])
-                            + '\n 🇨 '+  parseEntities(choices[2])
-                            +'\n 🇩 ' +  parseEntities(choices[3])
-                            +'\n'
-                            + '\n**Difficulty:** ' + // putting double ** bolds the text, and single * italicizes it (in the Discord application)
+                        parseEntities(triviaData[i].question) + // the question
+                            '\n' +
+                            '\n**Choices:**' +
+                            '\n' +
+                            '\n 🇦 ' +
+                            parseEntities(choices[0]) +
+                            '\n 🇧 ' +
+                            parseEntities(choices[1]) +
+                            '\n 🇨 ' +
+                            parseEntities(choices[2]) +
+                            '\n 🇩 ' +
+                            parseEntities(choices[3]) +
+                            '\n' +
+                            '\n**Difficulty:** ' + // putting double ** bolds the text, and single * italicizes it (in the Discord application)
                             parseEntities(triviaData[i].difficulty) + // difficulty
                             '\n**Category:** ' +
                             parseEntities(triviaData[i].category) // category
-                            
                     );
 
-                let msgEmbed = await message.channel.send(embed); // sends the embed 
+                let msgEmbed = await message.channel.send(embed); // sends the embed
                 msgEmbed.react('🇦'); // adds a universal A emoji
                 msgEmbed.react('🇧'); // adds a universal B emoji
                 msgEmbed.react('🇨'); // adds a universal C emoji
                 msgEmbed.react('🇩'); // adds a universal D emoji
                 msgEmbed.react('🛑'); // add a stop reaction
-                
-                  
 
                 let answer = ''; // instantiate empty answer string, where correctAns will be housed
-                if (triviaData[i].correct_answer === choices[0] ) {
+                if (triviaData[i].correct_answer === choices[0]) {
                     // if the correct answer is in index 0, answer is equal to the A emoji
                     answer = '🇦';
-                } if (triviaData[i].correct_answer === choices[1] ) {
+                }
+                if (triviaData[i].correct_answer === choices[1]) {
                     // if the correct answer is in index 1, answer is equal to the B emoji
                     answer = '🇧';
                 }
-                if (triviaData[i].correct_answer  === choices[2]) {
+                if (triviaData[i].correct_answer === choices[2]) {
                     // if the correct answer is in index 2, answer is equal to the C emoji
                     answer = '🇨';
                 }
-                if (triviaData[i].correct_answer  === choices[3]) {
+                if (triviaData[i].correct_answer === choices[3]) {
                     // otherwise its equal to the D emoji
                     answer = '🇩';
                 }
@@ -173,7 +178,7 @@ bot.on('message', async (message) => {
                     // if the user is not the bot, and the reaction given is equal to the answer
                     // add the users that answered correctly to the usersWithCorrect Answer array
                     if (r.emoji.name === '🛑') {
-                        counter = 0; 
+                        counter = 0;
                     } else {
                         usersWithCorrectAnswer.push(user.username);
                         if (leaderboard[user.username] === undefined) {
@@ -193,8 +198,10 @@ bot.on('message', async (message) => {
                     // if no one got any answers right
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
-                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124])
-                        .setDescription('\n The correct answer was '+ parseEntities(triviaData[i].correct_answer));
+                        let result = newEmbed
+                            .setTitle("Time's Up! No one got it....")
+                            .setColor([168, 124, 124])
+                            .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
 
                         // send the embed to the channel
                         message.channel.send(result);
@@ -206,7 +213,7 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("Time's Up! Here's who got it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
-                            .setFooter('\n The correct answer was '+ parseEntities(triviaData[i].correct_answer))
+                            .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
                             .setColor([168, 124, 124]);
                         // send the embed to the channel
                         message.channel.send(result);
@@ -221,7 +228,7 @@ bot.on('message', async (message) => {
                 if (counter === 0) {
                     break;
                 }
-                
+
                 counter--;
             }
             if (counter === 0) {
@@ -270,6 +277,9 @@ bot.on('message', async (message) => {
 
         if (command === 'play' && args[0] === 'tf' && args[1] === 'chill' && args.length === 2) {
             // command must be -play tf chill, so that's what this conditional is looking for in order to successfully execute
+
+            // setting the bot's activity
+            bot.user.setActivity('tf chill trivia', { type: 'PLAYING' });
 
             // sends a cute lil message to the channel letting the users know that a game will begin
             message.channel.send('Lemme grab some questions for ya....');
@@ -435,7 +445,10 @@ bot.on('message', async (message) => {
             }
         }
 
-        if (command === 'play' && args[0] === 'tf' && args[1] === 'competitive' && args.length === 2){
+        if (command === 'play' && args[0] === 'tf' && args[1] === 'competitive' && args.length === 2) {
+            // setting the bot's activity
+            bot.user.setActivity('tf competitive trivia', { type: 'PLAYING' });
+
             let triviaData;
 
             try {
@@ -444,7 +457,7 @@ bot.on('message', async (message) => {
                 console.log(e);
                 message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
             }
-    
+
             const embed = new MessageEmbed();
             let counter = 10;
             let leaderboard = {};
@@ -454,14 +467,13 @@ bot.on('message', async (message) => {
                     .setTitle(`Question ${i + 1}`)
                     .setColor(0xff0000)
                     .setDescription(
-                        parseEntities(triviaData[i].question) + 
-                            '\n' + 
-                            '\n**Difficulty:** ' + 
-                            parseEntities(triviaData[i].difficulty) + 
+                        parseEntities(triviaData[i].question) +
+                            '\n' +
+                            '\n**Difficulty:** ' +
+                            parseEntities(triviaData[i].difficulty) +
                             '\n**Category:** ' +
-                            parseEntities(triviaData[i].category) 
+                            parseEntities(triviaData[i].category)
                     );
-
 
                 let msgEmbed = await message.channel.send(embed);
                 msgEmbed.react('🇹');
@@ -479,7 +491,7 @@ bot.on('message', async (message) => {
                     return (reaction.emoji.name === answer || reaction.emoji.name === '🛑') && user.username !== bot.user.username;
                 };
 
-                const collector = msgEmbed.createReactionCollector(filter, { max: 1,time: 10000 }); 
+                const collector = msgEmbed.createReactionCollector(filter, { max: 1, time: 10000 });
 
                 let userWithCorrectAnswer = [];
 
@@ -488,18 +500,18 @@ bot.on('message', async (message) => {
                     // add the users that answered correctly to the usersWithCorrect Answer array
                     if (r.emoji.name === '🛑') {
                         counter = 0;
-                    }
-                    else {
-                    userWithCorrectAnswer.push(user.username);
-                    if (leaderboard[user.username] === undefined) {
-                        // if the user isn't already in the leaderboard object, add them and give them a score of 1
-                        leaderboard[user.username] = 1;
                     } else {
-                        // otherwise, increment the user's score
-                        leaderboard[user.username] += 1;
+                        userWithCorrectAnswer.push(user.username);
+                        if (leaderboard[user.username] === undefined) {
+                            // if the user isn't already in the leaderboard object, add them and give them a score of 1
+                            leaderboard[user.username] = 1;
+                        } else {
+                            // otherwise, increment the user's score
+                            leaderboard[user.username] += 1;
+                        }
                     }
-                }});
-                let newEmbed = new MessageEmbed(); 
+                });
+                let newEmbed = new MessageEmbed();
 
                 collector.on('end', async () => {
                     // if no one got any answers right
@@ -554,6 +566,9 @@ bot.on('message', async (message) => {
         if (command === 'play' && args[0] === 'mc' && args[1] === 'competitive' && args.length === 2) {
             // command must be -play mc competitive, so that's what this conditional is looking for in order to successfully execute
 
+            // setting the bot's activity
+            bot.user.setActivity('mc competitive trivia', { type: 'PLAYING' });
+
             // sends a cute lil message to the channel letting the users know that a game will begin
             message.channel.send('Lemme grab some questions for ya....');
 
@@ -606,19 +621,20 @@ bot.on('message', async (message) => {
             let leaderboard = {};
 
             function shuffle(array) {
-                var currentIndex = array.length, randomIndex, temporaryValue;
+                var currentIndex = array.length,
+                    randomIndex,
+                    temporaryValue;
 
                 // While there remain elements to shuffle...
                 while (0 !== currentIndex) {
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
 
-                  // Pick a remaining element...
-                  randomIndex = Math.floor(Math.random() * currentIndex);
-                  currentIndex -= 1;
-
-                  // And swap it with the current element.
-                  temporaryValue = array[currentIndex];
-                  array[currentIndex] = array[randomIndex];
-                  array[randomIndex] = temporaryValue;
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
                 }
 
                 return array;
@@ -718,8 +734,10 @@ bot.on('message', async (message) => {
                     // if no one got any answers right
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
-                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124])
-                        .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
+                        let result = newEmbed
+                            .setTitle("Time's Up! No one got it....")
+                            .setColor([168, 124, 124])
+                            .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
                         // send the embed to the channel
                         message.channel.send(result);
                     } else {
@@ -786,8 +804,10 @@ bot.on('message', async (message) => {
                 );
             message.channel.send(embed);
         }
-    }
 
+        // removing the bot's activity since its no longer in a game
+        bot.user.setActivity('', { type: '' });
+    }
 
     if (message.content.toLocaleLowerCase().includes('trivia')) {
         //should work without the bot on???
