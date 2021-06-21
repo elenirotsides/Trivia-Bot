@@ -27,50 +27,16 @@ You can also append `help` to any of the play commands to learn more about the d
 
 _In the future, we plan on making more commands that respond to customizable game requests, like allowing the user to select how many questions they want, which category, which difficulty, and the time limit per question._
 
-## Installation
+## Add to your server
 
-The (recommended) instructions on how to get Trivia Bot up and running in your Discord server are outlined below:
+Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server!
 
-_Prerequisites: You must have Node and NPM installed since this is a Node.js project. Please see [this website](https://www.npmjs.com/get-npm) for installation instructions before proceeding._
+## Contributing
 
-1. Fork this repository
-2. Create a clone of your fork so that you can make changes
+Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/main/CONTRIBUTING.MD) for instructions on how you can contribute to the development of this bot.
 
-```
-git clone <your fork's URL>.git
-```
-
-3. Once you've done that, navigate to the root of the `Trivia-Bot` directory on your local machine (or wherever you cloned your fork) and create a `.env` file. In here, you need to create an enviornment variable like so:
-
-```
-BOT_TOKEN=<your bot token>
-```
-
-_If you don't have a bot token, I recommend following the directions [here](https://www.writebots.com/discord-bot-token/). The author of this article did a fantastic job in explaining the process of getting a token and navigating the Discord Developer Portal (which is very simple and painless! Shout out to the Discord team for making this experience seamless!)_
-
-Replace `<your bot token>` with your bot token and get rid of the < >'s
-
-_At this point, you're good to go! To run the bot, you just have to do `npm start` in your terminal. However, you'll need to do this every time you want your bot to come online. If you want your bot to be online 24/7, continue reading._
-
-Skip step 3 above and instead, deploy your bot to Heroku (doesn't have to be Heroku, but I like this platform because it is super easy to use, naviagate, and deploy to. Its also FREE!)
-
-3. Create an account if you don't already have one. (Don't worry, this is free as well!)
-4. Create a new app in Heroku by clicking `New` and then `Create new app`. (There may or may not be an intermediate step you need to do at this point, I admittedly cannot remember. I think it might ask about what kind of project this is, and if it does, select the Node.js option.)
-5. Click on the `Deploy` tab
-6. Deployment method will be `GitHub`, so click on that
-7. Search for your fork of this repository in the `Connect to GitHub` section, find the branch you'd like to connect to (it'll probably be `main` unless your goals are different) and then click `Connect`.
-8. Select `Enable Automatic Deploy` so that Heroku gets the new code automatically, if you're planning on making changes.
-9. Click on the `Settings` and then click `Reveal Config Vars`. In here, you will add `BOT_TOKEN` as the key, and your bot token as the value.
-10. Click `Add`
-11. Go back to the `Deploy` tab and then scroll down to the `Manual Deploy` section and click `Deploy Branch`
-12. Lastly, you need to navigate to the `Resources` tab. Here, you'll need to turn off the `web npm start` option and instead, turn on the `Worker node src/bot.js` option. You might not see it right away, so just wait a minute or two and then refresh. (The `Procfile` is what is giving Heroku instructions, so this is why it may take a second or two after deploying for Heroku to recieve this instruction.)
-
-That's it! Your bot is now online! Logs of the deployment can be found by going to `More` and then selecting `View logs`.
-
-Happy Trivia'ing!
-
-## Discussions 
+## Discussions
 
 Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like!
 
-Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab. 
+Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
