@@ -8,11 +8,11 @@ Trivia Bot is a fun and fully functional Discord bot that serves the purpose of 
 
 There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
 
--   `-play tf chill` Starts a round of chill T/F Trivia.
--   `-play tf competitive` Starts a round of competitive T/F Trivia.
--   `-play mc chill` Starts a round of chill Multiple Choice Trivia.
--   `-play mc competitive` Starts a round of competitive Multiple Choice Trivia.
--   `-help` Lists out all the commands that Trivia Bot responds to, and what they do.
+-   `!play tf chill` Starts a round of chill T/F Trivia.
+-   `!play tf competitive` Starts a round of competitive T/F Trivia.
+-   `!play mc chill` Starts a round of chill Multiple Choice Trivia.
+-   `!play mc competitive` Starts a round of competitive Multiple Choice Trivia.
+-   `!help` Lists out all the commands that Trivia Bot responds to, and what they do.
 -   🛑 Stops the current Trivia game
 
 The difference between `chill` and `competitive`:
@@ -22,8 +22,8 @@ The difference between `chill` and `competitive`:
 
 You can also append `help` to any of the play commands to learn more about the different game modes, like so:
 
--   `-play tf help` Will list out all the different True & False game modes Trivia Bot can provide, and details about each.
--   `-play mc help` Will list out all the different Multiple Choice game modes Trivia Bot can provide, and details about each.
+-   `!play tf help` Will list out all the different True & False game modes Trivia Bot can provide, and details about each.
+-   `!play mc help` Will list out all the different Multiple Choice game modes Trivia Bot can provide, and details about each.
 
 _In the future, we plan on making more commands that respond to customizable game requests, like allowing the user to select how many questions they want, which category, which difficulty, and the time limit per question._
 

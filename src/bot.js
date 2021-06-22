@@ -4,7 +4,7 @@ import axios from 'axios';
 import { parseEntities } from 'parse-entities';
 import wait from 'wait';
 
-const prefix = '-';
+const prefix = '!';
 const bot = new Client();
 
 bot.on('ready', () => {
@@ -23,22 +23,22 @@ bot.on('message', async (message) => {
 
         //        trims leading and trailing whitespace    turns to prfix to string         splits by spaces in between words
         const [command, ...args] = message.content.trim().substring(prefix.length).split(/\s+/); // "hello"
-        console.log(bot.user.tag + ',', command, args);
+        console.log('Bot ID: ' + bot.user.id + ' -', command, args);
 
         if (command === 'play' && args[0] === 'tf' && args[1] === 'help' && args.length === 2) {
-            // command must be -play tf help, so that's what this conditional is looking for in order to successfully execute
+            // command must be !play tf help, so that's what this conditional is looking for in order to successfully execute
             const embed = new MessageEmbed(); // creates new embed instance
 
             // setting the fields for the embed
             embed
-                .setColor(0xffff00)
+                .setColor('#fb94d3')
                 .setTitle('T/F Modes')
                 .addField(
-                    '`-play tf chill`',
+                    '`!play tf chill`',
                     'Initiates a round of 10 question T/F trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.'
                 )
                 .addField(
-                    '`-play tf competitive`',
+                    '`!play tf competitive`',
                     'Initiates a round of 10 question T/F trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**'
                 );
             // sends the embed to the channel
@@ -47,7 +47,7 @@ bot.on('message', async (message) => {
 
         // MC CHILL GAME
         if (command === 'play' && args[0] === 'mc' && args[1] === 'chill' && args.length === 2) {
-            // command must be -play mc chill, so that's what this conditional is looking for in order to successfully execute
+            // command must be !play mc chill, so that's what this conditional is looking for in order to successfully execute
 
             // setting the bot's activity
             bot.user.setActivity('mc chill trivia', { type: 'PLAYING' });
@@ -112,7 +112,7 @@ bot.on('message', async (message) => {
 
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
-                    .setColor(0xff0000) // color of the embed for multiple choice
+                    .setColor('#5fdbe3') // color of the embed for multiple choice
                     .setDescription(
                         // the meat and potatoes of the embed
                         parseEntities(triviaData[i].question) + // the question
@@ -199,7 +199,7 @@ bot.on('message', async (message) => {
                         // create an embed
                         let result = newEmbed
                             .setTitle("Time's Up! No one got it....")
-                            .setColor([168, 124, 124])
+                            .setColor('#f40404')
                             .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
 
                         // send the embed to the channel
@@ -213,7 +213,7 @@ bot.on('message', async (message) => {
                             .setTitle("Time's Up! Here's who got it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
                             .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
-                            .setColor([168, 124, 124]);
+                            .setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     }
@@ -236,7 +236,7 @@ bot.on('message', async (message) => {
                 // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                 if (Object.keys(leaderboard).length !== 0) {
                     // specify the contents of the embed
-                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor('#5fdbe3');
 
                     // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                     for (const key in leaderboard) {
@@ -245,7 +245,7 @@ bot.on('message', async (message) => {
                     message.channel.send(winner);
                 } else {
                     // if the leaderboard is empty, construct a different embed
-                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#5fdbe3');
                     // send the embed to the channel
                     message.channel.send(winnerEmbed);
                 }
@@ -255,19 +255,19 @@ bot.on('message', async (message) => {
         //TF CHILL GAME
 
         if (command === 'play' && args[0] === 'mc' && args[1] === 'help' && args.length === 2) {
-            // command must be -play tf help, so that's what this conditional is looking for in order to successfully execute
+            // command must be !play tf help, so that's what this conditional is looking for in order to successfully execute
             const embed = new MessageEmbed(); // creates new embed instance
 
             // setting the fields for the embed
             embed
-                .setColor(0xffff00)
+                .setColor('#fb94d3')
                 .setTitle('MC Modes')
                 .addField(
-                    '`-play mc chill`',
+                    '`!play mc chill`',
                     'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.'
                 )
                 .addField(
-                    '`-play mc competitive`',
+                    '`!play mc competitive`',
                     'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**'
                 );
             // sends the embed to the channel
@@ -275,7 +275,7 @@ bot.on('message', async (message) => {
         }
 
         if (command === 'play' && args[0] === 'tf' && args[1] === 'chill' && args.length === 2) {
-            // command must be -play tf chill, so that's what this conditional is looking for in order to successfully execute
+            // command must be !play tf chill, so that's what this conditional is looking for in order to successfully execute
 
             // setting the bot's activity
             bot.user.setActivity('tf chill trivia', { type: 'PLAYING' });
@@ -333,7 +333,7 @@ bot.on('message', async (message) => {
             for (let i = 0; i < triviaData.length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
-                    .setColor(0xff0000) // color of the embed
+                    .setColor('#5fdbe3') // color of the embed
                     .setDescription(
                         // the meat and potatoes of the embed
                         parseEntities(triviaData[i].question) + // the question
@@ -395,7 +395,7 @@ bot.on('message', async (message) => {
                     // if no one got any answers right
                     if (usersWithCorrectAnswer.length === 0) {
                         // create an embed
-                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124]);
+                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     } else {
@@ -406,7 +406,7 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("Time's Up! Here's who got it right:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
-                            .setColor([168, 124, 124]);
+                            .setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     }
@@ -428,7 +428,7 @@ bot.on('message', async (message) => {
                 // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                 if (Object.keys(leaderboard).length !== 0) {
                     // specify the contents of the embed
-                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor('#5fdbe3');
 
                     // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                     for (const key in leaderboard) {
@@ -437,7 +437,7 @@ bot.on('message', async (message) => {
                     message.channel.send(winner);
                 } else {
                     // if the leaderboard is empty, construct a different embed
-                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#5fdbe3');
                     // send the embed to the channel
                     message.channel.send(winnerEmbed);
                 }
@@ -464,7 +464,7 @@ bot.on('message', async (message) => {
             for (let i = 0; i < triviaData.length; i++) {
                 embed
                     .setTitle(`Question ${i + 1}`)
-                    .setColor(0xff0000)
+                    .setColor('#5fdbe3')
                     .setDescription(
                         parseEntities(triviaData[i].question) +
                             '\n' +
@@ -516,7 +516,7 @@ bot.on('message', async (message) => {
                     // if no one got any answers right
                     if (userWithCorrectAnswer.length === 0) {
                         // create an embed
-                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor([168, 124, 124]);
+                        let result = newEmbed.setTitle("Time's Up! No one got it....").setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     } else {
@@ -527,9 +527,9 @@ bot.on('message', async (message) => {
                         let result = newEmbed
                             .setTitle("Time's Up! Here's who got it right:")
                             .setDescription(userWithCorrectAnswer.join().replace(',', ', '))
-                            .setTitle("That's IT! Here's who is the first to get it right:")
+                            .setTitle("That's IT! Here's who got it first:")
                             .setDescription(userWithCorrectAnswer.join().replace(',', ', '))
-                            .setColor([168, 124, 124]);
+                            .setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     }
@@ -546,7 +546,7 @@ bot.on('message', async (message) => {
                 // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                 if (Object.keys(leaderboard).length !== 0) {
                     // specify the contents of the embed
-                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor('#5fdbe3');
 
                     // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                     for (const key in leaderboard) {
@@ -555,7 +555,7 @@ bot.on('message', async (message) => {
                     message.channel.send(winner);
                 } else {
                     // if the leaderboard is empty, construct a different embed
-                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#5fdbe3');
                     // send the embed to the channel
                     message.channel.send(winnerEmbed);
                 }
@@ -563,7 +563,7 @@ bot.on('message', async (message) => {
         }
 
         if (command === 'play' && args[0] === 'mc' && args[1] === 'competitive' && args.length === 2) {
-            // command must be -play mc competitive, so that's what this conditional is looking for in order to successfully execute
+            // command must be !play mc competitive, so that's what this conditional is looking for in order to successfully execute
 
             // setting the bot's activity
             bot.user.setActivity('mc competitive trivia', { type: 'PLAYING' });
@@ -652,7 +652,7 @@ bot.on('message', async (message) => {
 
                 embed
                     .setTitle(`Question ${i + 1}`) // Title dynamically updates depending on which iteration we're on
-                    .setColor(0xff0000) // color of the embed
+                    .setColor('#5fdbe3') // color of the embed
                     .setDescription(
                         // the meat and potatoes of the embed
                         parseEntities(triviaData[i].question) + // the question
@@ -735,7 +735,7 @@ bot.on('message', async (message) => {
                         // create an embed
                         let result = newEmbed
                             .setTitle("Time's Up! No one got it....")
-                            .setColor([168, 124, 124])
+                            .setColor('#f40404')
                             .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
                         // send the embed to the channel
                         message.channel.send(result);
@@ -745,10 +745,10 @@ bot.on('message', async (message) => {
                         comma with a comma and a space, so its human readable and pleasant to the eye
                         */
                         let result = newEmbed
-                            .setTitle("That's IT! Here's who is the first to get it right:")
+                            .setTitle("That's IT! Here's who got it first:")
                             .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
                             .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
-                            .setColor([168, 124, 124]);
+                            .setColor('#f40404');
                         // send the embed to the channel
                         message.channel.send(result);
                     }
@@ -770,7 +770,7 @@ bot.on('message', async (message) => {
                 // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                 if (Object.keys(leaderboard).length !== 0) {
                     // specify the contents of the embed
-                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor([168, 124, 124]);
+                    let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor('#5fdbe3');
 
                     // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                     for (const key in leaderboard) {
@@ -779,7 +779,7 @@ bot.on('message', async (message) => {
                     message.channel.send(winner);
                 } else {
                     // if the leaderboard is empty, construct a different embed
-                    winnerEmbed.setTitle('Game Over! No one got anything right...');
+                    winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#5fdbe3');
                     // send the embed to the channel
                     message.channel.send(winnerEmbed);
                 }
@@ -789,16 +789,16 @@ bot.on('message', async (message) => {
         if (command === 'help') {
             const embed = new MessageEmbed();
             embed
-                .setColor(0xffff00)
+                .setColor('#fb94d3')
                 .setTitle('How to use Trivia Bot')
                 .setDescription(
-                    '**Useful Commands** \n`-help` Display all the commands \
-                    \n`-play tf help` Gives more detail on the different modes in a T/F game \
-                    \n`-play mc help` Gives more detail on the different modes in a Multiple Choice game \
-                    \n`-play tf chill` Starts a round of chill T/F Trivia \
-                    \n`-play mc chill` Starts a round of chill Multiple Choice Trivia \
-                    \n`-play tf competitive` Starts a round of competitive T/F Trivia \
-                    \n`-play mc competitive` Starts a round of competitive Multiple Choice Trivia \
+                    '**Useful Commands** \n`!help` Display all the commands \
+                    \n`!play tf help` Gives more detail on the different modes in a T/F game \
+                    \n`!play mc help` Gives more detail on the different modes in a Multiple Choice game \
+                    \n`!play tf chill` Starts a round of chill T/F Trivia \
+                    \n`!play mc chill` Starts a round of chill Multiple Choice Trivia \
+                    \n`!play tf competitive` Starts a round of competitive T/F Trivia \
+                    \n`!play mc competitive` Starts a round of competitive Multiple Choice Trivia \
                     \n`🛑` During the game, stop the game completely and tally the current totals by pressing this emoji reaction'
                 );
             message.channel.send(embed);
