@@ -791,15 +791,15 @@ bot.on('message', async (message) => {
             embed
                 .setColor('#fb94d3')
                 .setTitle('How to use Trivia Bot')
-                .setDescription(
-                    '**Useful Commands** \n`!help` Display all the commands \
-                    \n`!play tf help` Gives more detail on the different modes in a T/F game \
-                    \n`!play mc help` Gives more detail on the different modes in a Multiple Choice game \
-                    \n`!play tf chill` Starts a round of chill T/F Trivia \
-                    \n`!play mc chill` Starts a round of chill Multiple Choice Trivia \
-                    \n`!play tf competitive` Starts a round of competitive T/F Trivia \
-                    \n`!play mc competitive` Starts a round of competitive Multiple Choice Trivia \
-                    \n`🛑` During the game, stop the game completely and tally the current totals by pressing this emoji reaction'
+                .addFields(
+                    { name: '`!help`', value: 'Display all the commands' },
+                    { name: '`!play tf help`', value: 'Gives more detail on the different modes in a T/F game' },
+                    { name: '`!play mc help`', value: 'Gives more detail on the different modes in a Multiple Choice game' },
+                    { name: '`!play tf chill`', value: 'Starts a round of chill T/F Trivia' },
+                    { name: '`!play mc chill`', value: 'Starts a round of chill Multiple Choice Trivia' },
+                    { name: '`!play tf competitive`', value: 'Starts a round of competitive T/F Trivia' },
+                    { name: '`!play mc competitive`', value: 'Starts a round of competitive Multiple Choice Trivia' },
+                    { name: '🛑', value: 'During the game, stop the game completely and tally the current totals by pressing this emoji reaction' }
                 );
             message.channel.send(embed);
         }
