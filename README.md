@@ -4,6 +4,10 @@
 
 Trivia Bot is a fun and fully functional Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. We've made use of the Open Trivia Database API for the trivia questions that we use in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
 
+## Add to your server
+
+Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server!
+
 ## Commands
 
 There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
@@ -26,10 +30,6 @@ You can also append `help` to any of the play commands to learn more about the d
 -   `!play mc help` Will list out all the different Multiple Choice game modes Trivia Bot can provide, and details about each.
 
 _In the future, we plan on making more commands that respond to customizable game requests, like allowing the user to select how many questions they want, which category, which difficulty, and the time limit per question._
-
-## Add to your server
-
-Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server!
 
 ## Contributing
 
