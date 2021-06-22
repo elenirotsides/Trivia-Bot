@@ -9,6 +9,7 @@ const bot = new Client();
 
 bot.on('ready', () => {
     console.log(`${bot.user.tag} has logged in.`);
+    console.log(`Currently having a great time in ${bot.guilds.cache.size} server(s)`);
 });
 
 bot.on('message', async (message) => {
@@ -23,7 +24,6 @@ bot.on('message', async (message) => {
 
         //        trims leading and trailing whitespace    turns to prfix to string         splits by spaces in between words
         const [command, ...args] = message.content.trim().substring(prefix.length).split(/\s+/); // "hello"
-        console.log('Bot ID: ' + bot.user.id + ' -', command, args);
 
         if (command === 'play' && args[0] === 'tf' && args[1] === 'help' && args.length === 2) {
             // command must be !play tf help, so that's what this conditional is looking for in order to successfully execute
