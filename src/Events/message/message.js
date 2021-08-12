@@ -7,6 +7,19 @@ export default class extends Event {
 
         if (!message.guild || message.author.bot) return;
 
+        if (message.content.toLocaleLowerCase().includes('trivia')) {
+            let responseArray = [
+                'Did someone say my name?',
+                'You called?',
+                'Looking for me?',
+                'You know you wanna play...',
+                'What are you waiting for, play some trivia!',
+                'If you ever forget how to use me, just type `!help`',
+            ];
+            let randomIndex = Math.floor(Math.random() * responseArray.length);
+            message.channel.send(responseArray[randomIndex]);
+        }
+
         if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
 
         const prefix = message.content.match(mentionRegexPrefix) ? message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
