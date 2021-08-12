@@ -2,12 +2,12 @@
     "name": "trivia-bot",
     "version": "1.0.0",
     "description": "## Team Members",
-    "main": "bot.js",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "babel-node": "babel-node --presets='@babel/preset-env'",
-        "start": "babel-node src/bot.js",
-        "dev": "nodemon --exec npm run babel-node -- src/bot.js"
+        "start": "babel-node src/index.js",
+        "dev": "nodemon --exec npm run babel-node -- src/index.js"
     },
     "repository": {
         "type": "git",
@@ -23,7 +23,10 @@
         "axios": "^0.21.1",
         "discord.js": "^12.5.3",
         "dotenv": "^8.2.0",
+        "glob": "^7.1.7",
         "parse-entities": "^3.0.0",
+        "path": "^0.12.7",
+        "util": "^0.12.4",
         "wait": "^0.4.2"
     },
     "devDependencies": {
