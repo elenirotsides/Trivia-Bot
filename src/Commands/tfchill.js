@@ -1,7 +1,6 @@
 import Command from '../Structures/Command.js';
 import axios from 'axios';
 import { parseEntities } from 'parse-entities';
-import wait from 'wait';
 import { MessageEmbed } from 'discord.js';
 
 export default class extends Command {
@@ -153,7 +152,7 @@ export default class extends Command {
                 adding a pause here that is equal to the collection time (10 seconds) allows for time in between questions, and an 
                 overall pleasant user experience
                 */
-            await wait(10000);
+            await this.client.utils.wait(10000);
             if (counter === 0) {
                 break;
             }

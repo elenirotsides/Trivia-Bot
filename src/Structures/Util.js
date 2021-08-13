@@ -24,6 +24,11 @@ export default class Util {
         return [...new Set(arr)];
     }
 
+    async wait(time) {
+        // sets timer in ms so the for loop in games pauses
+        return new Promise((res) => setTimeout(res, time));
+    }
+
     async loadCommands() {
         return glob(`${this.directory}/Commands/**/*.js`).then((commands) => {
             for (const commandFile of commands) {

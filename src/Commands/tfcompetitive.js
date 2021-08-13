@@ -1,7 +1,6 @@
 import Command from '../Structures/Command.js';
 import axios from 'axios';
 import { parseEntities } from 'parse-entities';
-import wait from 'wait';
 import { MessageEmbed } from 'discord.js';
 
 export default class extends Command {
@@ -104,7 +103,7 @@ export default class extends Command {
                     message.channel.send(result);
                 }
             });
-            await wait(10000);
+            await this.client.utils.wait(10000);
             if (counter === 0) {
                 break;
             }
