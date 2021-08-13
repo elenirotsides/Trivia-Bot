@@ -6,16 +6,16 @@ Trivia Bot is a fun and fully functional Discord bot that serves the purpose of 
 
 ## Add to your server
 
-Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server!
+Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
 
 ## Commands
 
 There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
 
--   `!play tf chill` Starts a round of chill T/F Trivia.
--   `!play tf competitive` Starts a round of competitive T/F Trivia.
--   `!play mc chill` Starts a round of chill Multiple Choice Trivia.
--   `!play mc competitive` Starts a round of competitive Multiple Choice Trivia.
+-   `!tfchill` Starts a round of chill T/F Trivia.
+-   `!tfcompetitive` Starts a round of competitive T/F Trivia.
+-   `!mcchill` Starts a round of chill Multiple Choice Trivia.
+-   `!mccompetitive` Starts a round of competitive Multiple Choice Trivia.
 -   `!help` Lists out all the commands that Trivia Bot responds to, and what they do.
 -   🛑 Stops the current Trivia game
 
@@ -24,12 +24,11 @@ The difference between `chill` and `competitive`:
 `chill` allows all users to select an answer within the time limit
 `competitive` only accepts the first correct answer; everyone else loses by default
 
-You can also append `help` to any of the play commands to learn more about the different game modes, like so:
+You can also append any of the commands to `help` to learn more about the different game modes, like so:
 
--   `!play tf help` Will list out all the different True & False game modes Trivia Bot can provide, and details about each.
--   `!play mc help` Will list out all the different Multiple Choice game modes Trivia Bot can provide, and details about each.
+-   `!help tfchill` Will give more detail about this specific game mode, for example.
 
-_In the future, we plan on making more commands that respond to customizable game requests, like allowing the user to select how many questions they want, which category, which difficulty, and the time limit per question._
+_In the very near future, I will be implementing customizable time limits for the game modes, so stay tuned for that! Additionally, more work will be done to allow the bot to respond to customizable game requests, like allowing the user to select how many questions they want, which category, and which difficulty._
 
 ## Contributing
 

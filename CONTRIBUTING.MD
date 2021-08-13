@@ -21,7 +21,15 @@ BOT_TOKEN=<your bot token>
 
 _If you don't have a bot token, I recommend following the directions [here](https://www.writebots.com/discord-bot-token/). The author of this article did a fantastic job in explaining the process of getting a token and navigating the Discord Developer Portal (which is very simple and painless! Shout out to the Discord team for making this experience seamless!)_
 
-Replace `<your bot token>` with your bot token and get rid of the < >'s
+Replace `<your bot token>` with your bot token and get rid of the < >'s. **Please gitignore this file when pushing your work in a PR. Your bot token should be known by no one other than yourself!**
+
+Make sure to run
+
+```
+npm install
+```
+
+to install all the project's required dependancies!
 
 You can run your bot with `npm start` but if you want it to automatically refresh every time you save, you can use `npm run dev`
 
