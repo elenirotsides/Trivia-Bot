@@ -17,7 +17,7 @@ export default class extends Command {
 
     async run(message) {
         // setting the bot's activity
-        this.client.user.setActivity('mc chill trivia', { type: 'PLAYING' });
+        this.client.user.setActivity('mcchill', { type: 'PLAYING' });
 
         // sends a cute lil message to the channel letting the users know that a game will begin
         message.channel.send('Lemme grab some questions for ya....');

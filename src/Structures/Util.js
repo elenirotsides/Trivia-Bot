@@ -44,7 +44,6 @@ export default class Util {
             }
         });
     }
-    // Todo: make sure you can accept commands with multiple words....
 
     async loadEvents() {
         return glob(`${this.directory}/Events/**/*.js`).then((events) => {

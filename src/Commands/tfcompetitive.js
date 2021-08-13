@@ -16,7 +16,7 @@ export default class extends Command {
 
     async run(message) {
         // setting the bot's activity
-        this.client.user.setActivity('tf competitive trivia', { type: 'PLAYING' });
+        this.client.user.setActivity('tfcompetitive', { type: 'PLAYING' });
 
         let triviaData;
 

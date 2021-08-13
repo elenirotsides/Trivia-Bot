@@ -7,6 +7,7 @@ import { MessageEmbed } from 'discord.js';
 export default class extends Command {
     constructor(...args) {
         super(...args, {
+            aliases: ['mccompetitive', 'mcompetitive'],
             description:
                 'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**',
             category: 'Game Modes',
@@ -16,7 +17,7 @@ export default class extends Command {
 
     async run(message) {
         // setting the bot's activity
-        this.client.user.setActivity('mc competitive trivia', { type: 'PLAYING' });
+        this.client.user.setActivity('mccompetitive', { type: 'PLAYING' });
 
         // sends a cute lil message to the channel letting the users know that a game will begin
         message.channel.send('Lemme grab some questions for ya....');
