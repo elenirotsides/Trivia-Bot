@@ -5,7 +5,7 @@ export default class extends Event {
         const mentionRegex = RegExp(`^<@!${this.client.user.id}>$`);
         const mentionRegexPrefix = RegExp(`^<@!${this.client.user.id}> `);
 
-        if (!message.guild || message.author.bot) return;
+        if (message.author.bot) return;
 
         if (message.content.toLocaleLowerCase().includes('trivia')) {
             let responseArray = [

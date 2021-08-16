@@ -14,7 +14,7 @@ export default class extends Command {
     async run(message, [command]) {
         const embed = new MessageEmbed()
             .setColor('#fb94d3')
-            .setAuthor(`Help Menu`, message.guild.iconURL({ dynamic: true }))
+            .setAuthor(`Help Menu`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }))
             .setThumbnail(this.client.user.displayAvatarURL())
             .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
@@ -24,7 +24,7 @@ export default class extends Command {
 
             if (!cmd) return message.channel.send(`Invalid Command named: \`${command}\``);
 
-            embed.setAuthor(`Command Help: ${command}`, message.guild.iconURL({ dynamic: true }));
+            embed.setAuthor(`Command Help: ${command}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));
             embed.setDescription([
                 `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}`,
                 `**❯ Description:** ${cmd.description}`,
