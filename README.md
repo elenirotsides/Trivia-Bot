@@ -1,5 +1,7 @@
 # Trivia Bot
 
+![Lines of code](https://img.shields.io/tokei/lines/github/elenirotsides/trivia-bot?color=pink&style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/elenirotsides/trivia-bot?color=pink&style=for-the-badge) ![GitHub contributors](https://img.shields.io/github/contributors/elenirotsides/trivia-bot?color=pink&style=for-the-badge)
+
 ## What is Trivia Bot?
 
 Trivia Bot is a fun and fully functional Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. We've made use of the Open Trivia Database API for the trivia questions that we use in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
