@@ -1,6 +1,10 @@
-# Trivia Bot
+<div align='center'>
+<h1>Trivia Bot</h1>
+<img alt="Trivia Bot Logo" src='./Trivia_Bot.png' height='200' width='200'/>
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/elenirotsides/trivia-bot?color=pink&style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/elenirotsides/trivia-bot?color=pink&style=for-the-badge) ![GitHub contributors](https://img.shields.io/github/contributors/elenirotsides/trivia-bot?color=pink&style=for-the-badge)
+
+</div>
 
 ## What is Trivia Bot?
 
