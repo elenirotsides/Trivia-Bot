@@ -37,7 +37,8 @@ export default class extends Command {
             embed.setDescription([
                 `These are the available commands for Trivia Bot`,
                 `The bot's prefix is: ${this.client.prefix}`,
-                `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
+                // This will be necessary later when I implement multi word commands
+                // `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
                 `For more detailed information on a specific command, type \`!help\` followed by any of the commands listed below`,
             ]);
             let categories;
