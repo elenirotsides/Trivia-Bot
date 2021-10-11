@@ -11,7 +11,7 @@ export default class extends Command {
         });
     }
 
-    async run(message, [command]) {
+    async run(message, commands) {
         const embed = new MessageEmbed()
             .setColor('#fb94d3')
             .setAuthor(`Help Menu`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }))
@@ -19,13 +19,10 @@ export default class extends Command {
             .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
-        if (super.denyCommands(message, [command])) {
-            return;
-        }
-
-        if (command) {
-            const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
-            embed.setAuthor(`Command Help: ${command}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));
+        if (commands.length > 0) {
+            const cmd = this.client.commands.get(commands[0]) || this.client.commands.get(this.client.aliases.get(commands[0]));
+            if (!cmd) return message.channel.send(`No command named: \`${commands[0]}\` exists`);
+            embed.setAuthor(`Command Help: ${commands[0]}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));
             embed.setDescription([
                 `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}`,
                 `**❯ Description:** ${cmd.description}`,
