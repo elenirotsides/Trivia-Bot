@@ -14,7 +14,7 @@ export default class extends Command {
     }
 
     async run(message, commands) {
-        if (super.validateCommands(message, commands)) {
+        if (this.validateCommands(message, commands)) {
             return;
         }
         // setting the bot's activity
