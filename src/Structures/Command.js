@@ -14,15 +14,22 @@ export default class Command {
 
     /**
      * Returns true if there are commands in the command param
-     * that need to be denied. Sends a message in the channel about
-     * the invalid command.
+     * that do not exist. Sends a message in the channel about
+     * the first invalid command, if there is one.
     */
-    denyCommands(message, [command]) {
-        if (command) {
-            const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
+    validateCommands(message, commands) {
+        if (commands) {
+            const cmds = commands.map(
+                cmd => {
+                    this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd))
+                }
+            );
 
-            if (!cmd) message.channel.send(`Invalid Command named: \`${command}\``);
-            return true;
+            for(let i = 0; i < cmds.length; i++) {
+                if (!cmds[i]) message.channel.send(`\`${this.name}\` does not have sub-command named: \`${commands[i]}\``);
+                return true;
+            }
+
         }
         return false;
     }
