@@ -20,6 +20,7 @@ export default class extends Command {
             .setTimestamp();
 
         if (commands.length > 0) {
+            // only consider the first command that a user asks for help on to avoid spam
             const cmd = this.client.commands.get(commands[0]) || this.client.commands.get(this.client.aliases.get(commands[0]));
             if (!cmd) return message.channel.send(`No command named: \`${commands[0]}\` exists`);
             embed.setAuthor(`Command Help: ${commands[0]}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));

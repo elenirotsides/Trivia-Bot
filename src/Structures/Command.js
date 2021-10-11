@@ -6,6 +6,8 @@ export default class Command {
         this.description = options.description || 'No description provided.';
         this.category = options.category || 'Miscellaneous';
         this.usage = `${this.client.prefix}${this.name} ${options.usage || ''}`.trim();
+        this.strictSubCommands = options.strictSubCommands || [];
+        this.optSubCommands = options.optSubCommands || [];
     }
 
     async run(message, args) {
@@ -19,15 +21,17 @@ export default class Command {
     */
     validateCommands(message, commands) {
         if (commands) {
-            const cmds = commands.map(
+            const validCmds = commands.map(
                 cmd => {
-                    return this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd))
+                   return this.strictSubCommands.includes(cmd) || this.optSubCommands.includes(cmd)
                 }
             );
 
-            for(let i = 0; i < cmds.length; i++) {
-                if (!cmds[i]) message.channel.send(`\`${this.name}\` does not have sub-command named: \`${commands[i]}\``);
-                return true;
+            for(let i = 0; i < validCmds.length; i++) {
+                if (!validCmds[i]) {
+                    message.channel.send(`\`${this.name}\` does not have sub-command named: \`${commands[i]}\``);
+                    return true;
+                }
             }
 
         }
