@@ -21,7 +21,7 @@ export default class Command {
         if (commands) {
             const cmds = commands.map(
                 cmd => {
-                    this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd))
+                    return this.client.commands.get(cmd) || this.client.commands.get(this.client.aliases.get(cmd))
                 }
             );
 
