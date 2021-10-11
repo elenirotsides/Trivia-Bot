@@ -6,7 +6,7 @@ import { MessageEmbed } from 'discord.js';
 export default class extends Command {
     constructor(...args) {
         super(...args, {
-            aliases: ['mccompetitive', 'mcompetitive'],
+            aliases: ['mccompetitive', 'mcompetitive', 'mccomp', 'mcomp'],
             description:
                 'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `competitive` because this will only accept the first person that guesses correctly; everyone else loses by default. **TLDR; you have to be the first to answer correctly!**',
             category: 'Game Modes',
