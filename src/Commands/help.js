@@ -19,11 +19,12 @@ export default class extends Command {
             .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
+        if (super.denyCommands(message, [command])) {
+            return;
+        }
+
         if (command) {
             const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
-
-            if (!cmd) return message.channel.send(`Invalid Command named: \`${command}\``);
-
             embed.setAuthor(`Command Help: ${command}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));
             embed.setDescription([
                 `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}`,

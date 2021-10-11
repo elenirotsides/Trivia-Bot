@@ -13,7 +13,10 @@ export default class extends Command {
         });
     }
 
-    async run(message) {
+    async run(message, [command]) {
+        if (super.denyCommands(message, [command])) {
+            return;
+        }
         // setting the bot's activity
         this.client.user.setActivity('tfchill', { type: 'PLAYING' });
 
