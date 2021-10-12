@@ -16,19 +16,12 @@ Click [here](https://discord.com/api/oauth2/authorize?client_id=8319746827097210
 
 ## Command Aliases
 
-If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using `git config`. 
-<br/>
-Here is an example you may want to set up:
-<br/>
-`$ git config --global alias.ci commit`
-<br/>
-This means that, instead of typing `git commit`, you just need to type `git ci`
-- `halp`, `hwlp`, `hrlp` as `!help`
-- `mcchill`, `mchill` as `!mcchill`
-- `mccompetitive`, `mcompetitive`, `mccomp`, `mcomp` as `!mccompetitive`
-- `pong` as `!ping`
-- `request`, `rewuest`, `bug` as `!request`
-- `tfcompetitive`, `tfcomp` as `!tfcompetitive`
+- use `halp`, `hwlp`, `hrlp` as `!help`
+- use `mcchill`, `mchill` as `!mcchill`
+- use `mccompetitive`, `mcompetitive`, `mccomp`, `mcomp` as `!mccompetitive`
+- use `pong` as `!ping`
+- use `request`, `rewuest`, `bug` as `!request`
+- use `tfcompetitive`, `tfcomp` as `!tfcompetitive`
 
 ## Commands
 
