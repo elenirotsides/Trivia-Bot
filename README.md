@@ -14,6 +14,22 @@ Trivia Bot is a fun and fully functional Discord bot that serves the purpose of 
 
 Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
 
+## Command Aliases
+
+If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using `git config`. 
+<br/>
+Here is an example you may want to set up:
+<br/>
+`$ git config --global alias.ci commit`
+<br/>
+This means that, instead of typing `git commit`, you just need to type `git ci`
+- `halp`, `hwlp`, `hrlp` as `!help`
+- `mcchill`, `mchill` as `!mcchill`
+- `mccompetitive`, `mcompetitive`, `mccomp`, `mcomp` as `!mccompetitive`
+- `pong` as `!ping`
+- `request`, `rewuest`, `bug` as `!request`
+- `tfcompetitive`, `tfcomp` as `!tfcompetitive`
+
 ## Commands
 
 There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
