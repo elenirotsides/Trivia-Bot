@@ -9,7 +9,10 @@ export default class extends Command {
         });
     }
 
-    async run(message) {
+    async run(message, commands) {
+        if (this.validateCommands(message, commands)) {
+            return;
+        }
         message.channel.send('Please open an issue for any feature requests or bug reports here: https://github.com/elenirotsides/Trivia-Bot/issues');
     }
 }

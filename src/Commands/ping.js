@@ -9,7 +9,10 @@ export default class extends Command {
         });
     }
 
-    async run(message) {
+    async run(message, commands) {
+        if (this.validateCommands(message, commands)) {
+            return;
+        }
         const msg = await message.channel.send('Pinging...');
         const latency = msg.createdTimestamp - message.createdTimestamp;
 

@@ -14,7 +14,10 @@ export default class extends Command {
         });
     }
 
-    async run(message) {
+    async run(message, commands) {
+        if (this.validateCommands(message, commands)) {
+            return;
+        }
         // setting the bot's activity
         this.client.user.setActivity('tfcompetitive', { type: 'PLAYING' });
 
