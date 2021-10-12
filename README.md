@@ -14,15 +14,6 @@ Trivia Bot is a fun and fully functional Discord bot that serves the purpose of 
 
 Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
 
-## Command Aliases
-
-- You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
-- You can use `!mchill` instead of `!mcchill`
-- You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
-- You can use `!pong` instead of `!ping`
-- You can use `!rewuest`, `!bug` instead of `!request`
-- You can use `!tfcomp` instead of `!tfcompetitive`
-
 ## Commands
 
 There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
@@ -44,6 +35,15 @@ You can also append any of the commands to `help` to learn more about the differ
 -   `!help tfchill` Will give more detail about this specific game mode, for example.
 
 _In the very near future, I will be implementing customizable time limits for the game modes, so stay tuned for that! Additionally, more work will be done to allow the bot to respond to customizable game requests, like allowing the user to select how many questions they want, which category, and which difficulty._
+
+## Command Aliases
+
+- You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
+- You can use `!mchill` instead of `!mcchill`
+- You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
+- You can use `!pong` instead of `!ping`
+- You can use `!rewuest`, `!bug` instead of `!request`
+- You can use `!tfcomp` instead of `!tfcompetitive`
 
 ## Contributing
 
