@@ -17,11 +17,11 @@ Click [here](https://discord.com/api/oauth2/authorize?client_id=8319746827097210
 ## Command Aliases
 
 - You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
-- You can use `!mcchill`, `!mchill` instead of `!mcchill`
-- You can use `!mccompetitive`, `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
+- You can use `!mchill` instead of `!mcchill`
+- You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
 - You can use `!pong` instead of `!ping`
-- You can use `!request`, `!rewuest`, `!bug` instead of `!request`
-- You can use `!tfcompetitive`, `!tfcomp` instead of `!tfcompetitive`
+- You can use `!rewuest`, `!bug` instead of `!request`
+- You can use `!tfcomp` instead of `!tfcompetitive`
 
 ## Commands
 
