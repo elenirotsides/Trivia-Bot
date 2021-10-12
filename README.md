@@ -36,6 +36,15 @@ You can also append any of the commands to `help` to learn more about the differ
 
 _In the very near future, I will be implementing customizable time limits for the game modes, so stay tuned for that! Additionally, more work will be done to allow the bot to respond to customizable game requests, like allowing the user to select how many questions they want, which category, and which difficulty._
 
+## Command Aliases
+
+- You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
+- You can use `!mchill` instead of `!mcchill`
+- You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
+- You can use `!pong` instead of `!ping`
+- You can use `!rewuest`, `!bug` instead of `!request`
+- You can use `!tfcomp` instead of `!tfcompetitive`
+
 ## Contributing
 
 Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/main/CONTRIBUTING.MD) for instructions on how you can contribute to the development of this bot.
