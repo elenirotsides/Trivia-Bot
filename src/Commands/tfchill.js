@@ -120,7 +120,7 @@ export default class extends Command {
             };
 
             // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
-            const collector = msgEmbed.createReactionCollector(filter, { time }); // will only collect for 10 seconds
+            const collector = msgEmbed.createReactionCollector(filter, { time }); // will only collect for n seconds
 
             // an array that will hold all the users that answered correctly
             let usersWithCorrectAnswer = [];

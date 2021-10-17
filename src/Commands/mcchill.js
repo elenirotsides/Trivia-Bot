@@ -150,7 +150,7 @@ export default class extends Command {
             };
 
             // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
-            const collector = msgEmbed.createReactionCollector(filter, { time: 10000 }); // will only collect for 10 seconds
+            const collector = msgEmbed.createReactionCollector(filter, { time }); // will only collect for n seconds
 
             // an array that will hold all the users that answered correctly
             let usersWithCorrectAnswer = [];
@@ -206,7 +206,7 @@ export default class extends Command {
             adding a pause here that is equal to the collection time (10 seconds) allows for time in between questions, and an
             overall pleasant user experience
             */
-            await this.client.utils.wait(10000);
+            await this.client.utils.wait(time);
             // decrement the counter, tbh I don't know if having a counter is necessary now that I'm looking at this....we can fix this later
             if (counter === 0) {
                 break;
