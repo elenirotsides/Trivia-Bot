@@ -10,19 +10,34 @@ export default class extends Command {
             description:
                 'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.',
             category: 'Game Modes',
-            //usage: '[time]',
+            usage: '[time in seconds (5 to 180)]',
+            allowedArguments: [{
+                type: Number,
+                min: 5,
+                max: 180,
+            }],
         });
     }
 
     async run(message, commands) {
-        if (this.validateCommands(message, commands)) {
+        if (this.validateArguments(message, commands)) {
             return;
+        }
+        // if (this.validateCommands(message, commands)) {
+        //     return;
+        // }
+        let [time] = commands;
+        time = Number(time);
+        if (isNaN(time)) {
+            time = 10000; // 10 seconds default
+        } else {
+            time = time * 1000;
         }
         // setting the bot's activity
         this.client.user.setActivity('mcchill', { type: 'PLAYING' });
 
         // sends a cute lil message to the channel letting the users know that a game will begin
-        message.channel.send('Lemme grab some questions for ya....');
+        message.channel.send(`Lemme grab some questions for ya....\nYou have ${time/1000} seconds to answer each question`);
 
         let triviaData;
         // will hold the response that the api gave after a successful request
