@@ -24,8 +24,6 @@ export default class Command {
         this.category = options.category || 'Miscellaneous';
         this.usage = `${this.client.prefix}${this.name} ${options.usage || ''}`.trim();
         this.strictSubCommands = options.strictSubCommands || [];
-        // This validates the arguments by position.
-        // e.g. allow numbers as the first argument
         this.optSubCommands = options.optSubCommands || [];
     }
 
