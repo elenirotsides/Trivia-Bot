@@ -10,7 +10,7 @@ export default class extends Command {
     }
 
     async run(message, commands) {
-        if (this.validateCommands(message, commands)) {
+        if (!this.validateCommands(message, commands)) {
             return;
         }
         const msg = await message.channel.send('Pinging...');

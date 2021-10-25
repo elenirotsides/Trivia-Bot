@@ -15,7 +15,7 @@ export default class extends Command {
     }
 
     async run(message, commands) {
-        if (this.validateCommands(message, commands)) {
+        if (!this.validateCommands(message, commands)) {
             return;
         }
         // setting the bot's activity
@@ -94,7 +94,7 @@ export default class extends Command {
                     message.channel.send(result);
                 } else {
                     // otherwise, create an embed with the results of the question
-                    /* since the array is an array of strings, I used the javascript join() method to concat them, and then the replace() to replace the 
+                    /* since the array is an array of strings, I used the javascript join() method to concat them, and then the replace() to replace the
                         comma with a comma and a space, so its human readable and pleasant to the eye
                         */
                     let result = newEmbed

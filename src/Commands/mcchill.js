@@ -10,24 +10,17 @@ export default class extends Command {
             description:
                 'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.',
             category: 'Game Modes',
-            usage: '[time in seconds (5 to 180)]',
-            allowedArguments: [{
-                type: Number,
-                min: 5,
-                max: 180,
-            }],
+            usage: '[time in seconds (10 to 180)]',
+            optSubCommands: ['time'],
         });
     }
 
     async run(message, commands) {
-        if (this.validateArguments(message, commands)) {
+        const parsedCommands = this.validateCommands(message, commands);
+        if (!parsedCommands) {
             return;
         }
-        // if (this.validateCommands(message, commands)) {
-        //     return;
-        // }
-        let [time] = commands;
-        time = Number(time);
+        let time = parsedCommands.time;
         if (isNaN(time)) {
             time = 10000; // 10 seconds default
         } else {
