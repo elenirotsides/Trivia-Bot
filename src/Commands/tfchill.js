@@ -160,7 +160,7 @@ export default class extends Command {
                 }
             });
             /* if I don't include a pause of some sort, then the for loop will RAPID FIRE send all the questions to the channel
-                adding a pause here that is equal to the collection time (10 seconds) allows for time in between questions, and an
+                adding a pause here that is equal to the collection time allows for time in between questions, and an
                 overall pleasant user experience
                 */
             await this.client.utils.wait(time);
