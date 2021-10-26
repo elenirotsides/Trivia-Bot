@@ -34,20 +34,45 @@ You can also append any of the commands to `help` to learn more about the differ
 
 -   `!help tfchill` Will give more detail about this specific game mode, for example.
 
-_In the very near future, I will be implementing customizable time limits for the game modes, so stay tuned for that! Additionally, more work will be done to allow the bot to respond to customizable game requests, like allowing the user to select how many questions they want, which category, and which difficulty._
+## Sub Commands
+
+**Trivia Bot now supports optional sub commands!**
+
+So...what does this mean for you? Trivia Bot can now take `time [seconds]` as an optional sub command so that you can extend the time limit per question in a Trivia round! This was done to make the game more accessible for those that can't read as quickly as others, or simply, for those that just want to take their time playing!
+
+_Please note: This option is only available for chill modes of gameplay. This is due to the nature of chill modes; competitive modes are meant to be quick, rapid-fire rounds which is why this option was not applied to competitive modes._
+
+_Please note part 2: There will be more optional sub commands added in the future such as selecting more than 10 questions, specific category selection, and difficulty selection, to name a few. **Please stay tuned for these!**_
+
+### How to use the Sub Commands
+
+#### time [seconds]
+
+Let's say you want to play a round of `tfchill` but want to make each question have a time limit of 20 seconds:
+
+All you need to do is type the following: `!tfchill time 20`
+
+By default, Trivia Bot will give you 10 seconds per question. So, if you don't provide `time [seconds]`, then the bot will default to 10.
+
+**Limits:**
+_Minimum: 10 seconds
+Maximum: 180 seconds
+Can only be applied to `tfchill` or `mcchill` game modes_
 
 ## Command Aliases
 
-- You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
-- You can use `!mchill` instead of `!mcchill`
-- You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
-- You can use `!pong` instead of `!ping`
-- You can use `!rewuest`, `!bug` instead of `!request`
-- You can use `!tfcomp` instead of `!tfcompetitive`
+Sometimes you'll mispell something and sometimes you'll want a quicker way to interact with the bot. Below are a list of aliases you can use in place of the original command names:
+
+-   You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
+-   You can use `!mchill` instead of `!mcchill`
+-   You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
+-   You can use `!pong` instead of `!ping`
+-   You can use `!rewuest`, `!bug` instead of `!request`
+-   You can use `!tfcomp` instead of `!tfcompetitive`
 
 ## Contributing
 
-Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/main/CONTRIBUTING.MD) for instructions on how you can contribute to the development of this bot.
+Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/main/CONTRIBUTING.MD) for instructions on how you can contribute to the development of this bot. Trivia Bot always welcomes PRs!
 
 ## Discussions
 
