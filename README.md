@@ -55,9 +55,10 @@ All you need to do is type the following: `!tfchill time 20`
 By default, Trivia Bot will give you 10 seconds per question. So, if you don't provide `time [seconds]`, then the bot will default to 10.
 
 **Limits:**
-_Minimum: 10 seconds
-Maximum: 180 seconds
-Can only be applied to `tfchill` or `mcchill` game modes_
+
+-   Minimum: 10 seconds
+-   Maximum: 180 seconds
+-   Can only be applied to `tfchill` or `mcchill` game modes
 
 ## Command Aliases
 
