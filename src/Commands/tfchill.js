@@ -9,7 +9,7 @@ export default class extends Command {
             description:
                 'Initiates a round of 10 question T/F trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.',
             category: 'Game Modes',
-            usage: '[time in seconds (10 to 180)]',
+            usage: 'time [seconds (10 to 180)]',
             optSubCommands: ['time'],
         });
     }
