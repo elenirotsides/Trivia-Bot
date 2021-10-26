@@ -10,19 +10,27 @@ export default class extends Command {
             description:
                 'Initiates a round of 10 question Multiple Choice trivia with random difficulties and random categories. Its `chill` because this mode allows all users to attempt to answer within the 10 second time limit.',
             category: 'Game Modes',
-            //usage: '[time]',
+            usage: 'time [seconds (10 to 180)]',
+            optSubCommands: ['time'],
         });
     }
 
     async run(message, commands) {
-        if (this.validateCommands(message, commands)) {
+        const parsedCommands = this.validateCommands(message, commands);
+        if (!parsedCommands) {
             return;
+        }
+        let time = parsedCommands.time;
+        if (isNaN(time)) {
+            time = 10000; // 10 seconds default
+        } else {
+            time = time * 1000;
         }
         // setting the bot's activity
         this.client.user.setActivity('mcchill', { type: 'PLAYING' });
 
         // sends a cute lil message to the channel letting the users know that a game will begin
-        message.channel.send('Lemme grab some questions for ya....');
+        message.channel.send(`Lemme grab some questions for ya....\nYou have ${time/1000} seconds to answer each question`);
 
         let triviaData;
         // will hold the response that the api gave after a successful request
@@ -135,7 +143,7 @@ export default class extends Command {
             };
 
             // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
-            const collector = msgEmbed.createReactionCollector(filter, { time: 10000 }); // will only collect for 10 seconds
+            const collector = msgEmbed.createReactionCollector(filter, { time }); // will only collect for n seconds
 
             // an array that will hold all the users that answered correctly
             let usersWithCorrectAnswer = [];
@@ -188,10 +196,10 @@ export default class extends Command {
                 }
             });
             /* if I don't include a pause of some sort, then the for loop will RAPID FIRE send all the questions to the channel
-            adding a pause here that is equal to the collection time (10 seconds) allows for time in between questions, and an
+            adding a pause here that is equal to the collection time allows for time in between questions, and an
             overall pleasant user experience
             */
-            await this.client.utils.wait(10000);
+            await this.client.utils.wait(time);
             // decrement the counter, tbh I don't know if having a counter is necessary now that I'm looking at this....we can fix this later
             if (counter === 0) {
                 break;
