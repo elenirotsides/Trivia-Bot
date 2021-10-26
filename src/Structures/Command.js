@@ -3,7 +3,7 @@
  * and the value is the configuration of the arguments accepted
  * by the command.
  *
- * They key and the `cmd` must match
+ * The key and the `cmd` must match
  */
 const optSubCommandsDefinitions = {
     time: {
