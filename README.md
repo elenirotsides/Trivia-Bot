@@ -82,3 +82,15 @@ Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/ma
 Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like!
 
 Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
+
+# Known Limitations/Bugs
+
+Trivia Bot is still an active work in progress and therefore, it has some _quirks_ that still need to be ironed out. (Contributions are welcomed and encouraged, and this is a great place to start if you're wanting to dip your toes in the codebase.) This is a list of the issues that will be fixed eventually, but until then, please know that they're there:
+
+-   This happens in both chill and competitive modes.
+
+    > User 1 selects choice B, unselects choice B, then selects choice C. The correct answer was C and the bot accepts User 1's choice even though only the first selection should be considered.
+
+    The Discord API limits what we can do with reactions (which is how Trivia Bot collects answers). The solution would be to disregard any other clicks after the first attempt has been executed. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/52).
+
+-   If a user clicks on 🛑 to stop a game, the "Times's up" embed should be sent immediately, not after the time has run out. This happens in chill modes. In competitive modes, the embed is sent immediately, which is what we want, but the same should happen in chill modes. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/108)
