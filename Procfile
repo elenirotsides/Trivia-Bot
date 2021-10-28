@@ -1,1 +1,1 @@
-Worker: node src/bot.js --trace-warnings
+Worker: node --trace-warnings src/bot.js
