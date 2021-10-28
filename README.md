@@ -83,7 +83,7 @@ Discussions have been enabled on this repository, so please feel free to ask any
 
 Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
 
-# Known Limitations/Bugs
+## Known Limitations/Bugs
 
 Trivia Bot is still an active work in progress and therefore, it has some _quirks_ that still need to be ironed out. (Contributions are welcomed and encouraged, and this is a great place to start if you're wanting to dip your toes in the codebase.) This is a list of the issues that will be fixed eventually, but until then, please know that they're there:
 
