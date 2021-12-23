@@ -61,6 +61,7 @@ export default class extends Command {
 
         const embed = new MessageEmbed(); // creates new embed instance
         let counter = 10; // a counter that will help us execute the other channel messages later (helps us keep track of loop iterations)
+        let stopped = false;
 
         /* instantiate empty leaderboard object where we'll store leaderboard stats
             Takes the form:
@@ -168,6 +169,8 @@ export default class extends Command {
                 // add the users that answered correctly to the usersWithCorrect Answer array
                 if (r.emoji.name === '🛑') {
                     counter = 0;
+                    stopped = true;
+                    collector.stop();
                 } else {
                     usersWithCorrectAnswer.push(user.username);
                     if (leaderboard[user.username] === undefined) {
@@ -180,50 +183,83 @@ export default class extends Command {
                 }
             });
             let newEmbed = new MessageEmbed(); // new embed instance
+            let result;
 
             // what will be executed when the collector completes
             collector.on('end', async () => {
                 // if no one got any answers right
                 if (usersWithCorrectAnswer.length === 0) {
                     // create an embed
-                    let result = newEmbed
+                    result = newEmbed
                         .setTitle("Time's Up! No one got it....")
-                        .setColor('#f40404')
-                        .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer));
-                    // send the embed to the channel
-                    message.channel.send(result);
+                        .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
+                        .setColor('#f40404');
+                    // send the embed to the channel if the game wasn't terminated
+                    if (!stopped) {
+                        message.channel.send(result);
+                    }
                 } else {
                     // otherwise, create an embed with the results of the question
                     /* since the array is an array of strings, I used the javascript join() method to concat them, and then the replace() to replace the
                         comma with a comma and a space, so its human readable and pleasant to the eye
                         */
-                    let result = newEmbed
+                    result = newEmbed
                         .setTitle("That's IT! Here's who got it first:")
                         .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
                         .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
                         .setColor('#f40404');
-                    // send the embed to the channel
-                    message.channel.send(result);
+                    // send the embed to the channel if the game wasn't terminated
+                    if (!stopped) {
+                        message.channel.send(result);
+                    }
+                }
+                if (stopped) {
+                    // if the game was stopped, then we need to send the the scores to the guild
+
+                    // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
+                    if (Object.keys(leaderboard).length !== 0) {
+                        // send the embed to the channel after the edit is complete
+                        message.channel.send({ embed: result }).then((msg) => {
+                            // loop over the contents of the leaderboard, and add fields to the embed on every iteration
+                            for (const key in leaderboard) {
+                                result.addField(`${key}:`, `${leaderboard[key]}`);
+                            }
+
+                            // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
+                            msg.edit(result.setTitle('**Game Over!**\nFinal Scores:').setDescription('').setColor('#fb94d3'));
+                        });
+                    } else {
+                        // if the leaderboard is empty, construct a different embed
+
+                        // send the embed to the channel after the edit is complete
+                        message.channel.send({ embed: result }).then((msg) => {
+                            // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
+                            msg.edit(result.setTitle('Game Over! No one got anything right....').setColor('#fb94d3'));
+                        });
+                    }
+                    // so the for loop can stop executing
+                    triviaData.length = 0;
                 }
             });
+            if (counter === 0 || stopped) {
+                break;
+            }
             /* if I don't include a pause of some sort, then the for loop will RAPID FIRE send all the questions to the channel
                 adding a pause here that is equal to the collection time (10 seconds) allows for time in between questions, and an
                 overall pleasant user experience
                 */
             await this.client.utils.wait(10000);
             // decrement the counter, tbh I don't know if having a counter is necessary now that I'm looking at this....we can fix this later
-            if (counter === 0) {
-                break;
-            }
+
             counter--;
         }
-        if (counter === 0) {
+        if (counter === 0 && !stopped) {
             let winnerEmbed = new MessageEmbed(); // create new embed instance
 
             // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
             if (Object.keys(leaderboard).length !== 0) {
                 // specify the contents of the embed
-                let winner = winnerEmbed.setTitle('**Game Over!**').setDescription('**Final Scores: **').setColor('#5fdbe3');
+                let winner = winnerEmbed.setTitle('**Game Over!**\nFinal Scores:').setColor('#fb94d3');
 
                 // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                 for (const key in leaderboard) {
@@ -232,7 +268,7 @@ export default class extends Command {
                 message.channel.send(winner);
             } else {
                 // if the leaderboard is empty, construct a different embed
-                winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#5fdbe3');
+                winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#fb94d3');
                 // send the embed to the channel
                 message.channel.send(winnerEmbed);
             }
