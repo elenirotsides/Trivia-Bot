@@ -93,6 +93,4 @@ Trivia Bot is still an active work in progress and therefore, it has some _quirk
 
     The Discord API limits what we can do with reactions (which is how Trivia Bot collects answers). The solution would be to disregard any other clicks after the first attempt has been executed. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/52).
 
--   If a user clicks on 🛑 to stop a game, the "Times's up" embed should be sent immediately, not after the time has run out. This happens in chill modes. In competitive modes, the embed is sent immediately, which is what we want, but the same should happen in chill modes. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/108)
-
 -   The bot will throw an error, can be seen [here](https://github.com/elenirotsides/Trivia-Bot/issues/110), about Permissions, but I have no idea what causes it or how to fix it. I am actively investigating this and I hope to find a solution soon!
