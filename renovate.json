@@ -1,0 +1,8 @@
+{
+    "extends": ["config:base", "group:all", "schedule:weekends"],
+    "schedule": ["every weekend"],
+    "timezone": "America/New_York",
+    "labels": ["dependencies"],
+    "reviewers": ["elenirotsides"],
+    "ignoreDeps": ["discord.js"]
+}
