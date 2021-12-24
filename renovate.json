@@ -1,5 +1,5 @@
 {
-    "extends": ["config:base", "group:all", "schedule:weekends"],
+    "extends": ["config:base", ":disableDependencyDashboard", "group:all", "schedule:weekends"],
     "schedule": ["every weekend"],
     "timezone": "America/New_York",
     "labels": ["dependencies"],
