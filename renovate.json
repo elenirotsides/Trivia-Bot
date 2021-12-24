@@ -1,5 +1,7 @@
 {
-  "extends": [
-    "config:base"
-  ]
+    "extends": ["config:base", "schedule:weekends"],
+    "schedule": ["every weekend"],
+    "timezone": "America/New_York",
+    "labels": ["dependencies"],
+    "reviewers": ["elenirotsides"]
 }
