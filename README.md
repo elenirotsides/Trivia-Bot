@@ -3,7 +3,9 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/elenirotsides/trivia-bot?color=pink&style=for-the-badge) ![GitHub contributors](https://img.shields.io/github/contributors/elenirotsides/trivia-bot?color=pink&style=for-the-badge)
 <a href="https://discord.gg/wsyUhnDrmd"><img alt="Discord" src="https://img.shields.io/discord/825199493590155295?label=Join%20our%20Trivia%20Bot%20Support%20server&logo=Discord&style=for-the-badge" style="max-width:100%;" target="https://discord.gg/wsyUhnDrmd"></a> <a href="https://top.gg/bot/831974682709721099">
-<img src="https://top.gg/api/widget/upvotes/831974682709721099.svg">
+<a href="https://top.gg/bot/831974682709721099">
+<img src="https://top.gg/api/widget/831974682709721099.svg">
+</a>
 </a>
 
 </div>
