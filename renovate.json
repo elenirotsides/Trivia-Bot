@@ -4,5 +4,5 @@
     "timezone": "America/New_York",
     "labels": ["dependencies"],
     "reviewers": ["elenirotsides"],
-    "ignoreDeps": ["discord.js"]
+    "ignoreDeps": ["discord.js", "node", "npm"]
 }
