@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "## Team Members",
     "main": "bot.js",
+    "engines": {
+        "node": "16.13.0",
+        "npm": "8.1.0"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "babel-node": "babel-node --presets='@babel/preset-env'",
