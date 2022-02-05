@@ -16,7 +16,7 @@ Trivia Bot is a fun, fully functional, and verified Discord bot that serves the 
 
 ## Add to your server
 
-Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=161856&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
+Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=157760&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
 
 ## Commands
 
