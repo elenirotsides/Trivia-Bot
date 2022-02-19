@@ -4,8 +4,6 @@
 <br/>  
 <br/>
     
-<a href="https://discord.gg/wsyUhnDrmd"><img src="https://invidget.switchblade.xyz/wsyUhnDrmd"></a>
-    
 <a href="https://top.gg/bot/831974682709721099">
 <a href="https://top.gg/bot/831974682709721099">
 <img src="https://top.gg/api/widget/831974682709721099.svg">
@@ -83,11 +81,13 @@ Sometimes you'll mispell something and sometimes you'll want a quicker way to in
 
 Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/main/CONTRIBUTING.MD) for instructions on how you can contribute to the development of this bot. Trivia Bot always welcomes PRs!
 
-## Discussions
+## Help
 
-Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like!
+Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like! Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
 
-Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
+You can also join our Trivia Bot Support server and ask questions there, too:
+
+<a href="https://discord.gg/wsyUhnDrmd"><img src="https://invidget.switchblade.xyz/wsyUhnDrmd"></a>
 
 ## Known Limitations/Bugs
 
