@@ -12,7 +12,7 @@ const client = new MDClient({
 
 client.start();
 
-// only send stats to Top.gg every 12 hours
+// only send stats to Top.gg every hour
 setInterval(() => {
     const poster = AutoPoster(process.env.TOP_GG_TOKEN, client);
     poster.on('posted', (stats) => {
@@ -22,4 +22,4 @@ setInterval(() => {
     poster.on('error', (e) => {
         console.log('Something has gone wrong while trying to send stats to Top.gg');
     });
-}, 43200000);
+}, 3600);
