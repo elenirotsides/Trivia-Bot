@@ -15,6 +15,9 @@ client.start();
 // only send stats to Top.gg every hour
 setInterval(() => {
     const poster = AutoPoster(process.env.TOP_GG_TOKEN, client);
+    
+    console.log("Attempting to send stats to Top.gg ...");
+    
     poster.on('posted', (stats) => {
         console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`);
     });
