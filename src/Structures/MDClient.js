@@ -1,12 +1,19 @@
-import { Client, Collection } from 'discord.js';
+import { Client, Collection, Intents } from 'discord.js';
 import Util from './Util.js';
 
 export default class MDClient extends Client {
     constructor(options = {}) {
         super({
             disableMentions: 'everyone',
+            intents: [
+                Intents.FLAGS.DIRECT_MESSAGES,
+                Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+                Intents.FLAGS.GUILDS,
+                Intents.FLAGS.GUILD_MESSAGES,
+                Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+            ],
+            partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER'],
         });
-
         this.validate(options);
 
         this.commands = new Collection();

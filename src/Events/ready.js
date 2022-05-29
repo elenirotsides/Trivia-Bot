@@ -16,5 +16,6 @@ export default class extends Event {
                 `Trivia bot is currently hanging out in ${this.client.guilds.cache.size} servers!`,
             ].join('\n')
         );
+        this.client.user.setActivity('!help', { type: 'WATCHING' });
     }
 }

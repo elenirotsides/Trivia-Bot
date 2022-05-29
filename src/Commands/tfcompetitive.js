@@ -19,7 +19,6 @@ export default class extends Command {
             return;
         }
         // setting the bot's activity
-        this.client.user.setActivity('tfcompetitive', { type: 'PLAYING' });
 
         let triviaData;
 
@@ -27,7 +26,7 @@ export default class extends Command {
             triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
         } catch (e) {
             console.log(e);
-            message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
+            message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
         }
 
         const embed = new MessageEmbed();
@@ -49,7 +48,7 @@ export default class extends Command {
                         parseEntities(triviaData[i].category)
                 );
 
-            let msgEmbed = await message.channel.send(embed);
+            let msgEmbed = await message.channel.send({ embeds: [embed] });
             msgEmbed.react('🇹');
             msgEmbed.react('🇫');
             msgEmbed.react('🛑'); // adds a universal stop sign
@@ -65,7 +64,7 @@ export default class extends Command {
                 return (reaction.emoji.name === answer || reaction.emoji.name === '🛑') && user.username !== this.client.user.username;
             };
 
-            const collector = msgEmbed.createReactionCollector(filter, { max: 1, time: 10000 });
+            const collector = msgEmbed.createReactionCollector({ filter, max: 1, time: 10000 });
 
             let userWithCorrectAnswer = [];
 
@@ -96,11 +95,11 @@ export default class extends Command {
                     // create an embed
                     result = newEmbed
                         .setTitle("Time's Up! No one got it....")
-                        .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
+                        .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send(result);
+                        message.channel.send({ embeds: [result] });
                     }
                 } else {
                     // otherwise, create an embed with the results of the question
@@ -112,11 +111,11 @@ export default class extends Command {
                     result = newEmbed
                         .setTitle("That's IT!! Here's who got it first:")
                         .setDescription(userWithCorrectAnswer.join().replace(',', ', '))
-                        .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
+                        .setFooter({ text: '\n The correct answer was ' + parseEntities(triviaData[i].correct_answer) })
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send(result);
+                        message.channel.send({ embeds: [result] });
                     }
                 }
                 if (stopped) {
@@ -125,22 +124,22 @@ export default class extends Command {
                     // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                     if (Object.keys(leaderboard).length !== 0) {
                         // send the embed to the channel after the edit is complete
-                        message.channel.send({ embed: result }).then((msg) => {
+                        message.channel.send({ embeds: [result] }).then((msg) => {
                             // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                             for (const key in leaderboard) {
-                                result.addField(`${key}:`, `${leaderboard[key]}`);
+                                result.addField(`${key}:`, `${leaderboard[key]}`.toString());
                             }
 
                             // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
-                            msg.edit(result.setTitle('**Game Over!**\nFinal Scores:').setDescription('').setColor('#fb94d3'));
+                            msg.edit({ embeds: [result.setTitle('**Game Over!**\nFinal Scores:').setDescription('').setColor('#fb94d3')] });
                         });
                     } else {
                         // if the leaderboard is empty, construct a different embed
 
                         // send the embed to the channel after the edit is complete
-                        message.channel.send({ embed: result }).then((msg) => {
+                        message.channel.send({ embeds: [result] }).then((msg) => {
                             // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
-                            msg.edit(result.setTitle('Game Over! No one got anything right....').setColor('#fb94d3'));
+                            msg.edit({ embeds: [result.setTitle('Game Over! No one got anything right....').setColor('#fb94d3')] });
                         });
                     }
                     // so the for loop can stop executing
@@ -165,17 +164,15 @@ export default class extends Command {
 
                 // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                 for (const key in leaderboard) {
-                    winner.addField(`${key}:`, `${leaderboard[key]}`);
+                    winner.addField(`${key}:`, `${leaderboard[key]}`.toString());
                 }
-                message.channel.send(winner);
+                message.channel.send({ embeds: [winner] });
             } else {
                 // if the leaderboard is empty, construct a different embed
                 winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#fb94d3');
                 // send the embed to the channel
-                message.channel.send(winnerEmbed);
+                message.channel.send({ embeds: [winnerEmbed] });
             }
         }
-
-        this.client.user.setActivity('', { type: '' });
     }
 }

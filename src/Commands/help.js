@@ -14,32 +14,35 @@ export default class extends Command {
     async run(message, commands) {
         const embed = new MessageEmbed()
             .setColor('#fb94d3')
-            .setAuthor(`Help Menu`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }))
+            .setAuthor({ name: `Help Menu`, iconURL: message.guild === null ? null : message.guild.iconURL({ dynamic: true }) })
             .setThumbnail(this.client.user.displayAvatarURL())
-            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: `Requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             .setTimestamp();
 
         if (commands.length > 0) {
             // only consider the first command that a user asks for help on to avoid spam
             const cmd = this.client.commands.get(commands[0]) || this.client.commands.get(this.client.aliases.get(commands[0]));
-            if (!cmd) return message.channel.send(`No command named: \`${commands[0]}\` exists`);
-            embed.setAuthor(`Command Help: ${commands[0]}`, message.guild === null ? null : message.guild.iconURL({ dynamic: true }));
-            embed.setDescription([
-                `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}`,
-                `**❯ Description:** ${cmd.description}`,
-                `**❯ Category:** ${cmd.category}`,
-                `**❯ Usage:** ${cmd.usage}`,
-            ]);
+            if (!cmd) return message.channel.send({ content: `No command named: \`${commands[0]}\` exists` });
+            embed.setAuthor({
+                name: `Command Help: ${commands[0]}`,
+                iconURL: message.guild === null ? null : message.guild.iconURL({ dynamic: true }),
+            });
+            embed.setDescription(
+                `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}\n
+                **❯ Description:** ${cmd.description}\n
+                **❯ Category:** ${cmd.category}\n
+                **❯ Usage:** ${cmd.usage}`
+            );
 
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         } else {
-            embed.setDescription([
-                `These are the available commands for Trivia Bot`,
-                `The bot's prefix is: ${this.client.prefix}`,
-                // This will be necessary later when I implement multi word commands
-                // `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
-                `For more detailed information on a specific command, type \`!help\` followed by any of the commands listed below`,
-            ]);
+            // This will be necessary later when I implement multi word commands
+            // `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
+            embed.setDescription(
+                `The bot's prefix is: ${this.client.prefix}\n
+                For more detailed information on a specific command, type \`!help\` followed by any of the commands listed below\n
+                __These are the available commands for Trivia Bot:__\n`
+            );
             let categories;
             if (!this.client.owners.includes(message.author.id)) {
                 categories = this.client.utils.removeDuplicates(
@@ -58,7 +61,7 @@ export default class extends Command {
                         .join(' ')
                 );
             }
-            return message.channel.send(embed);
+            return message.channel.send({ embeds: [embed] });
         }
     }
 }
