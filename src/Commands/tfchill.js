@@ -26,10 +26,9 @@ export default class extends Command {
             time = time * 1000;
         }
         // setting the bot's activity
-        this.client.user.setActivity('tfchill', { type: 'PLAYING' });
 
         // sends a cute lil message to the channel letting the users know that a game will begin
-        message.channel.send(`Lemme grab some questions for ya....\nYou have ${time / 1000} seconds to answer each question`);
+        message.channel.send({ content: `Lemme grab some questions for ya....\nYou have ${time / 1000} seconds to answer each question` });
 
         /* creating empty trivia data variable for this round of trivia
             It will be filled with data that was queried from the api, like so:
@@ -59,7 +58,7 @@ export default class extends Command {
         } catch (e) {
             // if the api call does fail, we log the result and then send a cute lil error to the channel
             console.log(e);
-            message.channel.send('Uh oh, something has gone wrong while trying to get some questions. Please try again');
+            message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
         }
 
         const embed = new MessageEmbed(); // creates new embed instance
@@ -93,7 +92,7 @@ export default class extends Command {
                         parseEntities(triviaData[i].category) // category
                 );
 
-            let msgEmbed = await message.channel.send(embed); // sends the embed
+            let msgEmbed = await message.channel.send({ embeds: [embed] }); // sends the embed
             msgEmbed.react('🇹'); // adds a universal T emoji
             msgEmbed.react('🇫'); // adds a universal F emoji
             msgEmbed.react('🛑'); // adds a universal stop sign
@@ -114,7 +113,7 @@ export default class extends Command {
             };
 
             // adds createReactionCollector to the embed we sent, so we can 'collect' all the correct answers
-            const collector = msgEmbed.createReactionCollector(filter, { time }); // will only collect for n seconds
+            const collector = msgEmbed.createReactionCollector({ filter, time: time }); // will only collect for n seconds
 
             // an array that will hold all the users that answered correctly
             let usersWithCorrectAnswer = [];
@@ -149,11 +148,11 @@ export default class extends Command {
                     // create an embed
                     result = newEmbed
                         .setTitle("Time's Up! No one got it....")
-                        .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
+                        .setDescription('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send(result);
+                        message.channel.send({ embeds: [result] });
                     }
                 } else {
                     // otherwise, create an embed with the results of the question
@@ -165,11 +164,11 @@ export default class extends Command {
                     result = newEmbed
                         .setTitle("Time's Up! Here's who got it right:")
                         .setDescription(usersWithCorrectAnswer.join().replace(',', ', '))
-                        .setFooter('\n The correct answer was ' + parseEntities(triviaData[i].correct_answer))
+                        .setFooter({ text: '\n The correct answer was ' + parseEntities(triviaData[i].correct_answer) })
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send(result);
+                        message.channel.send({ embeds: [result] });
                     }
                 }
                 if (stopped) {
@@ -178,22 +177,22 @@ export default class extends Command {
                     // iterate over the leaderboard if winners exist (if the length of the object's keys isn't 0, then we have winners)
                     if (Object.keys(leaderboard).length !== 0) {
                         // send the embed to the channel after the edit is complete
-                        message.channel.send({ embed: result }).then((msg) => {
+                        message.channel.send({ embeds: [result] }).then((msg) => {
                             // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                             for (const key in leaderboard) {
-                                result.addField(`${key}:`, `${leaderboard[key]}`);
+                                result.addField(`${key}:`, `${leaderboard[key]}`.toString());
                             }
 
                             // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
-                            msg.edit(result.setTitle('**Game Over!**\nFinal Scores:').setDescription('').setColor('#fb94d3'));
+                            msg.edit({ embeds: [result.setTitle('**Game Over!**\nFinal Scores:').setDescription('').setColor('#fb94d3')] });
                         });
                     } else {
                         // if the leaderboard is empty, construct a different embed
 
                         // send the embed to the channel after the edit is complete
-                        message.channel.send({ embed: result }).then((msg) => {
+                        message.channel.send({ embeds: [result] }).then((msg) => {
                             // to avoid exceeding the rate limit, we will be editing the result embed instead of sending a new one
-                            msg.edit(result.setTitle('Game Over! No one got anything right....').setColor('#fb94d3'));
+                            msg.edit({ embeds: [result.setTitle('Game Over! No one got anything right....').setColor('#fb94d3')] });
                         });
                     }
                     // so the for loop can stop executing
@@ -224,16 +223,15 @@ export default class extends Command {
 
                 // loop over the contents of the leaderboard, and add fields to the embed on every iteration
                 for (const key in leaderboard) {
-                    winner.addField(`${key}:`, `${leaderboard[key]}`);
+                    winner.addField(`${key}:`, `${leaderboard[key]}`.toString());
                 }
-                message.channel.send(winner);
+                message.channel.send({ embeds: [winner] });
             } else {
                 // if the leaderboard is empty, construct a different embed
                 winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#fb94d3');
                 // send the embed to the channel
-                message.channel.send(winnerEmbed);
+                message.channel.send({ embeds: [winnerEmbed] });
             }
         }
-        this.client.user.setActivity('', { type: '' });
     }
 }

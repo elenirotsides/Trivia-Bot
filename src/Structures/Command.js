@@ -12,7 +12,7 @@ const optSubCommandsDefinitions = {
         default: 10,
         min: 10,
         max: 180,
-    }
+    },
 };
 
 export default class Command {
@@ -36,7 +36,7 @@ export default class Command {
      * and checks all the validations against the value.
      *
      * Returns an object with the validity and casted value of the arguments
-    */
+     */
     validateArgument(arg, validations) {
         try {
             let allowed = true;
@@ -50,13 +50,13 @@ export default class Command {
             allowed = allowed && (min !== undefined ? value >= min : true);
             return {
                 isValid: allowed,
-                value
+                value,
             };
         } catch {
             // If there's any error during the conversion, take it as invalid
             return {
                 isValid: false,
-                value: null
+                value: null,
             };
         }
     }
@@ -68,7 +68,7 @@ export default class Command {
      * Returns the casted values if applicable
      * `commands` is an array of the passed options followed by the desired value.
      * e.g. ['time', '15', 'questions', '5']
-    */
+     */
     validateCommands(message, commands) {
         if (commands) {
             const parsedCmds = {};
@@ -89,7 +89,6 @@ export default class Command {
                 // If a command has a `type` property it consumes the next input
                 if (cmdDef.type) {
                     consumeInput = true;
-
                 }
                 // Check if an expected argument is missing
                 if (consumeInput && i + 1 >= commands.length) {
@@ -101,22 +100,21 @@ export default class Command {
                 parsedCmds[cmd] = this.validateArgument(commands[i], cmdDef);
             }
 
+            const validCmds = subCmds.map((cmd, i) => {
+                return this.strictSubCommands.includes(cmd) || this.optSubCommands.includes(cmd);
+            });
 
-            const validCmds = subCmds.map(
-                (cmd, i) => {
-                    return this.strictSubCommands.includes(cmd) || this.optSubCommands.includes(cmd)
-                }
-            );
-
-            for(let i = 0; i < validCmds.length; i++) {
+            for (let i = 0; i < validCmds.length; i++) {
                 // Check for subcommands
                 if (!validCmds[i]) {
-                    message.channel.send(`\`${this.name}\` does not have sub-command named: \`${subCmds[i]}\``);
+                    message.channel.send({ content: `\`${this.name}\` does not have sub-command named: \`${subCmds[i]}\`` });
                     return false;
                 }
                 // Check for arguments
                 if (parsedCmds[subCmds[i]] && !parsedCmds[subCmds[i]].isValid) {
-                    message.channel.send(`\`${this.name}\` option: \`${subCmds[i]}\` has an unexpected value \`${parsedCmds[subCmds[i]].value}\``);
+                    message.channel.send({
+                        content: `\`${this.name}\` option: \`${subCmds[i]}\` has an unexpected value \`${parsedCmds[subCmds[i]].value}\``,
+                    });
                     return false;
                 }
             }

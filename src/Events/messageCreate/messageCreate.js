@@ -17,10 +17,11 @@ export default class extends Event {
                 'If you ever forget how to use me, just type `!help`',
             ];
             let randomIndex = Math.floor(Math.random() * responseArray.length);
-            message.channel.send(responseArray[randomIndex]);
+            message.channel.send({ content: responseArray[randomIndex] });
         }
 
-        if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
+        if (message.content.match(mentionRegex))
+            message.channel.send({ content: `My prefix for ${message.guild.name} is \`${this.client.prefix}\`.` });
 
         const prefix = message.content.match(mentionRegexPrefix) ? message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
 
