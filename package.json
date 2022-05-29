@@ -24,20 +24,20 @@
     },
     "homepage": "https://github.com/elenirotsides/Trivia-Bot#readme",
     "dependencies": {
-        "axios": "^0.26.0",
+        "axios": "^0.27.0",
         "discord.js": "^12.5.3",
         "dotenv": "^16.0.0",
-        "glob": "^7.1.7",
+        "glob": "^8.0.0",
         "parse-entities": "^4.0.0",
         "path": "^0.12.7",
         "topgg-autoposter": "^2.0.1",
         "util": "^0.12.4"
     },
     "devDependencies": {
-        "@babel/core": "7.17.5",
-        "@babel/node": "7.16.8",
-        "@babel/preset-env": "7.16.11",
-        "nodemon": "2.0.15"
+        "@babel/core": "7.18.2",
+        "@babel/node": "7.17.10",
+        "@babel/preset-env": "7.18.2",
+        "nodemon": "2.0.16"
     },
     "type": "module"
 }
