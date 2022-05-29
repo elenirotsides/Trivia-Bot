@@ -4,7 +4,7 @@
     "description": "## Team Members",
     "main": "bot.js",
     "engines": {
-        "node": "16.13.0",
+        "node": "16.6.2",
         "npm": "8.1.0"
     },
     "scripts": {
