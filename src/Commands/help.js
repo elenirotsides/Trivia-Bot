@@ -28,10 +28,9 @@ export default class extends Command {
                 iconURL: message.guild === null ? null : message.guild.iconURL({ dynamic: true }),
             });
             embed.setDescription(
-                `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}\n
-                **❯ Description:** ${cmd.description}\n
-                **❯ Category:** ${cmd.category}\n
-                **❯ Usage:** ${cmd.usage}`
+                `**❯ Aliases:** ${cmd.aliases.length ? cmd.aliases.map((alias) => `\`${alias}\``).join(' ') : 'No Aliases'}\n**❯ Description:** ${
+                    cmd.description
+                }\n**❯ Category:** ${cmd.category}\n**❯ Usage:** ${cmd.usage}`
             );
 
             return message.channel.send({ embeds: [embed] });
@@ -39,9 +38,7 @@ export default class extends Command {
             // This will be necessary later when I implement multi word commands
             // `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
             embed.setDescription(
-                `The bot's prefix is: ${this.client.prefix}\n
-                For more detailed information on a specific command, type \`!help\` followed by any of the commands listed below\n
-                __These are the available commands for Trivia Bot:__\n`
+                `❯ The bot's prefix is: ${this.client.prefix}\n❯ For more detailed information on a specific command, type \`!help\` followed by any of the commands listed below\n\n**These are the available commands for Trivia Bot:**\n`
             );
             let categories;
             if (!this.client.owners.includes(message.author.id)) {

@@ -17,7 +17,12 @@ export default class extends Event {
                 'If you ever forget how to use me, just type `!help`',
             ];
             let randomIndex = Math.floor(Math.random() * responseArray.length);
-            message.channel.send({ content: responseArray[randomIndex] });
+
+            try {
+                message.channel.send({ content: responseArray[randomIndex] });
+            } catch (e) {
+                console.log(e);
+            }
         }
 
         if (message.content.match(mentionRegex))
