@@ -29,6 +29,7 @@ There are many different commands you can use to interact with Trivia Bot. _This
 -   `!mcchill` Starts a round of chill Multiple Choice Trivia.
 -   `!mccompetitive` Starts a round of competitive Multiple Choice Trivia.
 -   `!help` Lists out all the commands that Trivia Bot responds to, and what they do.
+-   `!info` Responds with a Discord embed that contains links to `GitHub`, `Top.gg`, and the `Discord Support Server`
 -   🛑 Stops the current Trivia game
 
 The difference between `chill` and `competitive`:
