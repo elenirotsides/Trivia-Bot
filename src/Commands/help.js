@@ -22,7 +22,17 @@ export default class extends Command {
         if (commands.length > 0) {
             // only consider the first command that a user asks for help on to avoid spam
             const cmd = this.client.commands.get(commands[0]) || this.client.commands.get(this.client.aliases.get(commands[0]));
-            if (!cmd) return message.channel.send({ content: `No command named: \`${commands[0]}\` exists` });
+
+            if (!cmd) {
+                try {
+                    message.channel.send({ content: `No command named: \`${commands[0]}\` exists` });
+                    return;
+                } catch (e) {
+                    console.log(e);
+                    return;
+                }
+            }
+
             embed.setAuthor({
                 name: `Command Help: ${commands[0]}`,
                 iconURL: message.guild === null ? null : message.guild.iconURL({ dynamic: true }),
@@ -33,7 +43,13 @@ export default class extends Command {
                 }\n**❯ Category:** ${cmd.category}\n**❯ Usage:** ${cmd.usage}`
             );
 
-            return message.channel.send({ embeds: [embed] });
+            try {
+                message.channel.send({ embeds: [embed] });
+                return;
+            } catch (e) {
+                console.log(e);
+                return;
+            }
         } else {
             // This will be necessary later when I implement multi word commands
             // `Command Parameters: \`<>\` is strict & \`[]\` is optional`,
@@ -58,7 +74,13 @@ export default class extends Command {
                         .join(' ')
                 );
             }
-            return message.channel.send({ embeds: [embed] });
+            try {
+                message.channel.send({ embeds: [embed] });
+                return;
+            } catch (e) {
+                console.log(e);
+                return;
+            }
         }
     }
 }
