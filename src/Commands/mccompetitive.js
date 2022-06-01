@@ -18,10 +18,14 @@ export default class extends Command {
         if (!this.validateCommands(message, commands)) {
             return;
         }
-        // setting the bot's activity
 
         // sends a cute lil message to the channel letting the users know that a game will begin
-        message.channel.send({ content: 'Lemme grab some questions for ya....' });
+        try {
+            message.channel.send({ content: 'Lemme grab some questions for ya....' });
+        } catch (e) {
+            console.log(e);
+            return;
+        }
 
         /* creating empty trivia data variable for this round of trivia
             It will be filled with data that was queried from the api, like so:
@@ -55,7 +59,12 @@ export default class extends Command {
         } catch (e) {
             // if the api call does fail, we log the result and then send a cute lil error to the channel
             console.log(e);
-            message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
+            try {
+                message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
+            } catch (e) {
+                console.log(e);
+                return;
+            }
         }
 
         const embed = new MessageEmbed(); // creates new embed instance
@@ -127,7 +136,13 @@ export default class extends Command {
                         parseEntities(triviaData[i].category) // category
                 );
 
-            let msgEmbed = await message.channel.send({ embeds: [embed] }); // sends the embed
+            let msgEmbed;
+            try {
+                msgEmbed = await message.channel.send({ embeds: [embed] }); // sends the embed
+            } catch (e) {
+                console.log(e);
+                return;
+            }
             msgEmbed.react('🇦'); // adds a universal A emoji
             msgEmbed.react('🇧'); // adds a universal B emoji
             msgEmbed.react('🇨'); // and so on...
@@ -195,7 +210,12 @@ export default class extends Command {
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send({ embeds: [result] });
+                        try {
+                            message.channel.send({ embeds: [result] });
+                        } catch (e) {
+                            console.log(e);
+                            return;
+                        }
                     }
                 } else {
                     // otherwise, create an embed with the results of the question
@@ -209,7 +229,12 @@ export default class extends Command {
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send({ embeds: [result] });
+                        try {
+                            message.channel.send({ embeds: [result] });
+                        } catch (e) {
+                            console.log(e);
+                            return;
+                        }
                     }
                 }
                 if (stopped) {
@@ -264,12 +289,22 @@ export default class extends Command {
                 for (const key in leaderboard) {
                     winner.addField(`${key}:`, `${leaderboard[key]}`.toString());
                 }
-                message.channel.send({ embeds: [winner] });
+                try {
+                    message.channel.send({ embeds: [winner] });
+                } catch (e) {
+                    console.log(e);
+                    return;
+                }
             } else {
                 // if the leaderboard is empty, construct a different embed
                 winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#fb94d3');
                 // send the embed to the channel
-                message.channel.send({ embeds: [winnerEmbed] });
+                try {
+                    message.channel.send({ embeds: [winnerEmbed] });
+                } catch (e) {
+                    console.log(e);
+                    return;
+                }
             }
         }
     }

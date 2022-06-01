@@ -27,6 +27,11 @@ export default class extends Command {
             .setFooter({ text: 'Yours truly, Trivia Bot ❤️' })
             .setTimestamp();
 
-        message.channel.send({ embeds: [embed] });
+        try {
+            message.channel.send({ embeds: [embed] });
+        } catch (e) {
+            console.log(e);
+            return;
+        }
     }
 }

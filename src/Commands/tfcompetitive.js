@@ -18,7 +18,6 @@ export default class extends Command {
         if (!this.validateCommands(message, commands)) {
             return;
         }
-        // setting the bot's activity
 
         let triviaData;
 
@@ -26,7 +25,12 @@ export default class extends Command {
             triviaData = await (await axios(`https://opentdb.com/api.php?amount=10&type=boolean`)).data.results;
         } catch (e) {
             console.log(e);
-            message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
+            try {
+                message.channel.send({ content: 'Uh oh, something has gone wrong while trying to get some questions. Please try again' });
+            } catch (e) {
+                console.log(e);
+                return;
+            }
         }
 
         const embed = new MessageEmbed();
@@ -48,7 +52,13 @@ export default class extends Command {
                         parseEntities(triviaData[i].category)
                 );
 
-            let msgEmbed = await message.channel.send({ embeds: [embed] });
+            let msgEmbed;
+            try {
+                msgEmbed = await message.channel.send({ embeds: [embed] });
+            } catch (e) {
+                console.log(e);
+                return;
+            }
             msgEmbed.react('🇹');
             msgEmbed.react('🇫');
             msgEmbed.react('🛑'); // adds a universal stop sign
@@ -69,7 +79,6 @@ export default class extends Command {
             let userWithCorrectAnswer = [];
 
             collector.on('collect', (r, user) => {
-                //message.channel.send(user.username)
                 // add the users that answered correctly to the usersWithCorrect Answer array
                 if (r.emoji.name === '🛑') {
                     counter = 0;
@@ -99,7 +108,12 @@ export default class extends Command {
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send({ embeds: [result] });
+                        try {
+                            message.channel.send({ embeds: [result] });
+                        } catch (e) {
+                            console.log(e);
+                            return;
+                        }
                     }
                 } else {
                     // otherwise, create an embed with the results of the question
@@ -115,7 +129,12 @@ export default class extends Command {
                         .setColor('#f40404');
                     // send the embed to the channel if the game wasn't terminated
                     if (!stopped) {
-                        message.channel.send({ embeds: [result] });
+                        try {
+                            message.channel.send({ embeds: [result] });
+                        } catch (e) {
+                            console.log(e);
+                            return;
+                        }
                     }
                 }
                 if (stopped) {
@@ -166,12 +185,22 @@ export default class extends Command {
                 for (const key in leaderboard) {
                     winner.addField(`${key}:`, `${leaderboard[key]}`.toString());
                 }
-                message.channel.send({ embeds: [winner] });
+                try {
+                    message.channel.send({ embeds: [winner] });
+                } catch (e) {
+                    console.log(e);
+                    return;
+                }
             } else {
                 // if the leaderboard is empty, construct a different embed
                 winnerEmbed.setTitle('Game Over! No one got anything right...').setColor('#fb94d3');
                 // send the embed to the channel
-                message.channel.send({ embeds: [winnerEmbed] });
+                try {
+                    message.channel.send({ embeds: [winnerEmbed] });
+                } catch (e) {
+                    console.log(e);
+                    return;
+                }
             }
         }
     }

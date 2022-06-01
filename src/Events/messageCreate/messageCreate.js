@@ -25,8 +25,13 @@ export default class extends Event {
             }
         }
 
-        if (message.content.match(mentionRegex))
-            message.channel.send({ content: `My prefix for ${message.guild.name} is \`${this.client.prefix}\`.` });
+        if (message.content.match(mentionRegex)) {
+            try {
+                message.channel.send({ content: `My prefix for ${message.guild.name} is \`${this.client.prefix}\`.` });
+            } catch (e) {
+                console.log(e);
+            }
+        }
 
         const prefix = message.content.match(mentionRegexPrefix) ? message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
 
