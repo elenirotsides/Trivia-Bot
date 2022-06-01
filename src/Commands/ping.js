@@ -13,7 +13,14 @@ export default class extends Command {
         if (!this.validateCommands(message, commands)) {
             return;
         }
-        const msg = await message.channel.send({ content: 'Pinging...' });
+
+        let msg;
+        try {
+            msg = await message.channel.send({ content: 'Pinging...' });
+        } catch (e) {
+            console.log(e);
+            return;
+        }
         const latency = msg.createdTimestamp - message.createdTimestamp;
 
         msg.edit(`Bot Latency: \`${latency}ms\`, API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
