@@ -14,7 +14,7 @@
 
 ## What is Trivia Bot?
 
-Trivia Bot is a fun, fully functional, and verified Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. We've made use of the Open Trivia Database API for the trivia questions that we use in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
+Trivia Bot is a fun, fully functional, and verified Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. The bot uses the Open Trivia Database API for the trivia questions that are used in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
 
 ## Add to your server
 
@@ -22,7 +22,7 @@ Click [here](https://discord.com/api/oauth2/authorize?client_id=8319746827097210
 
 ## Commands
 
-There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as we continue to add more features!_ Here is what we currently have going on:
+There are many different commands you can use to interact with Trivia Bot. _This section will be evolving as more features are continually added!_ Here is a list of the current commands:
 
 -   `!tfchill` Starts a round of chill T/F Trivia.
 -   `!tfcompetitive` Starts a round of competitive T/F Trivia.
@@ -69,14 +69,13 @@ By default, Trivia Bot will give you 10 seconds per question. So, if you don't p
 
 ## Command Aliases
 
-Sometimes you'll mispell something and sometimes you'll want a quicker way to interact with the bot. Below are a list of aliases you can use in place of the original command names:
+Sometimes you'll mispell something and sometimes you'll want a quicker way to interact with the bot. Below are a list of aliases that exist so that your original intention will be recognized:
 
--   You can use `!halp`, `!hwlp`, `!hrlp` instead of `!help`
--   You can use `!mchill` instead of `!mcchill`
--   You can use `!mcompetitive`, `!mccomp`, `!mcomp` instead of `!mccompetitive`
--   You can use `!pong` instead of `!ping`
--   You can use `!rewuest`, `!bug` instead of `!request`
--   You can use `!tfcomp` instead of `!tfcompetitive`
+-   `!halp`, `!hwlp`, `!hrlp` works for `!help`
+-   `!mchill` works for `!mcchill`
+-   `!mcompetitive`, `!mccomp`, `!mcomp` works for `!mccompetitive`
+-   `!pong` works for `!ping`
+-   `!tfcomp` works for `!tfcompetitive`
 
 ## Contributing
 
@@ -86,7 +85,7 @@ Please see [CONTRIBUTING.md](https://github.com/elenirotsides/Trivia-Bot/blob/ma
 
 Discussions have been enabled on this repository, so please feel free to ask any questions, make suggestions, etc. over [here](https://github.com/elenirotsides/Trivia-Bot/discussions) if you'd like! Please report bugs by opening up an issue for it in the [Issues](https://github.com/elenirotsides/Trivia-Bot/issues) tab.
 
-You can also join our Trivia Bot Support server and ask questions there, too:
+You can also join the Trivia Bot Support server and ask questions there, too:
 
 <a href="https://discord.gg/wsyUhnDrmd"><img src="https://invidget.switchblade.xyz/wsyUhnDrmd"></a>
 
@@ -98,6 +97,6 @@ Trivia Bot is still an active work in progress and therefore, it has some _quirk
 
     > User 1 selects choice B, unselects choice B, then selects choice C. The correct answer was C and the bot accepts User 1's choice even though only the first selection should be considered.
 
-    The Discord API limits what we can do with reactions (which is how Trivia Bot collects answers). The solution would be to disregard any other clicks after the first attempt has been executed. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/52).
+    The Discord API limits what can be done with reactions (which is how Trivia Bot collects answers). The solution would be to disregard any other clicks after the first attempt has been executed. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/52).
 
 -   The bot will throw an error, can be seen [here](https://github.com/elenirotsides/Trivia-Bot/issues/110), about Permissions, but I have no idea what causes it or how to fix it. I am actively investigating this and I hope to find a solution soon!
