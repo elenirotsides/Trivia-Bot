@@ -33,6 +33,9 @@ to install all the project's required dependancies!
 
 You can run your bot with `npm start` but if you want it to automatically refresh every time you save, you can use `npm run dev`
 
+### Note
+Please install the prettier extension and make sure to use our config.
+
 ## Where to start
 
 Please comment on any issue you'd like to take or open an issue to add something I haven't detailed out already. I'll decide later if its worth doing and will let you know. Or, open a PR with whatever you've done even if its not already fleshed out in an issue. **TLDR**; when in doubt, open a PR!
