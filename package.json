@@ -24,12 +24,14 @@
     },
     "homepage": "https://github.com/elenirotsides/Trivia-Bot#readme",
     "dependencies": {
+        "@discordjs/builders": "^0.14.0",
+        "@discordjs/rest": "^0.5.0",
         "axios": "^0.27.0",
+        "discord-api-types": "^0.33.5",
         "discord.js": "^13.8.0",
         "dotenv": "^16.0.0",
         "glob": "^8.0.0",
         "parse-entities": "^4.0.0",
-        "path": "^0.12.7",
         "topgg-autoposter": "^2.0.1",
         "util": "^0.12.4"
     },
