@@ -1,5 +1,9 @@
 import { Client, Collection, Intents } from 'discord.js';
 import Util from './Util.js';
+import { Routes } from 'discord-api-types/v9';
+import { REST } from '@discordjs/rest';
+import fs from 'fs';
+import path from 'path';
 
 export default class MDClient extends Client {
     constructor(options = {}) {
@@ -14,6 +18,7 @@ export default class MDClient extends Client {
             ],
             partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER'],
         });
+        
         this.validate(options);
 
         this.commands = new Collection();
@@ -23,6 +28,8 @@ export default class MDClient extends Client {
         this.events = new Collection();
 
         this.utils = new Util(this);
+
+        this.commandsArray = [];
     }
 
     validate(options) {
@@ -31,17 +38,60 @@ export default class MDClient extends Client {
         if (!options.token) throw new Error('You must pass the token for the client.');
         this.token = options.token;
 
-        if (!options.prefix) throw new Error('You must pass a prefix for the client.');
-        if (typeof options.prefix !== 'string') throw new TypeError('Prefix should be a type of String.');
-        this.prefix = options.prefix;
-
         if (!options.owners) throw new Error('You must pass a list of owners for the client.');
         if (!Array.isArray(options.owners)) throw new TypeError('Owners should be a type of Array<String>.');
         this.owners = options.owners;
+
+        if (!options.guild) throw new Error('You must pass a test guild id.');
+        this.guild = options.guild;
+
+        if (!options.id) throw new Error('You must pass the id of the client.');
+        this.id = options.id;
+    }
+
+    async loadCommands(type) {
+        if (type != 'global' && type != 'local') return;
+
+        const __dirname = path.resolve(path.dirname(''));
+
+        const cmdDir = fs.readdirSync(path.resolve(__dirname, 'src/Commands'));
+
+        for (const commandFile of cmdDir) {
+            if (!commandFile.endsWith('.js')) return;
+
+            import(`../commands/${commandFile}`).then((e) => {
+                const cmd = e.default;
+
+                this.commands.set(cmd.data.name, cmd);
+                this.commandsArray.push(cmd.data.toJSON());
+            });
+        }
+
+        const rest = new REST({
+            version: '10',
+        }).setToken(this.token);
+
+        try {
+            if (type === 'global') {
+                await rest.put(Routes.applicationCommands(this.id), {
+                    body: this.commandsArray,
+                });
+
+                console.log('OK: Registered commands globally');
+            } else {
+                await rest.put(Routes.applicationGuildCommands(this.id, this.guild), {
+                    body: this.commandsArray,
+                });
+
+                console.log('OK: Registered commands locally');
+            }
+        } catch (err) {
+            if (err) console.error(err);
+        }
     }
 
     async start(token = this.token) {
-        this.utils.loadCommands();
+        this.loadCommands('local');
         this.utils.loadEvents();
         super.login(token);
     }
