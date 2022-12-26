@@ -25,9 +25,11 @@ export default class Command {
         this.usage = `${this.client.prefix}${this.name} ${options.usage || ''}`.trim();
         this.strictSubCommands = options.strictSubCommands || [];
         this.optSubCommands = options.optSubCommands || [];
+        console.log("command constructor")
     }
 
     async run(message, args) {
+        console.log("run")
         throw new Error(`Command ${this.name} doesn't provide a run method!`);
     }
 
@@ -38,6 +40,7 @@ export default class Command {
      * Returns an object with the validity and casted value of the arguments
      */
     validateArgument(arg, validations) {
+        console.log("validate argument")
         try {
             let allowed = true;
             // Create the value with the `type` property, a Class/constructor
@@ -70,6 +73,7 @@ export default class Command {
      * e.g. ['time', '15', 'questions', '5']
      */
     validateCommands(message, commands) {
+        console.log("validate commands")
         if (commands) {
             const parsedCmds = {};
             const subCmds = [];
