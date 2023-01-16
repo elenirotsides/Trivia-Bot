@@ -5,26 +5,17 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import { getMultipleChoice } from '../Api/opentdb.js';
+import { parseEntities } from 'parse-entities';
+import {
+  getAnswersAndCorrectAnswerIndex,
+  createMulitpleChoiceAnswerButtons,
+} from '../Helpers/index.js';
 
 const ping = {
   data: new SlashCommandBuilder()
     .setName('buttons')
     .setDescription('Shows example buttons and reponds to clicks'),
   async execute(interaction) {
-    const button = new ButtonBuilder()
-      .setCustomId('1')
-      .setLabel('Answer 1')
-      .setStyle(ButtonStyle.Primary);
-    const button2 = new ButtonBuilder()
-      .setCustomId('2')
-      .setLabel('Answer 2')
-      .setStyle(ButtonStyle.Primary);
-    const row = new ActionRowBuilder({ components: [button, button2] });
-    // const filter = i => {
-    //   i.deferUpdate();s
-    //   return i.user.id === message.author.id;
-    // };
-
     let triviaData;
     try {
       triviaData = await getMultipleChoice();
@@ -39,32 +30,57 @@ const ping = {
 
     const leaderBoard = {};
 
-    const msg = await interaction.reply({
+    await interaction.reply({
       content: `${'User'} has started the game`,
-      components: [row],
     });
+
+    let counter = 0;
+    const myInterval = setInterval(async () => {
+      const question = triviaData[counter];
+
+      const { answers, answerIndex } =
+        getAnswersAndCorrectAnswerIndex(question);
+      const answerButtons = createMulitpleChoiceAnswerButtons();
+      const formattedAnswers = answers
+        .map((answer, index) => `${index + 1}. ${parseEntities(answer)}`)
+        .join('\n');
+
+      const content = `${parseEntities(
+        question.question
+      )}\n${formattedAnswers}`;
+
+      await interaction.followUp({ content, components: [answerButtons] });
+      const collector = interaction.channel.createMessageComponentCollector({
+        // Component type button
+        componentType: 2,
+        time: 15000,
+      });
+      collector.on('collect', (i) => {
+        console.log('Collecting');
+        // const userId = i.user.id;
+        const buttonId = i.customId;
+        const isCorrect = buttonId === answerIndex;
+        i.reply({ content: isCorrect ? 'Correct' : 'Wrong', ephemeral: true });
+
+        // if (answers[user]) {
+        //   i.reply({ content: 'You have already answered', ephemeral: true });
+        //   return;
+        // }
+      });
+      collector.on('end', (collected) => {
+        interaction.deleteReply();
+      });
+
+      counter++;
+      if (counter === 10) {
+        clearInterval(myInterval);
+      }
+    }, 10000);
 
     // for (const question of triviaData) {
-    const collector = interaction.channel.createMessageComponentCollector({
-      componentType: 2,
-      time: 15000,
-    });
-    const answers = {};
-    collector.on('collect', (i) => {
-      console.log('Collecting')
-      const user = i.user.id;
-      const buttonId = i.customId;
 
-      if (answers[user]) {
-        i.reply({ content: 'You have already answered', ephemeral: true });
-      } else {
-        answers[user] = buttonId;
-        i.reply({ content: 'Got it', ephemeral: true });
-      }
-    });
-    collector.on('end', (collected) => {
-      interaction.deleteReply();
-    });
+    const answers = {};
+
     // };
     console.log('done');
 
