@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonStyle } from 'discord.js';
+import { ActionRowBuilder, ButtonStyle, ButtonBuilder } from 'discord.js';
 
 export const getAnswersAndCorrectAnswerIndex = (triviaRound) => {
   const answerIndex = Math.floor(Math.random() * 4);
