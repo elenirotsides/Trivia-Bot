@@ -10,38 +10,44 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const commandFiles = fs.readdirSync('./src/temp').filter(file => file.endsWith('.js'));
+const commandFiles = fs
+  .readdirSync('./src/temp')
+  .filter((file) => file.endsWith('.js'));
 (async () => {
-	for (const file of commandFiles) {
-		const filePath = path.join('./temp', file);
-		const { default: command } = await import(`./${filePath}`);
-		// Set a new item in the Collection with the key as the command name and the value as the exported module
-		if ('data' in command && 'execute' in command) {
-			client.commands.set(command.data.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-		}
-	}
-})()
-client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+  for (const file of commandFiles) {
+    const filePath = path.join('./temp', file);
+    const { default: command } = await import(`./${filePath}`);
+    // Set a new item in the Collection with the key as the command name and the value as the exported module
+    if ('data' in command && 'execute' in command) {
+      client.commands.set(command.data.name, command);
+    } else {
+      console.log(
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      );
+    }
+  }
+  console.log('Bot is ready');
+})();
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
 
-	const command = interaction.client.commands.get(interaction.commandName);
+  const command = interaction.client.commands.get(interaction.commandName);
 
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
-	}
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
 
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-	}
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({
+      content: 'There was an error while executing this command!',
+      ephemeral: true,
+    });
+  }
 });
-
-
 
 // import MDClient from './Structures/MDClient.js';
 // import { AutoPoster } from 'topgg-autoposter';
@@ -53,8 +59,6 @@ client.on(Events.InteractionCreate, async interaction => {
 // });
 
 // client.start();
-
-
 
 // import { REST, Routes } from 'discord.js';
 
@@ -82,8 +86,6 @@ client.on(Events.InteractionCreate, async interaction => {
 //         console.error(error);
 //     }
 // })();
-
-
 
 // import { Client, GatewayIntentBits } from 'discord.js';
 // const client = new Client({ intents: [GatewayIntentBits.Guilds] });

@@ -1,15 +1,13 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  SlashCommandBuilder,
-} from 'discord.js';
-import { getMultipleChoice } from '../Api/opentdb.js';
+import { SlashCommandBuilder } from 'discord.js';
 import { parseEntities } from 'parse-entities';
+import { getMultipleChoice } from '../Api/opentdb.js';
 import {
   getAnswersAndCorrectAnswerIndex,
   createMulitpleChoiceAnswerButtons,
 } from '../Helpers/index.js';
+
+const questionLengthInSeconds = 15;
+const questionLength = questionLengthInSeconds * 1000;
 
 const ping = {
   data: new SlashCommandBuilder()
@@ -28,10 +26,10 @@ const ping = {
       return;
     }
 
-    const leaderBoard = {};
+    const leaderBoard = new Map();
 
     await interaction.reply({
-      content: `${'User'} has started the game`,
+      content: `${interaction.user.username} has started the game\nGame will start in ${questionLengthInSeconds} seconds`,
     });
 
     let counter = 0;
@@ -42,50 +40,84 @@ const ping = {
         getAnswersAndCorrectAnswerIndex(question);
       const answerButtons = createMulitpleChoiceAnswerButtons();
       const formattedAnswers = answers
-        .map((answer, index) => `${index + 1}. ${parseEntities(answer)}`)
+        .map(
+          (answer, index) =>
+            `${String.fromCharCode(index + 65)}. ${parseEntities(answer)}`
+        )
         .join('\n');
 
       const content = `${parseEntities(
         question.question
       )}\n${formattedAnswers}`;
 
-      await interaction.followUp({ content, components: [answerButtons] });
+      const questionInteraction = await interaction.followUp({
+        content,
+        components: [answerButtons],
+      });
       const collector = interaction.channel.createMessageComponentCollector({
         // Component type button
         componentType: 2,
-        time: 15000,
+        // Gives time for the question to end before the next question starts
+        time: questionLength - 1000,
       });
+      let correctAnswerCount = 0;
+      let incorrectAnswerCount = 0;
+      const usersThatHaveAnsweredQuestion = new Set();
       collector.on('collect', (i) => {
-        console.log('Collecting');
-        // const userId = i.user.id;
+        const userId = i.user.id;
+        if (usersThatHaveAnsweredQuestion.has(userId)) {
+          return;
+        }
+        usersThatHaveAnsweredQuestion.add(userId);
+
         const buttonId = i.customId;
         const isCorrect = buttonId === answerIndex;
-        i.reply({ content: isCorrect ? 'Correct' : 'Wrong', ephemeral: true });
 
-        // if (answers[user]) {
-        //   i.reply({ content: 'You have already answered', ephemeral: true });
-        //   return;
-        // }
+        if (isCorrect) {
+          // Change the value to be the score and the ID
+          const currentScore = leaderBoard.get(userId) || 0;
+          leaderBoard.set(userId, currentScore + 1);
+          correctAnswerCount++;
+        } else {
+          incorrectAnswerCount++;
+        }
+        i.reply({
+          content: isCorrect ? 'Correct' : 'Wrong',
+          ephemeral: true,
+        });
       });
-      collector.on('end', (collected) => {
-        interaction.deleteReply();
+      collector.on('end', () => {
+        const totalAnswers = correctAnswerCount + incorrectAnswerCount;
+        const correctMessage = `${correctAnswerCount}/${totalAnswers} guessed correctly`;
+
+        const postQuestionContent = answers
+          .map((answer, index) => {
+            const letter = String.fromCharCode(index + 65);
+            const parsedAnswer = parseEntities(answer);
+            const answerText = `${letter}. ${parsedAnswer}`;
+            if (answerIndex !== index) {
+              return answerText;
+            }
+            return `**${answerText}**`;
+          })
+          .join('\n');
+
+        questionInteraction.edit({
+          content: `${postQuestionContent}\n${correctMessage}`,
+          components: [],
+        });
       });
 
       counter++;
       if (counter === 10) {
         clearInterval(myInterval);
+
+        // Get the winner
+        await interaction.followUp({
+          content: 'The winner',
+        });
       }
-    }, 10000);
-
-    // for (const question of triviaData) {
-
-    const answers = {};
-
-    // };
-    console.log('done');
-
-    // await interaction.followUp({content: 'Question 1', components: [row2]});
-    // await interaction.followUp('Question 2');
+    }, questionLength);
   },
 };
 
