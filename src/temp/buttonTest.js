@@ -6,8 +6,9 @@ import {
   createMulitpleChoiceAnswerButtons,
 } from '../Helpers/index.js';
 
-const questionLengthInSeconds = 15;
+const questionLengthInSeconds = 5;
 const questionLength = questionLengthInSeconds * 1000;
+const rounds = 10;
 
 const ping = {
   data: new SlashCommandBuilder()
@@ -95,7 +96,7 @@ const ping = {
             const letter = String.fromCharCode(index + 65);
             const parsedAnswer = parseEntities(answer);
             const answerText = `${letter}. ${parsedAnswer}`;
-            if (answerIndex !== index) {
+            if (answerIndex !== index.toString()) {
               return answerText;
             }
             return `**${answerText}**`;
@@ -109,12 +110,17 @@ const ping = {
       });
 
       counter++;
-      if (counter === 10) {
+      if (counter === rounds) {
         clearInterval(myInterval);
 
-        // Get the winner
+        const winnerText = Object.entries(leaderBoard)
+          .map(([key, value]) => ({ id: key, score: value }))
+          .sort((a, b) => (a.score < b.score ? 1 : -1))
+          .map(({ id, score }, index) => `${index + 1}. ${id} - ${score}`)
+          .join('\n');
+
         await interaction.followUp({
-          content: 'The winner',
+          content: winnerText,
         });
       }
     }, questionLength);
@@ -123,18 +129,7 @@ const ping = {
 
 export default ping;
 
-// Someone initiates the game
-// create a leaderboard
-// fetch the questions/answers
-// reply that the game is starting
-
-// have a loop, each one is a followUp with a new collector
-// function that creates the buttons with the answers
-// add to leaderboard on collect
-// on question end, disable the buttons, write the correct answer as a letter and who got it right, or who got it right
-
-// on game end, show the leaderboard top 10 only, or if no winners show a custom message
-
-// Limit the game playing once in a single channel at a time
-// optional - stop button on the start message that only the creator can do it, or the moderator
-// optional - editable number of leaderboard display
+// Game is not ending properly
+// Not displaying winner, or leaderboard - done, but cant test because of above issue
+// Say game has started in original message
+// Game is saying who the winner is before game ends
