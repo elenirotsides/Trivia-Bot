@@ -1,10 +1,9 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { parseEntities } from 'parse-entities';
 import { getMultipleChoice } from '../Api/opentdb.js';
-import {
-  getAnswersAndCorrectAnswerIndex,
-  createMulitpleChoiceAnswerButtons,
-} from '../Helpers/index.js';
+import { getAnswersAndCorrectAnswerIndex } from '../Helpers/answers.js';
+import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
+import { createGameStartMessages } from '../Helpers/messages.js';
 
 const questionLengthInSeconds = 5;
 const questionLength = questionLengthInSeconds * 1000;
@@ -27,30 +26,35 @@ const ping = {
       return;
     }
 
-    const leaderBoard = new Map();
+    const { initialMessage, updatedMessage } = createGameStartMessages(
+      interaction.user.id,
+      questionLengthInSeconds
+    );
 
+    const leaderBoard = new Map();
     await interaction.reply({
-      content: `${interaction.user.username} has started the game\nGame will start in ${questionLengthInSeconds} seconds`,
+      content: initialMessage,
     });
+    let haveUpdatedOriginalMessage = false;
 
     let counter = 0;
     const myInterval = setInterval(async () => {
+      if (!haveUpdatedOriginalMessage) {
+        await interaction.editReply({
+          content: updatedMessage,
+        });
+      }
+      haveUpdatedOriginalMessage = true;
       const question = triviaData[counter];
 
-      const { answers, answerIndex } =
+      const { answerIndex, formattedAnswers, postQuestionContent } =
         getAnswersAndCorrectAnswerIndex(question);
+
+      const parsedQuestion = parseEntities(question.question);
+
+      const content = `${parsedQuestion}\n${formattedAnswers}`;
+
       const answerButtons = createMulitpleChoiceAnswerButtons();
-      const formattedAnswers = answers
-        .map(
-          (answer, index) =>
-            `${String.fromCharCode(index + 65)}. ${parseEntities(answer)}`
-        )
-        .join('\n');
-
-      const content = `${parseEntities(
-        question.question
-      )}\n${formattedAnswers}`;
-
       const questionInteraction = await interaction.followUp({
         content,
         components: [answerButtons],
@@ -64,8 +68,9 @@ const ping = {
       let correctAnswerCount = 0;
       let incorrectAnswerCount = 0;
       const usersThatHaveAnsweredQuestion = new Set();
-      collector.on('collect', (i) => {
+      collector.on('collect', async (i) => {
         const userId = i.user.id;
+
         if (usersThatHaveAnsweredQuestion.has(userId)) {
           return;
         }
@@ -75,7 +80,6 @@ const ping = {
         const isCorrect = buttonId === answerIndex;
 
         if (isCorrect) {
-          // Change the value to be the score and the ID
           const currentScore = leaderBoard.get(userId) || 0;
           leaderBoard.set(userId, currentScore + 1);
           correctAnswerCount++;
@@ -91,20 +95,8 @@ const ping = {
         const totalAnswers = correctAnswerCount + incorrectAnswerCount;
         const correctMessage = `${correctAnswerCount}/${totalAnswers} guessed correctly`;
 
-        const postQuestionContent = answers
-          .map((answer, index) => {
-            const letter = String.fromCharCode(index + 65);
-            const parsedAnswer = parseEntities(answer);
-            const answerText = `${letter}. ${parsedAnswer}`;
-            if (answerIndex !== index.toString()) {
-              return answerText;
-            }
-            return `**${answerText}**`;
-          })
-          .join('\n');
-
         questionInteraction.edit({
-          content: `${postQuestionContent}\n${correctMessage}`,
+          content: `${parsedQuestion}\n${postQuestionContent}\n${correctMessage}`,
           components: [],
         });
       });
@@ -113,15 +105,21 @@ const ping = {
       if (counter === rounds) {
         clearInterval(myInterval);
 
-        const winnerText = Object.entries(leaderBoard)
-          .map(([key, value]) => ({ id: key, score: value }))
-          .sort((a, b) => (a.score < b.score ? 1 : -1))
-          .map(({ id, score }, index) => `${index + 1}. ${id} - ${score}`)
-          .join('\n');
+        setTimeout(async () => {
+          const winnerText =
+            Object.entries(Object.fromEntries(leaderBoard))
+              .map(([key, value]) => ({ id: key, score: value }))
+              .sort((a, b) => (a.score < b.score ? 1 : -1))
+              .map(
+                ({ id, score }, index) =>
+                  `${index + 1}. ${`<@${id}>`} - ${score}`
+              )
+              .join('\n') || 'There was no winner';
 
-        await interaction.followUp({
-          content: winnerText,
-        });
+          await interaction.followUp({
+            content: `Game has ended\n${winnerText}`,
+          });
+        }, questionLength);
       }
     }, questionLength);
   },
@@ -129,7 +127,6 @@ const ping = {
 
 export default ping;
 
-// Game is not ending properly
-// Not displaying winner, or leaderboard - done, but cant test because of above issue
-// Say game has started in original message
-// Game is saying who the winner is before game ends
+
+// A bit more refactoring - move the question into the answers.js
+// Answer not being bold

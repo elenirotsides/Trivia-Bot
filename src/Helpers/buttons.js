@@ -1,12 +1,5 @@
 import { ActionRowBuilder, ButtonStyle, ButtonBuilder } from 'discord.js';
 
-export const getAnswersAndCorrectAnswerIndex = (triviaRound) => {
-  const answerIndex = Math.floor(Math.random() * 4);
-  const answers = [...triviaRound.incorrect_answers];
-  answers.splice(answerIndex, 0, triviaRound.correct_answer);
-  return { answers, answerIndex: answerIndex.toString() };
-};
-
 const createAnswerButtons = (answers) => {
   const answerButtons = answers.map((answer, index) =>
     new ButtonBuilder()
