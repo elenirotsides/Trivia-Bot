@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { parseEntities } from 'parse-entities';
 import { getMultipleChoice } from '../Api/opentdb.js';
-import { getAnswersAndCorrectAnswerIndex } from '../Helpers/answers.js';
+import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
+import { getWinner } from '../Helpers/winner.js';
 
 const questionLengthInSeconds = 5;
 const questionLength = questionLengthInSeconds * 1000;
@@ -31,13 +31,14 @@ const ping = {
       questionLengthInSeconds
     );
 
-    const leaderBoard = new Map();
     await interaction.reply({
       content: initialMessage,
     });
-    let haveUpdatedOriginalMessage = false;
 
+    const leaderBoard = new Map();
+    let haveUpdatedOriginalMessage = false;
     let counter = 0;
+
     const myInterval = setInterval(async () => {
       if (!haveUpdatedOriginalMessage) {
         await interaction.editReply({
@@ -47,16 +48,12 @@ const ping = {
       haveUpdatedOriginalMessage = true;
       const question = triviaData[counter];
 
-      const { answerIndex, formattedAnswers, postQuestionContent } =
-        getAnswersAndCorrectAnswerIndex(question);
-
-      const parsedQuestion = parseEntities(question.question);
-
-      const content = `${parsedQuestion}\n${formattedAnswers}`;
+      const { answerIndex, questionContent, generateUpdatedQuestionContent } =
+        getContentAndCorrectAnswerIndex(question);
 
       const answerButtons = createMulitpleChoiceAnswerButtons();
       const questionInteraction = await interaction.followUp({
-        content,
+        content: questionContent,
         components: [answerButtons],
       });
       const collector = interaction.channel.createMessageComponentCollector({
@@ -96,7 +93,7 @@ const ping = {
         const correctMessage = `${correctAnswerCount}/${totalAnswers} guessed correctly`;
 
         questionInteraction.edit({
-          content: `${parsedQuestion}\n${postQuestionContent}\n${correctMessage}`,
+          content: generateUpdatedQuestionContent(correctMessage),
           components: [],
         });
       });
@@ -106,15 +103,7 @@ const ping = {
         clearInterval(myInterval);
 
         setTimeout(async () => {
-          const winnerText =
-            Object.entries(Object.fromEntries(leaderBoard))
-              .map(([key, value]) => ({ id: key, score: value }))
-              .sort((a, b) => (a.score < b.score ? 1 : -1))
-              .map(
-                ({ id, score }, index) =>
-                  `${index + 1}. ${`<@${id}>`} - ${score}`
-              )
-              .join('\n') || 'There was no winner';
+          const winnerText = getWinner(leaderBoard);
 
           await interaction.followUp({
             content: `Game has ended\n${winnerText}`,
@@ -126,7 +115,3 @@ const ping = {
 };
 
 export default ping;
-
-
-// A bit more refactoring - move the question into the answers.js
-// Answer not being bold
