@@ -115,3 +115,5 @@ const ping = {
 };
 
 export default ping;
+
+// Turn off the es-lint rules for .js extensions because node says they are supposed to be there
