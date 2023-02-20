@@ -46,10 +46,10 @@ const ping = {
         });
       }
       haveUpdatedOriginalMessage = true;
-      const question = triviaData[counter];
+      const triviaRound = triviaData[counter];
 
       const { answerIndex, questionContent, generateUpdatedQuestionContent } =
-        getContentAndCorrectAnswerIndex(question);
+        getContentAndCorrectAnswerIndex(triviaRound);
 
       const answerButtons = createMulitpleChoiceAnswerButtons();
       const questionInteraction = await interaction.followUp({
