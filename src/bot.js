@@ -14,18 +14,21 @@ const commandFiles = fs
   .readdirSync('./src/temp')
   .filter((file) => file.endsWith('.js'));
 (async () => {
-  for (const file of commandFiles) {
+  const importFilesRequest = commandFiles.map(async (file) => {
     const filePath = path.join('./temp', file);
     const { default: command } = await import(`./${filePath}`);
-    // Set a new item in the Collection with the key as the command name and the value as the exported module
     if ('data' in command && 'execute' in command) {
+      console.log(`Set up ${filePath}`);
       client.commands.set(command.data.name, command);
     } else {
       console.log(
         `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
       );
     }
-  }
+  });
+  console.log('See this before other logs');
+  await Promise.all(importFilesRequest);
+
   console.log('Bot is ready');
 })();
 client.on(Events.InteractionCreate, async (interaction) => {

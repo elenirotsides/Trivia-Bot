@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/bot.js",
-    "dev": "node src/bot.js"
+    "dev": "nodemon src/bot.js"
   },
   "repository": {
     "type": "git",
