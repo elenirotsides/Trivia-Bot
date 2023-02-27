@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 const ping = {
 	data: new SlashCommandBuilder()
 		.setName('ping')

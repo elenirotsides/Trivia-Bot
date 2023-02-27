@@ -5,13 +5,13 @@ import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 
-const questionLengthInSeconds = 5;
+const questionLengthInSeconds = 20;
 const questionLength = questionLengthInSeconds * 1000;
 const rounds = 10;
 
-const ping = {
+const mccompetative = {
   data: new SlashCommandBuilder()
-    .setName('buttons')
+    .setName('mccompetative')
     .setDescription('Shows example buttons and reponds to clicks'),
   async execute(interaction) {
     let triviaData;
@@ -61,19 +61,29 @@ const ping = {
         componentType: 2,
         // Gives time for the question to end before the next question starts
         time: questionLength - 1000,
+        max: 1,
+        filter: (response) => {
+          const buttonId = response.customId;
+          const isCorrect = buttonId === answerIndex;
+          console.log('Running filter');
+          return isCorrect;
+        },
       });
       let correctAnswerCount = 0;
       let incorrectAnswerCount = 0;
       const usersThatHaveAnsweredQuestion = new Set();
-      collector.on('collect', async (i) => {
-        const userId = i.user.id;
+
+      // Collect only runs if the filter passes
+      collector.on('collect', async (buttonClickInteraction) => {
+        console.log('Running collect');
+        const userId = buttonClickInteraction.user.id;
 
         if (usersThatHaveAnsweredQuestion.has(userId)) {
           return;
         }
         usersThatHaveAnsweredQuestion.add(userId);
 
-        const buttonId = i.customId;
+        const buttonId = buttonClickInteraction.customId;
         const isCorrect = buttonId === answerIndex;
 
         if (isCorrect) {
@@ -83,7 +93,7 @@ const ping = {
         } else {
           incorrectAnswerCount++;
         }
-        i.reply({
+        buttonClickInteraction.reply({
           content: isCorrect ? 'Correct' : 'Wrong',
           ephemeral: true,
         });
@@ -114,6 +124,4 @@ const ping = {
   },
 };
 
-export default ping;
-
-// Turn off the es-lint rules for .js extensions because node says they are supposed to be there
+export default mccompetative;

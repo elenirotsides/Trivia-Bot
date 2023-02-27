@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node src/bot.js",
-    "dev": "nodemon src/bot.js"
+    "dev": "nodemon src/bot.js",
+    "deploy:commands": "node src/deploy-commands.js"
   },
   "repository": {
     "type": "git",
