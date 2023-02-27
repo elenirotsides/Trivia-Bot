@@ -12,7 +12,7 @@ const rounds = 10;
 const mcchill = {
   data: new SlashCommandBuilder()
     .setName('mcchill')
-    .setDescription('Shows example buttons and reponds to clicks'),
+    .setDescription(`Starts a Multiple Choice quiz, where each question lasts for ${questionLengthInSeconds} seconds`),
   async execute(interaction) {
     let triviaData;
     try {

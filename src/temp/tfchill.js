@@ -1,22 +1,22 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getMultipleChoice } from '../Api/opentdb.js';
+import { getTrueFalse } from '../Api/opentdb.js';
 import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
-import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
+import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 
-const questionLengthInSeconds = 20;
+const questionLengthInSeconds = 5;
 const questionLength = questionLengthInSeconds * 1000;
 const rounds = 10;
 
-const mccompetative = {
+const mcchill = {
   data: new SlashCommandBuilder()
-    .setName('mccompetitive')
-    .setDescription(`Starts a Multiple Choice quiz, where each question lasts until someone answers correctly`),
+    .setName('tfchill')
+    .setDescription(`Starts a True or False Choice quiz, where each question lasts for ${questionLengthInSeconds} seconds`),
   async execute(interaction) {
     let triviaData;
     try {
-      triviaData = await getMultipleChoice();
+      triviaData = await getTrueFalse();
     } catch (e) {
       console.log(e);
       await interaction.reply({
@@ -51,7 +51,7 @@ const mccompetative = {
       const { answerIndex, questionContent, generateUpdatedQuestionContent } =
         getContentAndCorrectAnswerIndex(triviaRound);
 
-      const answerButtons = createMulitpleChoiceAnswerButtons();
+      const answerButtons = createTrueFalseAnswerButtons();
       const questionInteraction = await interaction.followUp({
         content: questionContent,
         components: [answerButtons],
@@ -61,29 +61,19 @@ const mccompetative = {
         componentType: 2,
         // Gives time for the question to end before the next question starts
         time: questionLength - 1000,
-        max: 1,
-        filter: (response) => {
-          const buttonId = response.customId;
-          const isCorrect = buttonId === answerIndex;
-          console.log('Running filter');
-          return isCorrect;
-        },
       });
       let correctAnswerCount = 0;
       let incorrectAnswerCount = 0;
       const usersThatHaveAnsweredQuestion = new Set();
-
-      // Collect only runs if the filter passes
-      collector.on('collect', async (buttonClickInteraction) => {
-        console.log('Running collect');
-        const userId = buttonClickInteraction.user.id;
+      collector.on('collect', async (i) => {
+        const userId = i.user.id;
 
         if (usersThatHaveAnsweredQuestion.has(userId)) {
           return;
         }
         usersThatHaveAnsweredQuestion.add(userId);
 
-        const buttonId = buttonClickInteraction.customId;
+        const buttonId = i.customId;
         const isCorrect = buttonId === answerIndex;
 
         if (isCorrect) {
@@ -93,7 +83,7 @@ const mccompetative = {
         } else {
           incorrectAnswerCount++;
         }
-        buttonClickInteraction.reply({
+        i.reply({
           content: isCorrect ? 'Correct' : 'Wrong',
           ephemeral: true,
         });
@@ -124,4 +114,4 @@ const mccompetative = {
   },
 };
 
-export default mccompetative;
+export default mcchill;
