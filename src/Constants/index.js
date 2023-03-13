@@ -1,0 +1,3 @@
+export const QUESTION_LENGTH_IN_SECONDS = 8;
+export const QUESTION_LENGTH = QUESTION_LENGTH_IN_SECONDS * 1000;
+export const ROUNDS = 10;

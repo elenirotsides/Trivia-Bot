@@ -4,15 +4,13 @@ import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
+import {QUESTION_LENGTH_IN_SECONDS, QUESTION_LENGTH, ROUNDS} from '../Constants/index.js';
 
-const questionLengthInSeconds = 8;
-const questionLength = questionLengthInSeconds * 1000;
-const rounds = 10;
 
 const mcchill = {
   data: new SlashCommandBuilder()
     .setName('tfchill')
-    .setDescription(`Starts a True or False Choice quiz, where each question lasts for ${questionLengthInSeconds} seconds`),
+    .setDescription(`Starts a True or False Choice quiz, where each question lasts for ${QUESTION_LENGTH_IN_SECONDS} seconds`),
   async execute(interaction) {
     let triviaData;
     try {
@@ -28,7 +26,7 @@ const mcchill = {
 
     const { initialMessage, updatedMessage } = createGameStartMessages(
       interaction.user.id,
-      questionLengthInSeconds
+      QUESTION_LENGTH_IN_SECONDS
     );
 
     await interaction.reply({
@@ -60,7 +58,7 @@ const mcchill = {
         // Component type button
         componentType: 2,
         // Gives time for the question to end before the next question starts
-        time: questionLength - 1000,
+        time: QUESTION_LENGTH - 1000,
       });
       let correctAnswerCount = 0;
       let incorrectAnswerCount = 0;
@@ -99,7 +97,7 @@ const mcchill = {
       });
 
       counter++;
-      if (counter === rounds) {
+      if (counter === ROUNDS) {
         clearInterval(myInterval);
 
         setTimeout(async () => {
@@ -108,9 +106,9 @@ const mcchill = {
           await interaction.followUp({
             content: `Game has ended\n${winnerText}`,
           });
-        }, questionLength);
+        }, QUESTION_LENGTH);
       }
-    }, questionLength);
+    }, QUESTION_LENGTH);
   },
 };
 
