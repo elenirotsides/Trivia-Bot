@@ -5,7 +5,7 @@ import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 
-const questionLengthInSeconds = 5;
+const questionLengthInSeconds = 8;
 const questionLength = questionLengthInSeconds * 1000;
 const rounds = 10;
 
