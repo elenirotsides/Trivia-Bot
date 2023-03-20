@@ -11,11 +11,11 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 
 const commandFiles = fs
-  .readdirSync('./src/temp')
+  .readdirSync('./src/Commands')
   .filter((file) => file.endsWith('.js'));
 (async () => {
   const importFilesRequest = commandFiles.map(async (file) => {
-    const filePath = path.join('./temp', file);
+    const filePath = path.join('./Commands', file);
     const { default: command } = await import(`./${filePath}`);
     if ('data' in command && 'execute' in command) {
       console.log(`Set up ${filePath}`);

@@ -5,7 +5,7 @@ import fs from 'node:fs';
 const commands = [];
 // Grab all the command files from the commands directory you created earlier
 const commandFiles = fs
-  .readdirSync('./src/temp')
+  .readdirSync('./src/Commands')
   .filter((file) => file.endsWith('.js'));
 
 // Construct and prepare an instance of the REST module
@@ -16,7 +16,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
   // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
   for (const file of commandFiles) {
     // use promise.all
-    const command = await import(`./temp/${file}`);
+    const command = await import(`./Commands/${file}`);
     commands.push(command.default.data.toJSON());
   }
   try {
