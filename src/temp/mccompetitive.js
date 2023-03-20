@@ -5,14 +5,16 @@ import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 
-const questionLengthInSeconds = 20;
+const questionLengthInSeconds = 8;
 const questionLength = questionLengthInSeconds * 1000;
 const rounds = 10;
 
-const mccompetative = {
+const mccompetitive = {
   data: new SlashCommandBuilder()
     .setName('mccompetitive')
-    .setDescription(`Starts a Multiple Choice quiz, where each question lasts until someone answers correctly`),
+    .setDescription(
+      `Starts a Multiple Choice quiz, where each question lasts until someone answers correctly`
+    ),
   async execute(interaction) {
     let triviaData;
     try {
@@ -61,17 +63,9 @@ const mccompetative = {
         componentType: 2,
         // Gives time for the question to end before the next question starts
         time: questionLength - 1000,
-        max: 1,
-        filter: (response) => {
-          const buttonId = response.customId;
-          const isCorrect = buttonId === answerIndex;
-          console.log('Running filter');
-          return isCorrect;
-        },
       });
-      let correctAnswerCount = 0;
-      let incorrectAnswerCount = 0;
       const usersThatHaveAnsweredQuestion = new Set();
+      let correctuser = '';
 
       // Collect only runs if the filter passes
       collector.on('collect', async (buttonClickInteraction) => {
@@ -79,7 +73,10 @@ const mccompetative = {
         const userId = buttonClickInteraction.user.id;
 
         if (usersThatHaveAnsweredQuestion.has(userId)) {
-          return;
+          return buttonClickInteraction.reply({
+            content: 'You have already guessed',
+            ephemeral: true,
+          });
         }
         usersThatHaveAnsweredQuestion.add(userId);
 
@@ -89,21 +86,19 @@ const mccompetative = {
         if (isCorrect) {
           const currentScore = leaderBoard.get(userId) || 0;
           leaderBoard.set(userId, currentScore + 1);
-          correctAnswerCount++;
-        } else {
-          incorrectAnswerCount++;
+          correctuser = buttonClickInteraction.user.username;
+          collector.stop();
         }
-        buttonClickInteraction.reply({
+        return buttonClickInteraction.reply({
           content: isCorrect ? 'Correct' : 'Wrong',
           ephemeral: true,
         });
       });
       collector.on('end', () => {
-        const totalAnswers = correctAnswerCount + incorrectAnswerCount;
-        const correctMessage = `${correctAnswerCount}/${totalAnswers} guessed correctly`;
-
         questionInteraction.edit({
-          content: generateUpdatedQuestionContent(correctMessage),
+          content: generateUpdatedQuestionContent(
+            `${correctuser || 'Nobody'} guessed correctly`
+          ),
           components: [],
         });
       });
@@ -124,4 +119,4 @@ const mccompetative = {
   },
 };
 
-export default mccompetative;
+export default mccompetitive;

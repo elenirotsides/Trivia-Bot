@@ -103,3 +103,8 @@ Trivia Bot is still an active work in progress and therefore, it has some _quirk
     The Discord API limits what can be done with reactions (which is how Trivia Bot collects answers). The solution would be to disregard any other clicks after the first attempt has been executed. The issue relevant to fixing this can be found by clicking [here](https://github.com/elenirotsides/Trivia-Bot/issues/52).
 
 -   The bot will throw an error, can be seen [here](https://github.com/elenirotsides/Trivia-Bot/issues/110), about Permissions, but I have no idea what causes it or how to fix it. I am actively investigating this and I hope to find a solution soon!
+
+
+
+## To do Alan and Elijah
+If two people have same score, show them both as the same number 

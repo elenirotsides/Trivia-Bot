@@ -13,8 +13,6 @@ const getQuestionsFromAPI = async (questionsParams) => {
   const response = await opentdbInstance.get('', {
     params: questionsParams,
   });
-  console.log("Response", response)
-  console.log("Results", response.data.results)
   return getResultsFromResponse(response);
 };
 
