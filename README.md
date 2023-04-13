@@ -12,9 +12,6 @@
 
 </div>
 
-# Trivia Bot is currently offline
-> I am working on fixing this, please be patient with me as I explore new deployment providers. (The provider I was using before will no longer be an option, so I need to find a new company to use.) I am so sorry for the inconvenience! 
-
 ## What is Trivia Bot?
 
 Trivia Bot is a fun, fully functional, and verified Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. The bot uses the Open Trivia Database API for the trivia questions that are used in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
