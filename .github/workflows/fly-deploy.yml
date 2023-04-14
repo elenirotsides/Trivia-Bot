@@ -9,7 +9,6 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
-              uses: 'node16'
 
             - name: Set up Fly CLI
               uses: superfly/flyctl-actions/setup-flyctl@master
