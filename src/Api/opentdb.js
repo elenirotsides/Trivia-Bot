@@ -10,13 +10,13 @@ const trueFalseChoiceParams = { type: 'boolean' };
 const getResultsFromResponse = (response) => response.data.results;
 
 const getQuestionsFromAPI = async (questionsParams) => {
-  const response = await opentdbInstance.get('', {
-    params: questionsParams,
-  });
-  return getResultsFromResponse(response);
+    const response = await opentdbInstance.get('', {
+        params: questionsParams,
+    });
+    return getResultsFromResponse(response);
 };
 
 export const getMultipleChoice = () =>
-  getQuestionsFromAPI(multipleChoiceParams);
+    getQuestionsFromAPI(multipleChoiceParams);
 
 export const getTrueFalse = () => getQuestionsFromAPI(trueFalseChoiceParams);
