@@ -16,6 +16,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
     // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
     for (const file of commandFiles) {
         // use promise.all
+        // eslint-disable-next-line no-await-in-loop
         const command = await import(`./Commands/${file}`);
         commands.push(command.default.data.toJSON());
     }
