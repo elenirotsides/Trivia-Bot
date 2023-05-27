@@ -10,7 +10,7 @@ const mcchill = {
     data: new SlashCommandBuilder()
         .setName('mcchill')
         .setDescription(
-            `Starts a Multiple Choice quiz, where each question lasts for ${QUESTION_LENGTH_IN_SECONDS} seconds`
+            `${ROUNDS} question Multiple Choice trivia where all users can answer within the ${QUESTION_LENGTH_IN_SECONDS} second time limit.`
         ),
     async execute(interaction) {
         let triviaData;

@@ -10,7 +10,7 @@ const tfchill = {
     data: new SlashCommandBuilder()
         .setName('tfchill')
         .setDescription(
-            `Starts a True or False Choice quiz, where each question lasts for ${QUESTION_LENGTH_IN_SECONDS} seconds`
+            `${ROUNDS} question True/False trivia where all users can answer within the ${QUESTION_LENGTH_IN_SECONDS} second time limit.`
         ),
     async execute(interaction) {
         let triviaData;

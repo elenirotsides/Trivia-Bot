@@ -4,6 +4,7 @@ import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createMultipleChoiceAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
+import { ROUNDS } from '../Constants/index.js';
 
 const questionLengthInSeconds = 8;
 const questionLength = questionLengthInSeconds * 1000;
@@ -13,7 +14,7 @@ const mccompetitive = {
     data: new SlashCommandBuilder()
         .setName('mccompetitive')
         .setDescription(
-            `Starts a Multiple Choice quiz, where each question lasts until someone answers correctly`
+            `${ROUNDS} question Multiple Choice trivia where only the 1st correct answer is accepted in the time limit.`
         ),
     async execute(interaction) {
         let triviaData;
