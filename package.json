@@ -1,7 +1,7 @@
 {
     "name": "trivia-bot",
     "version": "1.0.1",
-    "description": "## Team Members",
+    "description": "Be Educated. Be Fun. Be Trivia on Discord. 🧠",
     "main": "bot.js",
     "engines": {
         "node": "18.14.1",

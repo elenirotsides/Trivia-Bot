@@ -16,6 +16,8 @@
 
 Trivia Bot is a fun, fully functional, and verified Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. The bot uses the Open Trivia Database API for the trivia questions that are used in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
 
+**Please Note: Slash Commands are actively in the works and on the way!! For now, the bot is indeed broken for use in servers, but you can use normal commands in DMs.**
+
 ## Add to your server
 
 Click [here](https://discord.com/api/oauth2/authorize?client_id=831974682709721099&permissions=157760&scope=bot) to add Trivia Bot to your Discord server! Tell all your friends, too!
