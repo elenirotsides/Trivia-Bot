@@ -11,6 +11,7 @@
         "start": "node src/bot.js",
         "dev": "nodemon src/bot.js",
         "deploy:commands": "node src/deploy-commands.js",
+        "check-format": "prettier --check \"**/*.js\"",
         "format": "prettier --write  \"**/*.js\""
     },
     "repository": {
