@@ -8,9 +8,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const commandFiles = fs
-    .readdirSync('./src/Commands')
-    .filter((file) => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./src/Commands').filter((file) => file.endsWith('.js'));
 (async () => {
     const importFilesRequest = commandFiles.map(async (file) => {
         const filePath = path.join('./Commands', file);
@@ -35,9 +33,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     const command = interaction.client.commands.get(interaction.commandName);
 
     if (!command) {
-        console.error(
-            `No command matching ${interaction.commandName} was found.`
-        );
+        console.error(`No command matching ${interaction.commandName} was found.`);
         return;
     }
 

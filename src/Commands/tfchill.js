@@ -4,11 +4,7 @@ import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
-import {
-    QUESTION_LENGTH_IN_SECONDS,
-    QUESTION_LENGTH,
-    ROUNDS,
-} from '../Constants/index.js';
+import { QUESTION_LENGTH_IN_SECONDS, QUESTION_LENGTH, ROUNDS } from '../Constants/index.js';
 
 const mcchill = {
     data: new SlashCommandBuilder()
@@ -51,24 +47,20 @@ const mcchill = {
             haveUpdatedOriginalMessage = true;
             const triviaRound = triviaData[counter];
 
-            const {
-                answerIndex,
-                questionContent,
-                generateUpdatedQuestionContent,
-            } = getContentAndCorrectAnswerIndex(triviaRound);
+            const { answerIndex, questionContent, generateUpdatedQuestionContent } =
+                getContentAndCorrectAnswerIndex(triviaRound);
 
             const answerButtons = createTrueFalseAnswerButtons();
             const questionInteraction = await interaction.followUp({
                 content: questionContent,
                 components: [answerButtons],
             });
-            const collector =
-                interaction.channel.createMessageComponentCollector({
-                    // Component type button
-                    componentType: 2,
-                    // Gives time for the question to end before the next question starts
-                    time: QUESTION_LENGTH - 1000,
-                });
+            const collector = interaction.channel.createMessageComponentCollector({
+                // Component type button
+                componentType: 2,
+                // Gives time for the question to end before the next question starts
+                time: QUESTION_LENGTH - 1000,
+            });
             let correctAnswerCount = 0;
             let incorrectAnswerCount = 0;
             const usersThatHaveAnsweredQuestion = new Set();

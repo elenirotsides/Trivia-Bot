@@ -50,24 +50,20 @@ const mccompetitive = {
             haveUpdatedOriginalMessage = true;
             const triviaRound = triviaData[counter];
 
-            const {
-                answerIndex,
-                questionContent,
-                generateUpdatedQuestionContent,
-            } = getContentAndCorrectAnswerIndex(triviaRound);
+            const { answerIndex, questionContent, generateUpdatedQuestionContent } =
+                getContentAndCorrectAnswerIndex(triviaRound);
 
             const answerButtons = createMultipleChoiceAnswerButtons();
             const questionInteraction = await interaction.followUp({
                 content: questionContent,
                 components: [answerButtons],
             });
-            const collector =
-                interaction.channel.createMessageComponentCollector({
-                    // Component type button
-                    componentType: 2,
-                    // Gives time for the question to end before the next question starts
-                    time: questionLength - 1000,
-                });
+            const collector = interaction.channel.createMessageComponentCollector({
+                // Component type button
+                componentType: 2,
+                // Gives time for the question to end before the next question starts
+                time: questionLength - 1000,
+            });
             const usersThatHaveAnsweredQuestion = new Set();
             let correctuser = '';
 

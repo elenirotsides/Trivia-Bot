@@ -14,10 +14,7 @@ export const getContentAndCorrectAnswerIndex = (triviaRound) => {
     }
 
     const displayAnswers = answers
-        .map(
-            (answer, index) =>
-                `${String.fromCharCode(index + 65)}. ${parseEntities(answer)}`
-        )
+        .map((answer, index) => `${String.fromCharCode(index + 65)}. ${parseEntities(answer)}`)
         .join('\n');
 
     const parsedQuestion = parseEntities(triviaRound.question);

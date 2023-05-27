@@ -3,9 +3,7 @@ import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 const info = {
     data: new SlashCommandBuilder()
         .setName('info')
-        .setDescription(
-            'Displays extra info related to Trivia Bot that might be useful'
-        ),
+        .setDescription('Displays extra info related to Trivia Bot that might be useful'),
     async execute(interaction) {
         const embed = new EmbedBuilder()
             .setColor('#fb94d3')

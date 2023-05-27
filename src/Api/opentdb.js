@@ -16,7 +16,6 @@ const getQuestionsFromAPI = async (questionsParams) => {
     return getResultsFromResponse(response);
 };
 
-export const getMultipleChoice = () =>
-    getQuestionsFromAPI(multipleChoiceParams);
+export const getMultipleChoice = () => getQuestionsFromAPI(multipleChoiceParams);
 
 export const getTrueFalse = () => getQuestionsFromAPI(trueFalseChoiceParams);
