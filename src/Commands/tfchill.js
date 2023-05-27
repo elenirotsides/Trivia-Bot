@@ -6,7 +6,7 @@ import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 import { QUESTION_LENGTH_IN_SECONDS, QUESTION_LENGTH, ROUNDS } from '../Constants/index.js';
 
-const mcchill = {
+const tfchill = {
     data: new SlashCommandBuilder()
         .setName('tfchill')
         .setDescription(
@@ -113,4 +113,4 @@ const mcchill = {
     },
 };
 
-export default mcchill;
+export default tfchill;

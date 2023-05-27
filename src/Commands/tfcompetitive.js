@@ -65,7 +65,7 @@ const tfcompetitive = {
                 time: questionLength - 1000,
             });
             const usersThatHaveAnsweredQuestion = new Set();
-            let correctuser = '';
+            let correctUser = '';
 
             // Collect only runs if the filter passes
             collector.on('collect', async (buttonClickInteraction) => {
@@ -86,7 +86,7 @@ const tfcompetitive = {
                 if (isCorrect) {
                     const currentScore = leaderBoard.get(userId) || 0;
                     leaderBoard.set(userId, currentScore + 1);
-                    correctuser = buttonClickInteraction.user.username;
+                    correctUser = buttonClickInteraction.user.username;
                     collector.stop();
                 }
                 return buttonClickInteraction.reply({
@@ -97,7 +97,7 @@ const tfcompetitive = {
             collector.on('end', () => {
                 questionInteraction.edit({
                     content: generateUpdatedQuestionContent(
-                        `${correctuser || 'Nobody'} guessed correctly`
+                        `${correctUser || 'Nobody'} guessed correctly`
                     ),
                     components: [],
                 });
