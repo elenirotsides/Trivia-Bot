@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getMultipleChoice } from '../Api/opentdb.js';
+import { getMultipleChoice } from '../API/opentdb.js';
 import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
-import { createMulitpleChoiceAnswerButtons } from '../Helpers/buttons.js';
+import { createMultipleChoiceAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 
@@ -56,7 +56,7 @@ const mccompetitive = {
                 generateUpdatedQuestionContent,
             } = getContentAndCorrectAnswerIndex(triviaRound);
 
-            const answerButtons = createMulitpleChoiceAnswerButtons();
+            const answerButtons = createMultipleChoiceAnswerButtons();
             const questionInteraction = await interaction.followUp({
                 content: questionContent,
                 components: [answerButtons],

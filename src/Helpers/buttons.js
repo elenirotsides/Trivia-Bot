@@ -15,7 +15,7 @@ export const createTrueFalseAnswerButtons = () => {
     return createAnswerButtons(trueFalseAnswers);
 };
 
-export const createMulitpleChoiceAnswerButtons = () => {
-    const mulitpleChoiceAnswers = ['A', 'B', 'C', 'D'];
-    return createAnswerButtons(mulitpleChoiceAnswers);
+export const createMultipleChoiceAnswerButtons = () => {
+    const multipleChoiceAnswers = ['A', 'B', 'C', 'D'];
+    return createAnswerButtons(multipleChoiceAnswers);
 };

@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+
 const info = {
     data: new SlashCommandBuilder()
         .setName('info')

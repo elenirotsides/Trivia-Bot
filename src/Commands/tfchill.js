@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getTrueFalse } from '../Api/opentdb.js';
+import { getTrueFalse } from '../API/opentdb.js';
 import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
 import { createGameStartMessages } from '../Helpers/messages.js';
