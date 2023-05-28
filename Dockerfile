@@ -21,4 +21,4 @@ RUN npm install
 #     && rm -fr node_modules
 
 # Start the app
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "deploy:commands", "&&", "npm", "run", "start"]
