@@ -1,14 +1,10 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { getMultipleChoice } from '../API/opentdb.js';
 import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createMultipleChoiceAnswerButtons } from '../Helpers/buttons.js';
-import { createGameStartMessages } from '../Helpers/messages.js';
+import { createGameStartMessage } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
-import { ROUNDS } from '../Constants/index.js';
-
-const questionLengthInSeconds = 8;
-const questionLength = questionLengthInSeconds * 1000;
-const rounds = 10;
+import { ROUNDS, QUESTION_LENGTH_IN_SECONDS, QUESTION_LENGTH } from '../Constants/index.js';
 
 const mccompetitive = {
     data: new SlashCommandBuilder()
@@ -29,9 +25,9 @@ const mccompetitive = {
             return;
         }
 
-        const { initialMessage, updatedMessage } = createGameStartMessages(
+        const { initialMessage, updatedMessage } = createGameStartMessage(
             interaction.user.id,
-            questionLengthInSeconds
+            QUESTION_LENGTH_IN_SECONDS
         );
 
         await interaction.reply({
@@ -63,14 +59,13 @@ const mccompetitive = {
                 // Component type button
                 componentType: 2,
                 // Gives time for the question to end before the next question starts
-                time: questionLength - 1000,
+                time: QUESTION_LENGTH - 1000,
             });
             const usersThatHaveAnsweredQuestion = new Set();
             let correctuser = '';
 
             // Collect only runs if the filter passes
             collector.on('collect', async (buttonClickInteraction) => {
-                console.log('Running collect');
                 const userId = buttonClickInteraction.user.id;
 
                 if (usersThatHaveAnsweredQuestion.has(userId)) {
@@ -105,18 +100,25 @@ const mccompetitive = {
             });
 
             counter++;
-            if (counter === rounds) {
+            if (counter === ROUNDS) {
                 clearInterval(myInterval);
 
                 setTimeout(async () => {
-                    const winnerText = getWinner(leaderBoard);
+                    const leaderBoardResults = getWinner(leaderBoard);
+
+                    const winnerEmbed = new EmbedBuilder();
+                    winnerEmbed
+                        .setColor('#fb94d3')
+                        .setTitle('Game Over!')
+                        .setDescription(leaderBoardResults)
+                        .setTimestamp();
 
                     await interaction.followUp({
-                        content: `Game has ended\n${winnerText}`,
+                        embeds: [winnerEmbed],
                     });
-                }, questionLength);
+                }, QUESTION_LENGTH);
             }
-        }, questionLength);
+        }, QUESTION_LENGTH);
     },
 };
 

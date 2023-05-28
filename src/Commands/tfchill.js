@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { getTrueFalse } from '../API/opentdb.js';
 import { getContentAndCorrectAnswerIndex } from '../Helpers/answers.js';
 import { createTrueFalseAnswerButtons } from '../Helpers/buttons.js';
-import { createGameStartMessages } from '../Helpers/messages.js';
+import { createGameStartMessage } from '../Helpers/messages.js';
 import { getWinner } from '../Helpers/winner.js';
 import { QUESTION_LENGTH_IN_SECONDS, QUESTION_LENGTH, ROUNDS } from '../Constants/index.js';
 
@@ -25,7 +25,7 @@ const tfchill = {
             return;
         }
 
-        const { initialMessage, updatedMessage } = createGameStartMessages(
+        const { initialMessage, updatedMessage } = createGameStartMessage(
             interaction.user.id,
             QUESTION_LENGTH_IN_SECONDS
         );
@@ -102,10 +102,17 @@ const tfchill = {
                 clearInterval(myInterval);
 
                 setTimeout(async () => {
-                    const winnerText = getWinner(leaderBoard);
+                    const leaderBoardResults = getWinner(leaderBoard);
+
+                    const winnerEmbed = new EmbedBuilder();
+                    winnerEmbed
+                        .setColor('#fb94d3')
+                        .setTitle('Game Over!')
+                        .setDescription(leaderBoardResults)
+                        .setTimestamp();
 
                     await interaction.followUp({
-                        content: `Game has ended\n${winnerText}`,
+                        embeds: [winnerEmbed],
                     });
                 }, QUESTION_LENGTH);
             }
