@@ -1,10 +1,15 @@
 import 'dotenv/config.js';
-
 import fs from 'node:fs';
 import path from 'node:path';
-import { Client, Collection, GatewayIntentBits, Events } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+    ],
+});
 
 client.commands = new Collection();
 
@@ -30,6 +35,7 @@ const commandFiles = fs.readdirSync('./src/Commands').filter((file) => file.ends
 
     console.log('Bot is ready');
 })();
+
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
@@ -49,6 +55,29 @@ client.on(Events.InteractionCreate, async (interaction) => {
             ephemeral: true,
         });
     }
+});
+
+client.on(Events.ClientReady, async () => {
+    client.user.setActivity('/help', { type: ActivityType.Watching });
+
+    /*
+    FOR TESTING, IF YOU NEED TO DELETE A COMMAND FROM DISCORD'S CACHE,
+    UNCOMMENT THE BLOCK BELOW:
+    */
+
+    // // Fetch all commands
+    // const commands = await client.application.commands.fetch();
+
+    // // Find the command you want to delete
+    // const commandToDelete = commands.find((command) => command.name === 'ping'); // REPLACE 'ping' WITH THE COMMAND YOU WANT TO DELETE
+
+    // // Delete the command
+    // if (commandToDelete) {
+    //     await commandToDelete.delete();
+    //     console.log(`Command "${commandToDelete.name}" has been deleted.`);
+    // } else {
+    //     console.log('Command not found.');
+    // }
 });
 
 client.login(process.env.BOT_TOKEN);
