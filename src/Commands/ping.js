@@ -1,28 +1,10 @@
-import Command from '../Structures/Command.js';
+import { SlashCommandBuilder } from 'discord.js';
 
-export default class extends Command {
-    constructor(...args) {
-        super(...args, {
-            aliases: ['pong'],
-            description: 'This provides the ping of the bot',
-            category: 'Utilities',
-        });
-    }
+const ping = {
+    data: new SlashCommandBuilder().setName('ping').setDescription('Replies with Pong!'),
+    async execute(interaction) {
+        await interaction.reply('Pong!');
+    },
+};
 
-    async run(message, commands) {
-        if (!this.validateCommands(message, commands)) {
-            return;
-        }
-
-        let msg;
-        try {
-            msg = await message.channel.send({ content: 'Pinging...' });
-        } catch (e) {
-            console.log(e);
-            return;
-        }
-        const latency = msg.createdTimestamp - message.createdTimestamp;
-
-        msg.edit(`Bot Latency: \`${latency}ms\`, API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
-    }
-}
+export default ping;

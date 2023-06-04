@@ -16,9 +16,5 @@ COPY ./src ./src
 # Install node packages
 RUN npm install 
 
-# TODO: recursively delete node_modules once babel-node is no longer necessary
-# \
-#     && rm -fr node_modules
-
 # Start the app
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "deploy:commands", "&&", "npm", "run", "start"]
