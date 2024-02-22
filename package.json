@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/elenirotsides/Trivia-Bot#readme",
     "dependencies": {
-        "axios": "^0.27.0",
+        "axios": "^0.28.0",
         "discord.js": "^13.8.0",
         "dotenv": "^16.0.0",
         "glob": "^8.0.0",
