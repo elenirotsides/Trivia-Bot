@@ -23,17 +23,17 @@
         "axios": "^0.27.0",
         "discord.js": "^13.8.0",
         "dotenv": "^16.0.0",
-        "glob": "^8.0.0",
+        "glob": "^10.0.0",
         "parse-entities": "^4.0.0",
         "path": "^0.12.7",
         "topgg-autoposter": "^2.0.1",
         "util": "^0.12.4"
     },
     "devDependencies": {
-        "@babel/core": "7.18.13",
-        "@babel/node": "7.18.10",
-        "@babel/preset-env": "7.18.10",
-        "nodemon": "2.0.19"
+        "@babel/core": "7.24.3",
+        "@babel/node": "7.23.9",
+        "@babel/preset-env": "7.24.3",
+        "nodemon": "3.1.0"
     },
     "type": "module"
 }
