@@ -12,6 +12,14 @@
 
 </div>
 
+# UPDATE
+
+I've been super busy with my full time job and have been unable to complete the full rewrite that I've started working on a little while back. So, **I've taken Trivia Bot offline for now**. Does that mean it'll never come back online? No! I'd like to take a different development approach with Trivia Bot in the future. Here's what I mean by that:
+
+When I originally designed and wrote the code for the bot, I was a college senior and this was originally a class project. The code was written very poorly as it was rushed. I was also an inexperienced developer at the time and it has been very difficult to scale the project given how crappy it was originally designed. So, I'd like to rewrite it in the future, but using an entirely different programming language. This means I need to completely rip it apart so I can put it back together, and this takes a lot of time.
+
+Please forgive me as life has been super busy these past few years. I love building discord bots and really want to revive Trivia Bot once and for all. For now, all I ask is that you forgive my silence. Thanks for the support these past few years, it meant the world to me as an aspiring software engineer! 
+
 ## What is Trivia Bot?
 
 Trivia Bot is a fun, fully functional, and verified Discord bot that serves the purpose of satisfying your Trivia craving! There are many different modes of Trivia that you can play, either by yourself or with others in your Discord Server. The bot uses the Open Trivia Database API for the trivia questions that are used in the game, so shout out to them for the really cool API! You can find out more about that [here](https://opentdb.com/).
