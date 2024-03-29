@@ -9,7 +9,8 @@
 <img src="https://top.gg/api/widget/831974682709721099.svg">
 </a>
 </a>
-
+<br/>
+<a href="https://www.codefactor.io/repository/github/elenirotsides/trivia-bot"><img src="https://www.codefactor.io/repository/github/elenirotsides/trivia-bot/badge" alt="CodeFactor" /></a>
 </div>
 
 # UPDATE

@@ -1,13 +1,18 @@
 {
     "name": "trivia-bot",
     "version": "1.0.1",
-    "description": "## Team Members",
+    "description": "Be Educated. Be Fun. Be Trivia on Discord. 🧠",
     "main": "bot.js",
+    "engines": {
+        "node": "18.14.1",
+        "npm": "8.19.3"
+    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "babel-node": "babel-node --presets='@babel/preset-env'",
-        "start": "babel-node src/bot.js",
-        "dev": "nodemon --exec npm run babel-node -- src/bot.js"
+        "start": "node src/bot.js",
+        "dev": "nodemon src/bot.js",
+        "deploy:commands": "node src/deploy-commands.js",
+        "check-format": "prettier --check \"**/*.js\"",
+        "format": "prettier --write  \"**/*.js\""
     },
     "repository": {
         "type": "git",
@@ -21,19 +26,18 @@
     "homepage": "https://github.com/elenirotsides/Trivia-Bot#readme",
     "dependencies": {
         "axios": "^0.27.0",
-        "discord.js": "^13.8.0",
+        "discord.js": "^14.8.0",
         "dotenv": "^16.0.0",
-        "glob": "^8.0.0",
         "parse-entities": "^4.0.0",
-        "path": "^0.12.7",
-        "topgg-autoposter": "^2.0.1",
-        "util": "^0.12.4"
+        "topgg-autoposter": "^2.0.1"
     },
     "devDependencies": {
-        "@babel/core": "7.18.13",
-        "@babel/node": "7.18.10",
-        "@babel/preset-env": "7.18.10",
-        "nodemon": "2.0.19"
+        "eslint": "^8.31.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-import": "^2.26.0",
+        "nodemon": "2.0.19",
+        "prettier": "^2.8.2"
     },
     "type": "module"
 }
